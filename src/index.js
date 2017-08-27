@@ -11,6 +11,8 @@ sheet.inject()
 
 export const registered = {}
 
+export const inserted = {}
+
 function plugin(context, content, selector, parent) {
   switch (context) {
     // on property declaration
@@ -83,8 +85,10 @@ export function css(strings, ...interpolations) {
   const hash = hashString(thing)
   const cls = `css-${hash}`
   if (registered[cls] === undefined) {
-    stylis(`.${cls}`, thing)
     registered[cls] = thing
+  }
+  if (inserted[cls] === undefined) {
+    stylis(`.${cls}`, thing)    
   }
   return cls
 }
