@@ -3,6 +3,9 @@ language: node_js
 node_js:
   - "8"
 
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.28.1
+
 before_script:
   - yarn run bootstrap
 
