@@ -1,0 +1,26 @@
+{
+  "name": "new-css-in-js-server",
+  "version": "0.0.0",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm-run-all clean rollup",
+    "clean": "rimraf dist",
+    "rollup": "rollup -c ../../rollup.config.js"
+  },
+  "dependencies": {
+    "new-css-in-js": "^0.0.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.0.2",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.48.2"
+  },
+  "repository": "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/server"
+}
