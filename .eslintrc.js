@@ -25,7 +25,7 @@ module.exports = {"extends": [
   {
     "files": [
       "*.test.js",
-      "__tests__/*"
+      "**/__tests__/**/*"
     ],
     "env": {
       "jest": true
