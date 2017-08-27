@@ -74,7 +74,7 @@ function createStringFromObject(obj) {
   return string
 }
 
-export function css(strings, ...interpolations) {
+function createCss(strings, ...interpolations) {
   let thing = strings[0] || ''
   interpolations.forEach((interpolation, i) => {
     if (typeof interpolation === 'string') {
@@ -84,6 +84,11 @@ export function css(strings, ...interpolations) {
     }
     thing += strings[i + 1]
   })
+  return thing
+}
+
+export function css(...args) {
+  const thing = createCss(...args)
   const hash = hashString(thing)
   const cls = `css-${hash}`
   if (registered[cls] === undefined) {
@@ -93,4 +98,12 @@ export function css(strings, ...interpolations) {
     stylis(`.${cls}`, thing)
   }
   return cls
+}
+
+export function injectGlobal(...args) {
+  const thing = createCss(...args)
+  const hash = hashString(thing)
+  if (inserted[hash] === undefined) {
+    stylis('', thing)
+  }
 }
