@@ -96,6 +96,7 @@ export function css(...args) {
   }
   if (inserted[cls] === undefined) {
     stylis(`.${cls}`, thing)
+    inserted[cls] = true
   }
   return cls
 }
@@ -105,5 +106,6 @@ export function injectGlobal(...args) {
   const hash = hashString(thing)
   if (inserted[hash] === undefined) {
     stylis('', thing)
+    inserted[hash] = true
   }
 }
