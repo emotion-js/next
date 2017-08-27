@@ -8,14 +8,12 @@ cache:
     - node_modules
 
 before_install:
-  - npm install codecov
+  - yarn install codecov
 
 before_script:
-  - npm run bootstrap
+  - yarn run bootstrap
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov/bin/codecov
 
-cache:
-  directories:
-    - node_modules
+cache: yarn
