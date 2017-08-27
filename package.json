@@ -19,7 +19,7 @@
     "build": "npm run rollup && UMD=true npm run rollup",
     "lint": "eslint .",
     "coverage": "jest --coverage --ci --runInBand",
-    "bootstrap": "lerna run bootstrap"
+    "bootstrap": "lerna bootstrap"
   },
   "dependencies": {
     "stylis": "^3.2.11"
