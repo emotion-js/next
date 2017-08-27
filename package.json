@@ -18,7 +18,8 @@
     "test:size": "npm-run-all rollup:umd bundlesize",
     "build": "npm run rollup && UMD=true npm run rollup",
     "lint": "eslint .",
-    "coverage": "jest --coverage --ci --runInBand"
+    "coverage": "jest --coverage --ci --runInBand",
+    "bootstrap": "lerna run bootstrap"
   },
   "dependencies": {
     "stylis": "^3.2.11"
