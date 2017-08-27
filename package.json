@@ -1,0 +1,72 @@
+{
+  "name": "new-css-in-js",
+  "version": "1.0.3",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
+  "license": "MIT",
+  "scripts": {
+    "test:watch": "jest --watch --coverage --verbose",
+    "test": "npm-run-all -p coverage test:size lint",
+    "rollup": "rollup -c",
+    "bundlesize": "bundlesize",
+    "test:size": "UMD=true npm-run-all rollup bundlesize",
+    "build": "npm run rollup && UMD=true npm run rollup",
+    "lint": "eslint .",
+    "coverage": "jest --coverage --ci --runInBand"
+  },
+  "dependencies": {
+    "stylis": "^3.2.11"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-macros": "^0.5.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "bundlesize": "^0.13.2",
+    "enzyme": "^2.9.1",
+    "enzyme-to-json": "^1.5.1",
+    "eslint": "^4.3.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard-react": "^5.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^20.0.4",
+    "jest-glamor-react": "^3.1.0",
+    "npm-run-all": "^4.0.2",
+    "prettier": "^1.5.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
+    "rollup": "^0.48.2",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^8.2.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-uglify": "^2.0.1"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/DO-NOT-USE.min.js",
+      "threshold": "7 Kb"
+    }
+  ]
+}
