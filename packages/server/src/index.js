@@ -1,5 +1,7 @@
 import { sheet, inserted } from 'new-css-in-js'
 
+const cssRegex = /css-/
+
 export function extractCritical(html) {
   // parse out ids from html
   // reconstruct css/rules/cache to pass
@@ -21,7 +23,7 @@ export function extractCritical(html) {
     return ret
   })
 
-  o.ids = Object.keys(inserted).filter(id => !!ids[id])
+  o.ids = Object.keys(inserted).filter(id => !!ids[id] || !cssRegex.test(id))
 
   let css = ''
   o.rules.forEach(x => (css += x.cssText))
