@@ -13,8 +13,9 @@
     "test:watch": "jest --watch --coverage --verbose",
     "test": "npm-run-all -p coverage test:size lint",
     "rollup": "lerna run rollup",
+    "rollup:umd": "lerna run rollup:umd",
     "bundlesize": "bundlesize",
-    "test:size": "UMD=true npm-run-all rollup bundlesize",
+    "test:size": "npm-run-all rollup:umd bundlesize",
     "build": "npm run rollup && UMD=true npm run rollup",
     "lint": "eslint .",
     "coverage": "jest --coverage --ci --runInBand"
@@ -67,7 +68,11 @@
   },
   "bundlesize": [
     {
-      "path": "./dist/DO-NOT-USE.min.js",
+      "path": "./packages/core/dist/DO-NOT-USE.min.js",
+      "threshold": "6 Kb"
+    },
+    {
+      "path": "./packages/react/dist/DO-NOT-USE.min.js",
       "threshold": "7 Kb"
     }
   ]

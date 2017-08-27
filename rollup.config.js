@@ -9,10 +9,10 @@ import path from 'path'
 const pkg = require(path.resolve(process.cwd(), './package.json'))
 
 const config = {
-  entry: './src/index.js',
+  input: './src/index.js',
   external: ['react', 'new-css-in-js', 'stylis'],
   exports: 'named',
-  sourceMap: true,
+  sourcemap: true,
   plugins: [
     commonjs(),
     resolve(),
@@ -42,10 +42,7 @@ if (process.env.UMD) {
   config.globals = { react: 'React' }
   config.plugins.push(
     alias({
-      'new-css-in-js': path.resolve(
-        __dirname,
-        './packages/new-css-in-js/src/index.js'
-      )
+      'new-css-in-js': path.resolve(__dirname, './packages/core/src/index.js')
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production')
