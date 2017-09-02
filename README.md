@@ -9,3 +9,4 @@
 - test that specificity is correct for composition and stuff
 - css prop
 - auto px
+- regular function calls with objects
