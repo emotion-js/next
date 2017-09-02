@@ -2,9 +2,6 @@ import hashString from './hash'
 import StyleSheet from './sheet'
 import Stylis from 'stylis'
 
-// internal utils that should only be used internally
-export * from './utils'
-
 const stylis = new Stylis()
 
 export const sheet = new StyleSheet()
