@@ -109,3 +109,9 @@ export function injectGlobal(...args) {
     inserted[hash] = true
   }
 }
+
+export function hydrate(ids) {
+  ids.forEach(id => {
+    inserted[id] = true
+  })
+}
