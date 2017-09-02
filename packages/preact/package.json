@@ -1,9 +1,11 @@
 {
   "name": "preact-new-css-in-js",
-  "version": "0.0.0",
+  "version": "0.0.1-0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -12,7 +14,7 @@
     "rollup": "rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "new-css-in-js": "^0.0.0"
+    "new-css-in-js": "^0.0.1-0"
   },
   "devDependencies": {
     "npm-run-all": "^4.0.2",
