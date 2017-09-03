@@ -5,7 +5,7 @@ const webpack = require('webpack')
 
 module.exports = {
   // context: __dirname,
-  devtool: 'eval',
+  // devtool: 'eval',
   entry: './index',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -45,14 +45,8 @@ module.exports = {
     // }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
-    })
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     dead_code: true,
-    //     screw_ie8: true,
-    //     warnings: false
-    //   }
-    // })
+    }),
+    new webpack.optimize.UglifyJsPlugin()
     // new webpack.optimize.UglifyJsPlugin({
     //   compress: {
     //     dead_code: true,
