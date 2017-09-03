@@ -8,7 +8,7 @@ const testOmitPropsOnStringTag = key => reactPropsRegex.test(key)
 const testOmitPropsOnComponent = key => key !== 'theme' && key !== 'innerRef'
 
 const omitAssign = function(testFn, target) {
-  let i = 1
+  let i = 2
   let length = arguments.length
   for (; i < length; i++) {
     let source = arguments[i]
