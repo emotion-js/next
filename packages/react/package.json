@@ -1,6 +1,6 @@
 {
   "name": "react-new-css-in-js",
-  "version": "0.0.1-1",
+  "version": "0.0.1-2",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "files": [
@@ -16,7 +16,7 @@
     "rollup:umd": "UMD=true rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "new-css-in-js": "^0.0.1-1"
+    "new-css-in-js": "^0.0.1-2"
   },
   "devDependencies": {
     "npm-run-all": "^4.0.2",
