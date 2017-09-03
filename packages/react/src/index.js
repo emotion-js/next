@@ -7,9 +7,8 @@ const reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|d
 const testOmitPropsOnStringTag = key => reactPropsRegex.test(key)
 const testOmitPropsOnComponent = key => key !== 'theme' && key !== 'innerRef'
 
-const omitAssign = function(testFn) {
+const omitAssign = function(testFn, target) {
   let i = 1
-  const target = {}
   let length = arguments.length
   for (; i < length; i++) {
     let source = arguments[i]
@@ -45,7 +44,7 @@ export default function(tag) {
 
       return createElement(
         tag,
-        omitAssign(omitFn, props, { className, ref: props.innerRef })
+        omitAssign(omitFn, {}, props, { className, ref: props.innerRef })
       )
     }
   }
