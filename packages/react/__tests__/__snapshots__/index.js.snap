@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`styled basic render 1`] = `
+.glamor-0 {
+  color: blue;
+  font-size: ;
+}
+
+@media (min-width:520px) {
+  .glamor-0 {
+    color: green;
+  }
+}
+
+@media (min-width:420px) {
+  .glamor-0 {
+    color: blue;
+  }
+}
+
+<h1
+  class="glamor-0"
+>
+  hello world
+</h1>
+`;
+
+exports[`styled composing components 1`] = `
+.glamor-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.glamor-1 {
+  display: none;
+}
+
+.glamor-0 {
+  color: green;
+}
+
+<button
+  class="glamor-0 glamor-1 glamor-2"
+>
+  hello world
+</button>
+`;
+
+exports[`styled composition 1`] = `
+.glamor-0 {
+  font-size: 20px;
+}
+
+.glamor-1 {
+  font-size: ;
+}
+
+<h1
+  class="glamor-0 glamor-1 legacy__class"
+>
+  hello world
+</h1>
+`;
+
+exports[`styled function in expression 1`] = `
+.glamor-0 {
+  font-size: 20px;
+}
+
+.glamor-1 {
+  font-size: 40px;
+}
+
+<h1
+  class="glamor-0 glamor-1 legacy__class"
+>
+  hello world
+</h1>
+`;
+
+exports[`styled handles more than 10 dynamic properties 1`] = `
+.glamor-0 {
+  text-decoration: underline;
+  border-right: solid blue 54px;
+  background: white;
+  color: black;
+  display: block;
+  border-radius: 3px;
+  padding: 25px;
+  width: 500px;
+  z-index: ;
+  font-size: 18px;
+  text-align: center;
+  border-left: blue;
+}
+
+<h1
+  class="glamor-0 legacy__class"
+>
+  hello world
+</h1>
+`;
+
+exports[`styled innerRef 1`] = `
+.glamor-0 {
+  font-size: 12px;
+}
+
+<Component
+  innerRef={[Function]}
+>
+  <h1
+    className="glamor-0"
+  >
+    hello world
+  </h1>
+</Component>
+`;
+
+exports[`styled input placeholder 1`] = `
+.glamor-0::placeholder {
+  background-color: green;
+}
+
+<input
+  class="glamor-0"
+/>
+`;
+
+exports[`styled nested 1`] = `
+.glamor-1 div span {
+  color: red;
+}
+
+.glamor-1 div {
+  color: green;
+}
+
+.glamor-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.glamor-0 {
+  font-size: 20px;
+}
+
+<div
+  class="glamor-1"
+>
+  hello 
+  <h1
+    class="glamor-0"
+  >
+    This will be green
+  </h1>
+   world
+</div>
+`;
+
+exports[`styled no dynamic 1`] = `
+.glamor-0 {
+  float: left;
+}
+
+<h1
+  class="glamor-0"
+>
+  hello world
+</h1>
+`;
+
+exports[`styled no prop filtering on non string tags 1`] = `
+<a
+  a="true"
+  aria-label="some label"
+  b="true"
+  classname="css-1fpqmhj"
+  cool="true"
+  data-wow="value"
+  filtering="true"
+  href="link"
+  is="true"
+  prop="true"
+  wow="true"
+>
+  hello world
+</a>
+`;
+
+exports[`styled prop filtering 1`] = `
+<a
+  aria-label="some label"
+  classname="css-1fpqmhj"
+  data-wow="value"
+  href="link"
+  is="true"
+>
+  hello world
+</a>
+`;
+
+exports[`styled prop filtering on composed styled components that are string tags 1`] = `
+<a
+  aria-label="some label"
+  classname="css-tkpd0m css-1fpqmhj"
+  data-wow="value"
+  href="link"
+  is="true"
+>
+  hello world
+</a>
+`;
+
+exports[`styled random expressions undefined return 1`] = `
+.glamor-0 {
+  color: green;
+}
+
+<h1
+  class="glamor-0 legacy__class"
+>
+  hello world
+</h1>
+`;
+
+exports[`styled random object expression 1`] = `
+.glamor-0 {
+  background-color: hotpink;
+  font-size: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+  color: green;
+}
+
+<h1
+  class="glamor-0 legacy__class"
+>
+  hello world
+</h1>
+`;

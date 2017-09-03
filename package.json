@@ -27,7 +27,12 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^new-css-in-js$": "<rootDir>/packages/core/src",
+      "^react-new-css-in-js$": "<rootDir>/packages/react/src",
+      "^new-css-in-js-server$": "<rootDir>/packages/server/src"
+    }
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
