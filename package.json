@@ -18,7 +18,7 @@
     "lint": "eslint .",
     "coverage": "jest --coverage --ci --runInBand",
     "bootstrap": "lerna bootstrap",
-    "benchmark": "lerna run benchmark"
+    "benchmark": "lerna exec --scope benchmarks npm run benchmark"
   },
   "dependencies": {
     "stylis": "^3.2.11"

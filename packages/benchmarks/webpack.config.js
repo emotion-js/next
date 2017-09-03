@@ -28,8 +28,8 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          babelrc: false,
           options: {
+            babelrc: false,
             presets: [['env', { modules: false }], 'react', 'stage-0'],
             plugins: ['babel-macros'],
             cacheDirectory: true
