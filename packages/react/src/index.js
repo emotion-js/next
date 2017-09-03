@@ -7,35 +7,21 @@ const reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|d
 const testOmitPropsOnStringTag = key => reactPropsRegex.test(key)
 const testOmitPropsOnComponent = key => key !== 'theme' && key !== 'innerRef'
 
-function omit(
-  obj: { [string]: any },
-  testFn: (key: string, obj: any) => boolean
-) {
-  let target: { [string]: any } = {}
-  let i: string
-  for (i in obj) {
-    if (!testFn(i, obj)) continue
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue
-    target[i] = obj[i]
+const omitAssign = function(testFn) {
+  let i = 1
+  const target = {}
+  let length = arguments.length
+  for (; i < length; i++) {
+    let source = arguments[i]
+    let key
+    for (key in source) {
+      if (testFn(key)) {
+        target[key] = source[key]
+      }
+    }
   }
   return target
 }
-
-const assign: any =
-  Object.assign ||
-  function(target) {
-    let i = 1
-    let length = arguments.length
-    for (; i < length; i++) {
-      var source = arguments[i]
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key]
-        }
-      }
-    }
-    return target
-  }
 
 export default function(tag) {
   return (strings, ...interpolations) => {
@@ -59,7 +45,7 @@ export default function(tag) {
 
       return createElement(
         tag,
-        omit(assign({}, props, { className, ref: props.innerRef }), omitFn)
+        omitAssign(omitFn, props, { className, ref: props.innerRef })
       )
     }
   }

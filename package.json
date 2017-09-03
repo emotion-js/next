@@ -61,7 +61,7 @@
     "jest-glamor-react": "^3.1.0",
     "lerna": "^2.1.0",
     "npm-run-all": "^4.0.2",
-    "prettier": "^1.5.3",
+    "prettier": "^1.6.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",

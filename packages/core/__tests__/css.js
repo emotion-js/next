@@ -7,9 +7,7 @@ expect.addSnapshotSerializer(serializer(sheet))
 
 describe('css', () => {
   test('float property', () => {
-    const cls1 = css`
-      float: left
-    `
+    const cls1 = css`float: left;`
 
     const tree = render(<div className={cls1} />)
     expect(tree).toMatchSnapshot()
@@ -37,9 +35,12 @@ describe('css', () => {
   test('random expression', () => {
     const cls1 = css`
       font-size: 20px;
-      @media(min-width: 420px) {
+      @media (min-width: 420px) {
         color: blue;
-        ${css`width: 96px; height: 96px;`};
+        ${css`
+          width: 96px;
+          height: 96px;
+        `};
         line-height: 40px;
       }
       background: green;
@@ -48,29 +49,25 @@ describe('css', () => {
     expect(tree).toMatchSnapshot()
   })
   test('@supports', () => {
-    const cls1 = css`
-      @supports (display: grid) {
-        display: grid;
-      }
-    `
+    const cls1 = css`@supports (display: grid) {display: grid;}`
     const tree = render(<div className={cls1} />)
     expect(tree).toMatchSnapshot()
   })
   test('nested at rules', () => {
     const cls1 = css`
-    @supports (display: grid) {
-      display: grid;
-      @supports (display: flex) {
-        display: flex;
+      @supports (display: grid) {
+        display: grid;
+        @supports (display: flex) {
+          display: flex;
+        }
       }
-    }
-    @media (min-width: 420px) {
-      color: pink;
-      @media (max-width: 500px) {
-        color: hotpink;
+      @media (min-width: 420px) {
+        color: pink;
+        @media (max-width: 500px) {
+          color: hotpink;
+        }
       }
-    }
-  `
+    `
     const tree = render(<div className={cls1} />)
     expect(tree).toMatchSnapshot()
   })
@@ -114,17 +111,13 @@ describe('css', () => {
     expect(tree).toMatchSnapshot()
   })
   test('with object interpolation', () => {
-    const cls1 = css`
-      ${{ display: 'flex' }}
-    `
+    const cls1 = css`${{ display: 'flex' }};`
     const tree = render(<div className={cls1} />)
     expect(tree).toMatchSnapshot()
   })
   test('with array interpolation', () => {
     const cls = css`align-items: center;`
-    const cls1 = css`
-      ${[{ display: 'flex' }, `justify-content: center;`, cls]}
-    `
+    const cls1 = css`${[{ display: 'flex' }, `justify-content: center;`, cls]};`
     const tree = render(<div className={cls1} />)
     expect(tree).toMatchSnapshot()
   })
