@@ -9,6 +9,12 @@ before_script:
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov/bin/codecov
 
+matrix:
+ - NPM_SCRIPT=test
+ - NPM_SCRIPT=benchmark
+
+script: npm run $NPM_SCRIPT
+
 cache:
   directories:
     - node_modules
