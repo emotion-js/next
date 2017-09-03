@@ -1,5 +1,5 @@
 // import aphrodite from './src/aphrodite'
-// import cssModules from './src/css-modules'
+import cssModules from './src/css-modules'
 import emotion from './src/emotion'
 import emotionCSS from './src/emotion-css'
 import emotionObjStyle from './src/emotion-obj-style'
@@ -47,6 +47,10 @@ const allTests = {
   'new-css-in-js': [
     () => renderDeepTree('new-css-in-js', newCssInJs),
     () => renderWideTree('new-css-in-js', newCssInJs)
+  ],
+  'css-modules': [
+    () => renderDeepTree('css-modules', cssModules),
+    () => renderWideTree('css-modules', cssModules)
   ]
 }
 
@@ -85,6 +89,7 @@ if (window.location.hash) {
 } else {
   tests.push(...allTests['new-css-in-js'])
   tests.push(...allTests.emotion)
+  tests.push(...allTests['css-modules'])
   tests.push(...allTests.glamorous)
   tests.push(...allTests['styled-components'])
 }
