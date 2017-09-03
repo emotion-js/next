@@ -28,7 +28,12 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: { plugins: ['babel-macros'], cacheDirectory: true }
+          babelrc: false,
+          options: {
+            presets: [['env', { modules: false }], 'react', 'stage-0'],
+            plugins: ['babel-macros'],
+            cacheDirectory: true
+          }
         }
       }
     ]
