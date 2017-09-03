@@ -10,7 +10,7 @@ const Box = ({
   layout = 'column',
   outer = false,
   ...other
-}) =>
+}) => (
   <View
     {...other}
     className={classnames(styles[`color${color}`], {
@@ -19,5 +19,6 @@ const Box = ({
       [styles.row]: layout === 'row'
     })}
   />
+)
 
 export default Box

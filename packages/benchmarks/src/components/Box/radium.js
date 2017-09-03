@@ -9,7 +9,7 @@ const Box = ({
   layout = 'column',
   outer = false,
   ...other
-}) =>
+}) => (
   <View
     {...other}
     style={[
@@ -19,6 +19,7 @@ const Box = ({
       outer && styles.outer
     ]}
   />
+)
 
 const styles = {
   outer: {

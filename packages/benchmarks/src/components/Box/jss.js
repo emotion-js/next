@@ -11,7 +11,7 @@ const Box = ({
   layout = 'column',
   outer = false,
   ...other
-}) =>
+}) => (
   <View
     {...other}
     className={classnames({
@@ -21,6 +21,7 @@ const Box = ({
       [classes.outer]: outer
     })}
   />
+)
 
 const styles = {
   outer: {

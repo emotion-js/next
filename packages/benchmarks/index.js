@@ -72,13 +72,16 @@ const allTests = {
 const tests = []
 
 if (window.location.hash) {
-  window.location.hash.slice(1).split(',').forEach(test => {
-    if (Array.isArray(allTests[test])) {
-      tests.push(...allTests[test])
-    } else {
-      throw new Error(`Benchmark for ${test} not found`)
-    }
-  })
+  window.location.hash
+    .slice(1)
+    .split(',')
+    .forEach(test => {
+      if (Array.isArray(allTests[test])) {
+        tests.push(...allTests[test])
+      } else {
+        throw new Error(`Benchmark for ${test} not found`)
+      }
+    })
 } else {
   tests.push(...allTests['new-css-in-js'])
   tests.push(...allTests.emotion)

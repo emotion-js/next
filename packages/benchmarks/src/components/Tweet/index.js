@@ -55,17 +55,17 @@ export class Tweet extends Component {
                 />
               </View>
 
-              {media
-                ? <View style={styles.richContent}>
-                    <AspectRatio ratio={16 / 9}>
-                      <Image
-                        resizeMode={Image.resizeMode.cover}
-                        source={media.source}
-                        style={styles.media}
-                      />
-                    </AspectRatio>
-                  </View>
-                : null}
+              {media ? (
+                <View style={styles.richContent}>
+                  <AspectRatio ratio={16 / 9}>
+                    <Image
+                      resizeMode={Image.resizeMode.cover}
+                      source={media.source}
+                      style={styles.media}
+                    />
+                  </AspectRatio>
+                </View>
+              ) : null}
             </View>
 
             <TweetActionsBar
