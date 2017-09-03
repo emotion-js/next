@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "test:watch": "jest --watch --coverage --verbose",
-    "test": "npm-run-all -p coverage test:size lint && npm run benchmark",
+    "test": "npm-run-all -p coverage test:size lint && npm run rollup && npm run benchmark",
     "rollup": "lerna run rollup",
     "rollup:umd": "lerna run rollup:umd",
     "bundlesize": "bundlesize",
