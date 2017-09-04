@@ -14,13 +14,14 @@
     "clean": "rimraf dist",
     "rollup": "rollup -c ../../rollup.config.js"
   },
-  "dependencies": {
-    "new-css-in-js": "^0.0.1-2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
     "rollup": "^0.48.2"
   },
-  "repository": "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/server"
+  "repository": "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/server",
+  "peerDependencies": {
+    "new-css-in-js": "^0.0.1-2"
+  }
 }
