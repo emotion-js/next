@@ -10,7 +10,7 @@ const pkg = require(path.resolve(process.cwd(), './package.json'))
 
 const config = {
   input: './src/index.js',
-  external: ['react', 'new-css-in-js', 'stylis'],
+  external: ['react', 'new-css-in-js'],
   exports: 'named',
   sourcemap: true,
   plugins: [

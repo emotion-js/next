@@ -1,6 +1,6 @@
 import hashString from './hash'
 import StyleSheet from './sheet'
-import Stylis from 'stylis'
+import Stylis from './stylis'
 
 const stylis = new Stylis()
 
