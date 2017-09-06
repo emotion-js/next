@@ -25,12 +25,22 @@ const omitAssign = function(testFn, target) {
 }
 
 export default function(tag) {
-  return (strings, ...interpolations) => {
+  return (initialStrings, ...initialInterpolations) => {
+    const baseTag = tag.__emotion_base || tag
+
     const omitFn =
-      typeof tag === 'string'
+      typeof baseTag === 'string'
         ? testOmitPropsOnStringTag
         : testOmitPropsOnComponent
-    return (props, context) => {
+    const strings =
+      tag.__emotion_strings !== undefined
+        ? tag.__emotion_strings.concat(initialStrings)
+        : initialStrings
+    const interpolations =
+      tag.__emotion_interp !== undefined
+        ? tag.__emotion_interp.concat([';'], initialInterpolations)
+        : initialInterpolations
+    const Styled = (props, context) => {
       let className = css(
         strings,
         ...interpolations.map(v => {
@@ -45,9 +55,13 @@ export default function(tag) {
       }
 
       return createElement(
-        tag,
+        baseTag,
         omitAssign(omitFn, {}, props, { className, ref: props.innerRef })
       )
     }
+    Styled.__emotion_strings = strings
+    Styled.__emotion_interp = interpolations
+    Styled.__emotion_base = baseTag
+    return Styled
   }
 }

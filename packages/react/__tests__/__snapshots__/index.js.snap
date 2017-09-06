@@ -26,7 +26,9 @@ exports[`styled basic render 1`] = `
 `;
 
 exports[`styled composing components 1`] = `
-.glamor-2 {
+.glamor-0 {
+  color: green;
+  display: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -37,16 +39,8 @@ exports[`styled composing components 1`] = `
   justify-content: center;
 }
 
-.glamor-1 {
-  display: none;
-}
-
-.glamor-0 {
-  color: green;
-}
-
 <button
-  class="glamor-0 glamor-1 glamor-2"
+  class="glamor-0"
 >
   hello world
 </button>
@@ -55,14 +49,11 @@ exports[`styled composing components 1`] = `
 exports[`styled composition 1`] = `
 .glamor-0 {
   font-size: 20px;
-}
-
-.glamor-1 {
   font-size: ;
 }
 
 <h1
-  class="glamor-0 glamor-1 legacy__class"
+  class="glamor-0 legacy__class"
 >
   hello world
 </h1>
@@ -71,14 +62,11 @@ exports[`styled composition 1`] = `
 exports[`styled function in expression 1`] = `
 .glamor-0 {
   font-size: 20px;
-}
-
-.glamor-1 {
   font-size: 40px;
 }
 
 <h1
-  class="glamor-0 glamor-1 legacy__class"
+  class="glamor-0 legacy__class"
 >
   hello world
 </h1>
@@ -112,7 +100,7 @@ exports[`styled innerRef 1`] = `
   font-size: 12px;
 }
 
-<Component
+<Styled
   innerRef={[Function]}
 >
   <h1
@@ -120,7 +108,7 @@ exports[`styled innerRef 1`] = `
   >
     hello world
   </h1>
-</Component>
+</Styled>
 `;
 
 exports[`styled input placeholder 1`] = `
@@ -211,7 +199,7 @@ exports[`styled prop filtering 1`] = `
 exports[`styled prop filtering on composed styled components that are string tags 1`] = `
 <a
   aria-label="some label"
-  classname="css-tkpd0m css-1fpqmhj"
+  classname="css-1tp52ze"
   data-wow="value"
   href="link"
   is="true"
