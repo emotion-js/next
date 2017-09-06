@@ -14,7 +14,7 @@
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-jss": "^7.0.1",
-    "react-new-css-in-js": "^0.0.1-4",
+    "react-new-css-in-js": "^0.0.1-5",
     "react-primitives": "^0.4.3",
     "reactxp": "0.34.3",
     "styled-components": "latest",
@@ -38,5 +38,5 @@
     "build": "webpack",
     "benchmark": "npm run build && node run-headless.js"
   },
-  "version": "0.0.1-4"
+  "version": "0.0.1-5"
 }
