@@ -3,6 +3,7 @@ import StyleSheet from './sheet'
 import Stylis from './stylis'
 
 const stylis = new Stylis()
+const registerCacheStylis = new Stylis()
 
 export const sheet = new StyleSheet()
 
@@ -12,12 +13,14 @@ export const registered = {}
 
 export const inserted = {}
 
-function plugin(context, content, selector, parent) {
+function compositionPlugin(context, content, selector, parent) {
+  if (context === 1) {
+    return registered[content]
+  }
+}
+
+function insertionPlugin(context, content, selector, parent) {
   switch (context) {
-    // on property declaration
-    case 1:
-      return registered[content]
-    // after a selector block
     case 2: {
       if (parent.length !== 0 && parent[0] === selector[0]) {
         break
@@ -29,7 +32,8 @@ function plugin(context, content, selector, parent) {
   }
 }
 
-stylis.use(plugin)
+stylis.use([compositionPlugin, insertionPlugin])
+registerCacheStylis.use(compositionPlugin)
 
 const hyphenateRegex = /[A-Z]|^ms/g
 
@@ -84,12 +88,17 @@ function createCss(strings, ...interpolations) {
   return thing
 }
 
+const andReplaceRegex = /&{([^}]*)}/g
+
 export function css(...args) {
   const thing = createCss(...args)
   const hash = hashString(thing)
   const cls = `css-${hash}`
   if (registered[cls] === undefined) {
-    registered[cls] = thing
+    registered[cls] = registerCacheStylis('&', thing).replace(
+      andReplaceRegex,
+      '$1'
+    )
   }
   if (inserted[cls] === undefined) {
     stylis(`.${cls}`, thing)
