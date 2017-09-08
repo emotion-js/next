@@ -151,10 +151,9 @@ describe('styled', () => {
     `
 
     const H1 = styled('h1')`${final};`
-
     const H2 = styled(H1)`color: purple;`
 
-    const tree = render(<H2>hello world</H2>)
+    const tree = render(<H2 className={green}>What color am I?</H2>)
 
     expect(tree).toMatchSnapshot()
   })
