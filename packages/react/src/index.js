@@ -41,19 +41,33 @@ export default function(tag) {
         ? tag.__emotion_interp.concat([';'], initialInterpolations)
         : initialInterpolations
     const Styled = (props, context) => {
-      let className = css(
-        strings,
-        ...interpolations.map(v => {
+      let className = ''
+      let classInterpolations = ''
+      if (props.className) {
+        const classes = props.className.split(' ')
+        classes.forEach(splitClass => {
+          if (splitClass.indexOf('css-') === 0) {
+            classInterpolations += `${splitClass};`
+          } else {
+            className += `${splitClass} `
+          }
+        })
+      }
+      let newInterpolations = interpolations
+      let newStrings = strings
+      if (classInterpolations) {
+        newInterpolations = newInterpolations.concat([''])
+        newStrings = newStrings.concat([classInterpolations])
+      }
+      className += css(
+        newStrings,
+        ...newInterpolations.map(v => {
           if (typeof v === 'function') {
             return v(props, context)
           }
           return v
         })
       )
-      if (props.className) {
-        className += ` ${props.className}`
-      }
-
       return createElement(
         baseTag,
         omitAssign(omitFn, {}, props, { className, ref: props.innerRef })

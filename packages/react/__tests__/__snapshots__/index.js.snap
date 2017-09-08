@@ -25,6 +25,19 @@ exports[`styled basic render 1`] = `
 </h1>
 `;
 
+exports[`styled className override with css- className 1`] = `
+.glamor-0 {
+  color: yellow;
+  color: hotpink;
+}
+
+<h1
+  class="glamor-0"
+>
+  hello world
+</h1>
+`;
+
 exports[`styled composing components 1`] = `
 .glamor-0 {
   color: green;
@@ -53,7 +66,7 @@ exports[`styled composition 1`] = `
 }
 
 <h1
-  class="glamor-0 legacy__class"
+  class="legacy__class glamor-0"
 >
   hello world
 </h1>
@@ -66,7 +79,7 @@ exports[`styled function in expression 1`] = `
 }
 
 <h1
-  class="glamor-0 legacy__class"
+  class="legacy__class glamor-0"
 >
   hello world
 </h1>
@@ -89,7 +102,7 @@ exports[`styled handles more than 10 dynamic properties 1`] = `
 }
 
 <h1
-  class="glamor-0 legacy__class"
+  class="legacy__class glamor-0"
 >
   hello world
 </h1>
@@ -214,7 +227,7 @@ exports[`styled random expressions undefined return 1`] = `
 }
 
 <h1
-  class="glamor-0 legacy__class"
+  class="legacy__class glamor-0"
 >
   hello world
 </h1>
@@ -230,7 +243,7 @@ exports[`styled random object expression 1`] = `
 }
 
 <h1
-  class="glamor-0 legacy__class"
+  class="legacy__class glamor-0"
 >
   hello world
 </h1>

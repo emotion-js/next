@@ -283,4 +283,12 @@ describe('styled', () => {
 
     expect(tree).toMatchSnapshot()
   })
+  test('className override with css- className', () => {
+    const newColor = css`color: hotpink;`
+    const H1 = styled('h1')`color: yellow;`
+
+    const tree = render(<H1 className={newColor}>hello world</H1>)
+
+    expect(tree).toMatchSnapshot()
+  })
 })
