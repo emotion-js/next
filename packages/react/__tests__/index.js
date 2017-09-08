@@ -139,6 +139,26 @@ describe('styled', () => {
     expect(tree).toMatchSnapshot()
   })
 
+  test('selectivity when composing', () => {
+    const red = css`color: red;`
+    const blue = css`color: blue;`
+    const green = css`color: green;`
+
+    const final = css`
+      ${green};
+      ${blue};
+      ${red};
+    `
+
+    const H1 = styled('h1')`${final};`
+
+    const H2 = styled(H1)`color: purple;`
+
+    const tree = render(<H2>hello world</H2>)
+
+    expect(tree).toMatchSnapshot()
+  })
+
   test('input placeholder', () => {
     const Input = styled('input')`
       ::placeholder {

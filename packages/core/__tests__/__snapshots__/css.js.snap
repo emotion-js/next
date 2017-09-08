@@ -147,6 +147,18 @@ exports[`css random expression 1`] = `
 />
 `;
 
+exports[`css selectivity when composing 1`] = `
+.glamor-0 {
+  color: green;
+  color: blue;
+  color: red;
+}
+
+<div
+  class="glamor-0"
+/>
+`;
+
 exports[`css with array interpolation 1`] = `
 .glamor-0 {
   display: -webkit-box;

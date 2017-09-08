@@ -121,4 +121,18 @@ describe('css', () => {
     const tree = render(<div className={cls1} />)
     expect(tree).toMatchSnapshot()
   })
+  test('selectivity when composing', () => {
+    const red = css`color: red;`
+    const blue = css`color: blue;`
+    const green = css`color: green;`
+
+    const final = css`
+      ${green};
+      ${blue};
+      ${red};
+    `
+
+    const tree = render(<div className={final} />)
+    expect(tree).toMatchSnapshot()
+  })
 })
