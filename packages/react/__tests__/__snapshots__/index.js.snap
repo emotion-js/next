@@ -157,7 +157,7 @@ exports[`styled nested 1`] = `
 <div
   class="glamor-1"
 >
-  hello
+  hello 
   <h1
     class="glamor-0"
   >
@@ -246,5 +246,21 @@ exports[`styled random object expression 1`] = `
   class="legacy__class glamor-0"
 >
   hello world
+</h1>
+`;
+
+exports[`styled selectivity when composing 1`] = `
+.glamor-0 {
+  color: green;
+  color: blue;
+  color: red;
+  color: purple;
+  color: green;
+}
+
+<h1
+  class="glamor-0"
+>
+  What color am I?
 </h1>
 `;
