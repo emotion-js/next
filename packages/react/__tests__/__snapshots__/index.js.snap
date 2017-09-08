@@ -157,7 +157,7 @@ exports[`styled nested 1`] = `
 <div
   class="glamor-1"
 >
-  hello 
+  hello
   <h1
     class="glamor-0"
   >
