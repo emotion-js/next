@@ -35,8 +35,6 @@ function insertionPlugin(context, content, selector, parent) {
 stylis.use([compositionPlugin, insertionPlugin])
 registerCacheStylis.use(compositionPlugin)
 
-const hyphenateRegex = /[A-Z]|^ms/g
-
 function flatten(inArr) {
   let arr = []
   inArr.forEach(val => {
@@ -61,6 +59,19 @@ function handleInterpolation(interpolation) {
   return interpolation
 }
 
+export function memoize(fn) {
+  const cache = {}
+  return arg => {
+    if (cache[arg] === undefined) cache[arg] = fn(arg)
+    return cache[arg]
+  }
+}
+const hyphenateRegex = /[A-Z]|^ms/g
+
+const processStyleName = memoize(styleName =>
+  styleName.replace(hyphenateRegex, '-$&').toLowerCase()
+)
+
 function createStringFromObject(obj) {
   let string = ''
 
@@ -71,9 +82,7 @@ function createStringFromObject(obj) {
   } else {
     Object.keys(obj).forEach(key => {
       if (typeof obj[key] === 'string') {
-        string += `${key.replace(hyphenateRegex, '-$&').toLowerCase()}:${obj[
-          key
-        ]};`
+        string += `${processStyleName(key)}:${obj[key]};`
       } else {
         string += `${key}{${createStringFromObject(obj[key])}}`
       }
