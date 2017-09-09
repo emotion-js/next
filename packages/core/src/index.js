@@ -120,7 +120,7 @@ export function css(...args) {
 }
 
 export function injectGlobal(...args) {
-  const thing = createStyles(...args)
+  const styles = createStyles(...args)
   const hash = hashString(styles)
   if (inserted[hash] === undefined) {
     stylis('', styles)
