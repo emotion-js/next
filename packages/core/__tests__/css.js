@@ -140,4 +140,9 @@ describe('css', () => {
     const tree = render(<div className={cls} />)
     expect(tree).toMatchSnapshot()
   })
+  test('undefined value', () => {
+    const cls = css`color: ${undefined};`
+    const tree = render(<div className={cls} />)
+    expect(tree).toMatchSnapshot()
+  })
 })
