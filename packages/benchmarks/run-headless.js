@@ -5,34 +5,37 @@ const path = require('path')
 // need to add a timeout if it never completes
 // needs error handling
 
-// the last benchmark that's run isn't included in the graph for some reason
-
 async function run() {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.goto(`file://${path.resolve(__dirname, './index.html')}`)
 
   const results = []
+  let done = false
   page.on('console', result => {
-    console.log(results)
+    console.log(result)
     if (result && result.name) {
       results.push(result)
+      if (done) {
+        browser.close()
+        const chart = new Chart({
+          xlabel: 'Time (ms)',
+          direction: 'x',
+          lmargin: 18
+        })
+        results.forEach(result => {
+          chart.addBar({
+            size: result.mean,
+            label: /\[(.*)\]/.exec(result.name)[1],
+            barLabel: `${result.mean}ms ${/(.*)\[/.exec(result.name)[1]}`,
+            color: result.name.indexOf('Deep') ? 'red' : 'cyan'
+          })
+        })
+        chart.draw()
+      }
     }
     if (result === 'done') {
-      browser.close()
-      const chart = new Chart({
-        xlabel: 'Time (ms)',
-        ylabel: 'Benchmark',
-        direction: 'x'
-      })
-      results.forEach(result => {
-        chart.addBar({
-          size: result.mean,
-          label: /\[(.*)\]/.exec(result.name)[1],
-          barLabel: `${result.mean}ms ${/(.*)\[/.exec(result.name)[1]}`
-        })
-      })
-      chart.draw()
+      done = true
     }
   })
 }
