@@ -12,6 +12,16 @@ exports[`css @supports 1`] = `
 />
 `;
 
+exports[`css basic function call syntax 1`] = `
+.glamor-0 {
+  color: hotpink;
+}
+
+<div
+  class="glamor-0"
+/>
+`;
+
 exports[`css css variables 1`] = `
 .glamor-0 {
   --some-var: 1px;

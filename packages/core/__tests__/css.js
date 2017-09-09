@@ -135,4 +135,9 @@ describe('css', () => {
     const tree = render(<div className={final} />)
     expect(tree).toMatchSnapshot()
   })
+  test('basic function call syntax', () => {
+    const cls = css({ color: 'hotpink' })
+    const tree = render(<div className={cls} />)
+    expect(tree).toMatchSnapshot()
+  })
 })
