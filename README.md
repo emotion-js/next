@@ -4,9 +4,7 @@
 
 ### Todo
 
-- clean falsy values
-- test that specificity is correct for composition and stuff
 - auto px
-- regular function calls with objects
+- regular function calls with objects for styled
 - automatically run stylis through closure compiler
 - composes
