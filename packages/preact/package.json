@@ -1,6 +1,6 @@
 {
   "name": "preact-new-css-in-js",
-  "version": "0.0.1-9",
+  "version": "0.0.1-10",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "files": [
@@ -14,7 +14,7 @@
     "rollup": "rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "new-css-in-js": "^0.0.1-9"
+    "new-css-in-js": "^0.0.1-10"
   },
   "devDependencies": {
     "npm-run-all": "^4.0.2",
