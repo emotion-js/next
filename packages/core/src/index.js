@@ -51,6 +51,13 @@ function handleInterpolation(interpolation) {
   if (typeof interpolation === 'object') {
     return createStringFromObject(interpolation)
   }
+  if (
+    interpolation === undefined ||
+    interpolation === null ||
+    interpolation === false
+  )
+    return ''
+
   return interpolation
 }
 
@@ -75,43 +82,48 @@ function createStringFromObject(obj) {
   return string
 }
 
-function createCss(strings, ...interpolations) {
-  let thing = strings[0] || ''
+function createStyles(strings, ...interpolations) {
+  let stringMode = true
+  let styles = ''
+  if (typeof strings[0] !== 'string') {
+    stringMode = false
+    styles = handleInterpolation(strings)
+  } else {
+    styles = strings[0]
+  }
   interpolations.forEach((interpolation, i) => {
-    if (typeof interpolation === 'string') {
-      thing += interpolation
-    } else if (typeof interpolation === 'object') {
-      thing += createStringFromObject(interpolation)
+    styles += handleInterpolation(interpolation)
+    if (stringMode === true) {
+      styles += strings[i + 1]
     }
-    thing += strings[i + 1]
   })
-  return thing
+  return styles
 }
 
 const andReplaceRegex = /&{([^}]*)}/g
 
 export function css(...args) {
-  const thing = createCss(...args)
-  const hash = hashString(thing)
+  const styles = createStyles(...args)
+  const hash = hashString(styles)
   const cls = `css-${hash}`
   if (registered[cls] === undefined) {
-    registered[cls] = registerCacheStylis('&', thing).replace(
+    registered[cls] = registerCacheStylis('&', styles).replace(
       andReplaceRegex,
       '$1'
     )
   }
   if (inserted[cls] === undefined) {
-    stylis(`.${cls}`, thing)
+    stylis(`.${cls}`, styles)
     inserted[cls] = true
   }
   return cls
 }
 
 export function injectGlobal(...args) {
-  const thing = createCss(...args)
-  const hash = hashString(thing)
+  const thing = createStyles(...args)
+  const hash = hashString(styles)
   if (inserted[hash] === undefined) {
-    stylis('', thing)
+    stylis('', styles)
     inserted[hash] = true
   }
 }

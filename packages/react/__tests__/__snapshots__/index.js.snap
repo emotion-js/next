@@ -3,7 +3,7 @@
 exports[`styled basic render 1`] = `
 .glamor-0 {
   color: blue;
-  font-size: ;
+  font-size: 20;
 }
 
 @media (min-width:520px) {
@@ -62,7 +62,7 @@ exports[`styled composing components 1`] = `
 exports[`styled composition 1`] = `
 .glamor-0 {
   font-size: 20px;
-  font-size: ;
+  font-size: 13.333333333333334;
 }
 
 <h1
@@ -95,7 +95,7 @@ exports[`styled handles more than 10 dynamic properties 1`] = `
   border-radius: 3px;
   padding: 25px;
   width: 500px;
-  z-index: ;
+  z-index: 100;
   font-size: 18px;
   text-align: center;
   border-left: blue;
