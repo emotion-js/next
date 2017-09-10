@@ -2,8 +2,11 @@ import hashString from './hash'
 import StyleSheet from './sheet'
 import Stylis from './stylis'
 
-const stylis = new Stylis()
-const registerCacheStylis = new Stylis()
+const stylisOptions = { keyframe: false }
+
+const stylis = new Stylis(stylisOptions)
+const shadowStylis = new Stylis(stylisOptions)
+const keyframeStylis = new Stylis(stylisOptions)
 
 export const sheet = new StyleSheet()
 
@@ -22,7 +25,7 @@ function compositionPlugin(context, content, selector, parent) {
 function insertionPlugin(context, content, selector, parent) {
   switch (context) {
     case 2: {
-      if (parent.length !== 0 && parent[0] === selector[0]) {
+      if (parent[0] === selector[0]) {
         break
       }
     }
@@ -32,8 +35,13 @@ function insertionPlugin(context, content, selector, parent) {
   }
 }
 
+function keyframeInsertionPlugin(context, content, selector) {
+  if (context === 3) sheet.insert(`${selector[0]}{${content}}`)
+}
+
 stylis.use([compositionPlugin, insertionPlugin])
-registerCacheStylis.use(compositionPlugin)
+shadowStylis.use(compositionPlugin)
+keyframeStylis.use(keyframeInsertionPlugin)
 
 function flatten(inArr) {
   let arr = []
@@ -116,10 +124,7 @@ export function css(...args) {
   const hash = hashString(styles)
   const cls = `css-${hash}`
   if (registered[cls] === undefined) {
-    registered[cls] = registerCacheStylis('&', styles).replace(
-      andReplaceRegex,
-      '$1'
-    )
+    registered[cls] = shadowStylis('&', styles).replace(andReplaceRegex, '$1')
   }
   if (inserted[cls] === undefined) {
     stylis(`.${cls}`, styles)
@@ -141,4 +146,25 @@ export function hydrate(ids) {
   ids.forEach(id => {
     inserted[id] = true
   })
+}
+
+export function keyframes(...args) {
+  const styles = createStyles(...args)
+  const hash = hashString(styles)
+  const name = `animation-${hash}`
+  if (inserted[hash] === undefined) {
+    keyframeStylis('', `@keyframes ${name}{${styles}}`)
+  }
+  return name
+}
+
+export function fontFace(...args) {
+  const styles = createStyles(...args)
+  const hash = hashString(styles)
+  if (inserted[hash] === undefined) {
+    const finalStyles = shadowStylis('', `@font-face {${styles}}`)
+    console.log(styles)
+    console.log(finalStyles)
+    sheet.insert(finalStyles)
+  }
 }
