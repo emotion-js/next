@@ -162,9 +162,6 @@ export function fontFace(...args) {
   const styles = createStyles(...args)
   const hash = hashString(styles)
   if (inserted[hash] === undefined) {
-    const finalStyles = shadowStylis('', `@font-face {${styles}}`)
-    console.log(styles)
-    console.log(finalStyles)
-    sheet.insert(finalStyles)
+    sheet.insert(shadowStylis('', `@font-face {${styles}}`))
   }
 }
