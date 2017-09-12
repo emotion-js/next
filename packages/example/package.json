@@ -1,12 +1,12 @@
 {
   "name": "example",
-  "version": "0.1.0",
+  "version": "0.0.1-11",
   "private": true,
   "dependencies": {
-    "new-css-in-js": "^0.0.1-10",
+    "new-css-in-js": "^0.0.1-11",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-new-css-in-js": "^0.0.1-10",
+    "react-new-css-in-js": "^0.0.1-11",
     "react-scripts": "1.0.13"
   },
   "scripts": {
