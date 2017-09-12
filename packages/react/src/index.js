@@ -1,10 +1,10 @@
 import { createElement } from 'react'
-import { css, memoize } from 'new-css-in-js'
+import { css, registered, memoize } from 'new-css-in-js'
+import propsRegexString from /* preval */ './props'
 
 export * from 'new-css-in-js'
 
-// use babel-plugin-codegen to make this later
-const reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|accept|acceptCharset|accessKey|action|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|default|defer|dir|disabled|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|itemProp|itemScope|itemType|itemID|itemRef|results|security|unselectable)|(on[A-Z].*)|((data|aria)-.*))$/
+const reactPropsRegex = new RegExp(propsRegexString)
 
 const testOmitPropsOnStringTag = memoize(key => reactPropsRegex.test(key))
 const testOmitPropsOnComponent = key => key !== 'theme' && key !== 'innerRef'
@@ -24,50 +24,76 @@ const omitAssign = function(testFn, target) {
   return target
 }
 
-export default function(tag) {
-  return (initialStrings, ...initialInterpolations) => {
-    const baseTag = tag.__emotion_base || tag
+let componentIdIndex = 0
 
-    const omitFn =
-      typeof baseTag === 'string'
-        ? testOmitPropsOnStringTag
-        : testOmitPropsOnComponent
+export default function(tag, options) {
+  if (process.env.NODE_ENV !== 'production') {
+    if (tag === undefined) {
+      throw new Error(
+        'You are trying to create a styled element with an undefined component.\nYou may have forgotten to import it.'
+      )
+    }
+  }
+  const baseTag = tag.__emotion_base || tag
+  const componentId =
+    options !== undefined && options.id !== undefined
+      ? options.id
+      : 'css-' + (componentIdIndex++).toString(36)
+  const componentIdClassName =
+    tag.__emotion_classes === undefined
+      ? componentId
+      : `${tag.__emotion_classes} ${componentId}`
+  const omitFn =
+    typeof baseTag === 'string'
+      ? testOmitPropsOnStringTag
+      : testOmitPropsOnComponent
+
+  return (initialStrings, ...initialInterpolations) => {
     const strings =
       tag.__emotion_strings !== undefined
         ? tag.__emotion_strings.concat(initialStrings)
         : initialStrings
+
     const interpolations =
       tag.__emotion_interp !== undefined
         ? tag.__emotion_interp.concat([';'], initialInterpolations)
         : initialInterpolations
+    const stringMode =
+      initialStrings !== undefined && initialStrings.raw !== undefined
     const Styled = (props, context) => {
-      let className = ''
-      let classInterpolations = ''
+      const getValue = v => {
+        if (typeof v === 'function') {
+          if (v.__emotion_class !== undefined) return `.${v.__emotion_class}`
+          return v(props, context)
+        }
+        return v
+      }
+      let className = `${componentIdClassName} `
+      let classInterpolations = []
+
       if (props.className) {
         const classes = props.className.split(' ')
         classes.forEach(splitClass => {
-          if (splitClass.indexOf('css-') === 0) {
-            classInterpolations += `${splitClass};`
+          if (registered[splitClass] !== undefined) {
+            classInterpolations.push(splitClass)
           } else {
             className += `${splitClass} `
           }
         })
       }
-      let newInterpolations = interpolations
+
+      let newInterpolations = interpolations.concat(classInterpolations)
       let newStrings = strings
-      if (classInterpolations) {
-        newInterpolations = newInterpolations.concat([''])
-        newStrings = newStrings.concat([classInterpolations])
+
+      if (stringMode === false) {
+        newStrings = getValue(newStrings)
+      } else {
+        if (newStrings.raw === undefined) {
+          newStrings.raw = newStrings
+        }
       }
-      className += css(
-        newStrings,
-        ...newInterpolations.map(v => {
-          if (typeof v === 'function') {
-            return v(props, context)
-          }
-          return v
-        })
-      )
+      className += css(newStrings, ...newInterpolations.map(getValue))
+
       return createElement(
         baseTag,
         omitAssign(omitFn, {}, props, { className, ref: props.innerRef })
@@ -76,6 +102,8 @@ export default function(tag) {
     Styled.__emotion_strings = strings
     Styled.__emotion_interp = interpolations
     Styled.__emotion_base = baseTag
+    Styled.__emotion_class = componentId
+    Styled.__emotion_classes = componentId
     return Styled
   }
 }

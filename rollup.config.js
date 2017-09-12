@@ -28,6 +28,7 @@ const config = {
         ],
         'flow'
       ],
+      plugins: ['preval'],
       babelrc: false
     })
   ],

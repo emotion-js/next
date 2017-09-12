@@ -23,6 +23,7 @@
     "start:example": "lerna exec --scope example npm run start"
   },
   "dependencies": {
+    "babel-plugin-preval": "^1.5.0",
     "stylis": "^3.2.11"
   },
   "jest": {

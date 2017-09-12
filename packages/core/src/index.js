@@ -1,25 +1,25 @@
-import hashString from './hash'
+import { hashString, Stylis, memoize, unitless } from './utils'
 import StyleSheet from './sheet'
-import Stylis from './stylis'
 
+export { memoize }
+
+export const sheet = new StyleSheet()
+// 🚀
+sheet.inject()
 const stylisOptions = { keyframe: false }
 
 const stylis = new Stylis(stylisOptions)
-const shadowStylis = new Stylis(stylisOptions)
 const keyframeStylis = new Stylis(stylisOptions)
 
-export const sheet = new StyleSheet()
+export let registered = {}
 
-sheet.inject()
+export let inserted = {}
 
-export const registered = {}
-
-export const inserted = {}
-
-function compositionPlugin(context, content, selector, parent) {
-  if (context === 1) {
-    return registered[content]
-  }
+export function flush() {
+  sheet.flush()
+  inserted = {}
+  registered = {}
+  sheet.inject()
 }
 
 function insertionPlugin(context, content, selector, parent) {
@@ -44,8 +44,7 @@ function keyframeInsertionPlugin(context, content, selector) {
   }
 }
 
-stylis.use([compositionPlugin, insertionPlugin])
-shadowStylis.use(compositionPlugin)
+stylis.use(insertionPlugin)
 keyframeStylis.use(keyframeInsertionPlugin)
 
 function flatten(inArr) {
@@ -58,7 +57,10 @@ function flatten(inArr) {
   return arr
 }
 
-function handleInterpolation(interpolation) {
+function handleInterpolation(
+  interpolation: any,
+  couldBeSelectorInterpolation: boolean
+) {
   if (typeof interpolation === 'object') {
     return createStringFromObject(interpolation)
   }
@@ -68,34 +70,45 @@ function handleInterpolation(interpolation) {
     interpolation === false
   )
     return ''
-
+  if (
+    couldBeSelectorInterpolation === false &&
+    registered[interpolation] !== undefined
+  ) {
+    return registered[interpolation]
+  }
   return interpolation
 }
 
-export function memoize(fn) {
-  const cache = {}
-  return arg => {
-    if (cache[arg] === undefined) cache[arg] = fn(arg)
-    return cache[arg]
-  }
-}
 const hyphenateRegex = /[A-Z]|^ms/g
 
 const processStyleName = memoize(styleName =>
   styleName.replace(hyphenateRegex, '-$&').toLowerCase()
 )
 
+const processStyleValue = (key, value) => {
+  if (value === undefined || value === null || typeof value === 'boolean')
+    return ''
+
+  if (unitless[key] !== 1 && !isNaN(value) && value !== 0) {
+    return value + 'px'
+  }
+  return value
+}
+
 function createStringFromObject(obj) {
   let string = ''
 
   if (Array.isArray(obj)) {
     flatten(obj).forEach(interpolation => {
-      string += handleInterpolation(interpolation)
+      string += handleInterpolation(interpolation, false)
     })
   } else {
     Object.keys(obj).forEach(key => {
-      if (typeof obj[key] === 'string') {
-        string += `${processStyleName(key)}:${obj[key]};`
+      if (typeof obj[key] !== 'object') {
+        string += `${processStyleName(key)}:${processStyleValue(
+          key,
+          obj[key]
+        )};`
       } else {
         string += `${key}{${createStringFromObject(obj[key])}}`
       }
@@ -104,36 +117,39 @@ function createStringFromObject(obj) {
   return string
 }
 
+function isLastCharDot(string) {
+  return string.charCodeAt(string.length - 1) === 46 // .
+}
+
 function createStyles(strings, ...interpolations) {
+  if (strings === undefined) return ''
   let stringMode = true
   let styles = ''
-  if (typeof strings[0] !== 'string') {
+  if (strings !== undefined && strings.raw === undefined) {
     stringMode = false
-    styles = handleInterpolation(strings)
+    styles = handleInterpolation(strings, false)
   } else {
     styles = strings[0]
   }
   interpolations.forEach((interpolation, i) => {
-    styles += handleInterpolation(interpolation)
-    if (stringMode === true) {
+    styles += handleInterpolation(interpolation, isLastCharDot(styles))
+    if (stringMode === true && strings[i + 1] !== undefined) {
       styles += strings[i + 1]
     }
   })
   return styles
 }
 
-const andReplaceRegex = /&{([^}]*)}/g
-
 export function css(...args) {
   const styles = createStyles(...args)
   const hash = hashString(styles)
   const cls = `css-${hash}`
   if (registered[cls] === undefined) {
-    registered[cls] = shadowStylis('&', styles).replace(andReplaceRegex, '$1')
+    registered[cls] = styles
   }
-  if (inserted[cls] === undefined) {
+  if (inserted[hash] === undefined) {
     stylis(`.${cls}`, styles)
-    inserted[cls] = true
+    inserted[hash] = true
   }
   return cls
 }
@@ -159,6 +175,7 @@ export function keyframes(...args) {
   const name = `animation-${hash}`
   if (inserted[hash] === undefined) {
     keyframeStylis('', `@keyframes ${name}{${styles}}`)
+    inserted[hash] = true
   }
   return name
 }
@@ -167,6 +184,7 @@ export function fontFace(...args) {
   const styles = createStyles(...args)
   const hash = hashString(styles)
   if (inserted[hash] === undefined) {
-    sheet.insert(shadowStylis('', `@font-face {${styles}}`))
+    sheet.insert(`@font-face{${styles}}`)
+    inserted[hash] = true
   }
 }

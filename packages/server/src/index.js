@@ -1,9 +1,12 @@
-import { sheet, inserted, registered } from 'new-css-in-js'
+import { sheet, inserted, registered } from 'emotion'
+import { keys, forEach } from 'emotion-utils'
+
+export * from 'emotion'
 
 export function extractCritical(html) {
   // parse out ids from html
   // reconstruct css/rules/cache to pass
-  const RGX = /css-([a-zA-Z0-9]+)/gm
+  const RGX = /css(?:[a-zA-Z0-9-]*)-([a-zA-Z0-9]+)/gm
 
   let o = { html, ids: [], css: '', rules: [] }
   let match
@@ -21,10 +24,11 @@ export function extractCritical(html) {
     return ret
   })
 
-  o.ids = Object.keys(inserted).filter(id => ids[id] || !registered[id])
-
+  o.ids = keys(inserted).filter(id => {
+    return !!ids[id] || !registered[`css-${id}`]
+  })
   let css = ''
-  o.rules.forEach(x => (css += x.cssText))
+  forEach(o.rules, x => (css += x.cssText))
   o.css = css
 
   return o
