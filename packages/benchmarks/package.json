@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "babel-loader": "^7.1.1",
-    "babel-macros": "^0.5.2",
+    "babel-macros": "^1.0.2",
     "cli-chart": "^0.3.1",
     "css-loader": "^0.28.4",
     "puppeteer": "^0.10.1",
