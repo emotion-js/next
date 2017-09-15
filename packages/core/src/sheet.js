@@ -1,3 +1,27 @@
+/*
+
+high performance StyleSheet for css-in-js systems
+
+- uses multiple style tags behind the scenes for millions of rules
+- uses `insertRule` for appending in production for *much* faster performance
+- 'polyfills' on server side
+
+// usage
+
+import StyleSheet from 'glamor/lib/sheet'
+let styleSheet = new StyleSheet()
+
+styleSheet.inject()
+- 'injects' the stylesheet into the page (or into memory if on server)
+
+styleSheet.insert('#box { border: 1px solid red; }')
+- appends a css rule into the stylesheet
+
+styleSheet.flush()
+- empties the stylesheet of all its contents
+
+*/
+
 function last(arr) {
   return arr[arr.length - 1]
 }
@@ -16,23 +40,20 @@ function sheetForTag(tag) {
 }
 
 const isBrowser: boolean = typeof window !== 'undefined'
-const isDev: boolean = process.env.NODE_ENV !== 'production'
 
 function makeStyleTag() {
   let tag = document.createElement('style')
   tag.type = 'text/css'
-  tag.setAttribute('data-new-css-in-js', '')
+  tag.setAttribute('data-emotion', '')
   tag.appendChild(document.createTextNode(''))
-  document.head.appendChild(tag)
+  ;(document.head || document.getElementsByTagName('head')[0]).appendChild(tag)
   return tag
 }
 
 export default class StyleSheet {
-  constructor(speedy = !isDev) {
-    this.isSpeedy = speedy // the big drawback here is that the css won't be editable in devtools
-    this.sheet = undefined
+  constructor() {
+    this.isSpeedy = process.env.NODE_ENV === 'production' // the big drawback here is that the css won't be editable in devtools
     this.tags = []
-    this.maxLength = 65000
     this.ctr = 0
   }
   getSheet() {
@@ -47,12 +68,7 @@ export default class StyleSheet {
     } else {
       // server side 'polyfill'. just enough behavior to be useful.
       this.sheet = {
-        cssRules: [],
-        insertRule: rule => {
-          // enough 'spec compliance' to be able to extract the rules later
-          // in other words, just the cssText field
-          this.sheet.cssRules.push({ cssText: rule })
-        }
+        cssRules: []
       }
     }
     this.injected = true
@@ -64,17 +80,21 @@ export default class StyleSheet {
     }
     this.isSpeedy = !!bool
   }
-  _insert(rule) {
-    // this weirdness for perf, and chrome's weird bug
-    // https://stackoverflow.com/questions/20007992/chrome-suddenly-stopped-accepting-insertrule
-    let sheet = this.getSheet()
-    sheet.insertRule(rule, sheet.cssRules.length)
-  }
   insert(rule) {
     if (isBrowser) {
+      const sheet = this.getSheet()
       // this is the ultrafast version, works across browsers
-      if (this.isSpeedy && this.getSheet().insertRule) {
-        this._insert(rule)
+      if (this.isSpeedy && sheet.insertRule) {
+        // this weirdness for perf, and chrome's weird bug
+        // https://stackoverflow.com/questions/20007992/chrome-suddenly-stopped-accepting-insertrule
+        try {
+          sheet.insertRule(rule, sheet.cssRules.length)
+        } catch (e) {
+          if (process.env.NODE_ENV !== 'production') {
+            // might need beter dx for this
+            console.warn('illegal rule', rule) // eslint-disable-line no-console
+          }
+        }
       } else {
         // more browser weirdness. I don't even know
         // else if(this.tags.length > 0 && this.tags::last().styleSheet) {
@@ -83,12 +103,13 @@ export default class StyleSheet {
         last(this.tags).appendChild(document.createTextNode(rule))
       }
     } else {
-      // server side is pretty simple
-      this.sheet.insertRule(rule)
+      // enough 'spec compliance' to be able to extract the rules later
+      // in other words, just the cssText field
+      this.sheet.cssRules.push({ cssText: rule })
     }
 
     this.ctr++
-    if (isBrowser && this.ctr % this.maxLength === 0) {
+    if (isBrowser && this.ctr % 65000 === 0) {
       this.tags.push(makeStyleTag())
     }
     return this.ctr - 1
@@ -97,7 +118,6 @@ export default class StyleSheet {
     if (isBrowser) {
       this.tags.forEach(tag => tag.parentNode.removeChild(tag))
       this.tags = []
-      this.sheet = null
       this.ctr = 0
       // todo - look for remnants in document.styleSheets
     } else {
