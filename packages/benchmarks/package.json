@@ -8,13 +8,13 @@
     "glamor": "^2.20.37",
     "glamorous": "^4.1.0",
     "marky": "^1.2.0",
-    "new-css-in-js": "^0.0.1-11",
+    "new-css-in-js": "^0.0.1-12",
     "postcss": "^6.0.8",
     "radium": "^0.19.1",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-jss": "^7.0.1",
-    "react-new-css-in-js": "^0.0.1-11",
+    "react-new-css-in-js": "^0.0.1-12",
     "react-primitives": "^0.4.3",
     "reactxp": "0.34.3",
     "styled-components": "latest",
@@ -38,5 +38,5 @@
     "build": "webpack",
     "benchmark": "npm run build && node run-headless.js"
   },
-  "version": "0.0.1-11"
+  "version": "0.0.1-12"
 }
