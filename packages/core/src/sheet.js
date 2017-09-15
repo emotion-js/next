@@ -100,7 +100,7 @@ export default class StyleSheet {
         // else if(this.tags.length > 0 && this.tags::last().styleSheet) {
         //   this.tags::last().styleSheet.cssText+= rule
         // }
-        sheet.appendChild(document.createTextNode(rule))
+        last(this.tags).appendChild(document.createTextNode(rule))
       }
     } else {
       // enough 'spec compliance' to be able to extract the rules later
