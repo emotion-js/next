@@ -39,7 +39,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
-    "babel-macros": "^0.5.2",
+    "babel-macros": "^1.0.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
