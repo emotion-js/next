@@ -6,6 +6,7 @@ import emotionObjStyle from './src/emotion-obj-style'
 import glamor from './src/glamor'
 import glamorous from './src/glamorous'
 import newCssInJs from './src/new-css-in-js'
+import newCssInJsOus from './src/new-css-in-js-ous'
 // import jss from './src/jss'
 // import radium from './src/radium'
 // import reactNative from './src/react-native'
@@ -51,6 +52,10 @@ const allTests = {
   'css-modules': [
     () => renderDeepTree('css-modules', cssModules),
     () => renderWideTree('css-modules', cssModules)
+  ],
+  'new-css-in-js-ous': [
+    () => renderDeepTree('new-css-in-js-ous', newCssInJsOus),
+    () => renderWideTree('new-css-in-js-ous', newCssInJsOus)
   ]
 }
 
@@ -88,6 +93,7 @@ if (window.location.hash) {
     })
 } else {
   tests.push(...allTests['new-css-in-js'])
+  tests.push(...allTests['new-css-in-js-ous'])
   tests.push(...allTests.emotion)
   tests.push(...allTests['css-modules'])
   tests.push(...allTests.glamorous)
