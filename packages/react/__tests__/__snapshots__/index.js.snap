@@ -39,7 +39,7 @@ exports[`styled className override with css- className 1`] = `
 `;
 
 exports[`styled composing components 1`] = `
-.glamor-2 {
+.glamor-3 {
   color: green;
   display: none;
   display: -webkit-box;
@@ -53,7 +53,7 @@ exports[`styled composing components 1`] = `
 }
 
 <button
-  class="glamor-0 glamor-1 glamor-2"
+  class="glamor-0 glamor-1 glamor-2 glamor-3"
 >
   hello world
 </button>
@@ -212,7 +212,7 @@ exports[`styled prop filtering 1`] = `
 exports[`styled prop filtering on composed styled components that are string tags 1`] = `
 <a
   aria-label="some label"
-  classname="css-k css-l css-1tp52ze"
+  classname="css-k css-l css-1bb6gah"
   data-wow="value"
   href="link"
   is="true"
