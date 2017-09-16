@@ -24,21 +24,6 @@ const omitAssign = function(testFn, target) {
   return target
 }
 
-function map(
-  arr: Array<any>,
-  fn: (item: any, index: number, arr: Array<any>) => any
-) {
-  let i = 0
-  let len = arr.length
-  let out = new Array(len)
-
-  for (; i < len; i++) {
-    out[i] = fn(arr[i])
-  }
-
-  return out
-}
-
 let componentIdIndex = 0
 
 export default function(tag, options) {
@@ -100,7 +85,7 @@ export default function(tag, options) {
         })
       }
 
-      className += css(...map(styles, getValue), ...classInterpolations)
+      className += css(...styles.map(getValue), ...classInterpolations)
 
       return createElement(
         baseTag,
