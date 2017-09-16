@@ -84,8 +84,9 @@ export default function(tag, options) {
           }
         })
       }
+      const newStyles = styles.concat(classInterpolations)
 
-      className += css(...styles.map(getValue), ...classInterpolations)
+      className += css(...newStyles.map(getValue))
 
       return createElement(
         baseTag,
