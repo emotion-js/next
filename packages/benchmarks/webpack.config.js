@@ -2,6 +2,7 @@
 //   .BundleAnalyzerPlugin
 const path = require('path')
 const webpack = require('webpack')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   // context: __dirname,
@@ -46,13 +47,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new webpack.optimize.UglifyJsPlugin()
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     dead_code: true,
-    //     screw_ie8: true,
-    //     warnings: false
-    //   }
-    // })
+    new webpack.optimize.UglifyJsPlugin(),
+    new HTMLWebpackPlugin({ template: path.join(__dirname, './index.html') })
   ]
 }
