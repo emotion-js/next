@@ -1,10 +1,3 @@
 # new-css-in-js
 
-
-
-### Todo
-
-- auto px
-- regular function calls with objects for styled
-- automatically run stylis through closure compiler
-- composes
+A super experimental css-in-js library, early version of emotion 8.
