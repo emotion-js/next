@@ -44,10 +44,8 @@ function createStringFromObject(
       string += handleInterpolation.call(this, interpolation, false)
     }, this)
   } else {
-    console.log(obj)
     Object.keys(obj).forEach(function(key: string) {
       if (typeof obj[key] !== 'object') {
-        console.log(key)
         if (registered[obj[key]] !== undefined) {
           string += `${key}{${registered[obj[key]]}}`
         } else {

@@ -27,9 +27,11 @@ const defaultContext: CSSContextType = {
 
 let current
 
+let sheetToInsert
+
 const insertionPlugin = stylisRuleSheet(function(rule: string) {
   current += rule
-  sheet.insert(rule)
+  sheetToInsert.insert(rule)
 })
 
 const returnFullPlugin = function(context) {
@@ -41,7 +43,18 @@ const returnFullPlugin = function(context) {
   }
 }
 
-defaultContext.stylis.use(insertionPlugin)(returnFullPlugin)
+function globalPlugin(context, content) {
+  if (context === -1) {
+    if (typeof content === 'object') {
+      sheetToInsert = content.sheet
+      return content.styles
+    } else {
+      sheetToInsert = sheet
+    }
+  }
+}
+
+defaultContext.stylis.use(globalPlugin)(insertionPlugin)(returnFullPlugin)
 
 const CSSContext: Context<CSSContextType> = createReactContext(defaultContext)
 
@@ -146,6 +159,7 @@ export class GlobalChild extends React.Component<{
   constructor(props: *) {
     super(props)
     this.sheet = new StyleSheet({ key: 'global' })
+    this.sheet.inject()
   }
   componentWillMount() {
     this.insert(
@@ -155,7 +169,7 @@ export class GlobalChild extends React.Component<{
   componentWillUnmount() {
     this.sheet.flush()
   }
-  componentWillRecieveProps(nextProps: *) {
+  componentWillReceiveProps(nextProps: *) {
     if (
       nextProps.context === this.props.context &&
       nextProps.css === this.props.css
@@ -168,10 +182,11 @@ export class GlobalChild extends React.Component<{
     if (serialized.name !== this.oldName) {
       this.insert(serialized)
     }
+    0
   }
   insert({ name, styles }: { name: string, styles: string }) {
     this.oldName = name
-    this.props.context.stylis('', styles)
+    this.props.context.stylis('', { styles, sheet: this.sheet })
   }
   render() {
     return null

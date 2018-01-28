@@ -74,7 +74,9 @@ export default class StyleSheet {
     if (this.injected) {
       throw new Error('already injected!')
     }
-    this.tags[0] = makeStyleTag(this.opts)
+    if (this.isSpeedy) {
+      this.tags[0] = makeStyleTag(this.opts)
+    }
     this.injected = true
   }
   speedy(bool: boolean) {
