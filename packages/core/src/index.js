@@ -1,190 +1,206 @@
-import { hashString, Stylis, memoize, unitless } from './utils'
+// @flow
+import * as React from 'react'
+import { Stylis, hashString } from 'emotion-utils'
+import stylisRuleSheet from 'stylis-rule-sheet'
 import StyleSheet from './sheet'
+import { processStyleName, processStyleValue, isBrowser } from './utils'
+import createReactContext, { type Context } from 'create-react-context'
+import type { CSSContextType, CSSCache } from './types'
+import { serializeStyles } from './serialize'
 
-export { memoize }
+let shouldHydrate = false
 
-export const sheet = new StyleSheet()
-// 🚀
-sheet.inject()
-const stylisOptions = { keyframe: false }
+if (isBrowser) {
+  shouldHydrate = !!document.querySelector('data-more')
+}
 
-const stylis = new Stylis(stylisOptions)
-const keyframeStylis = new Stylis(stylisOptions)
-
-export let registered = {}
-
-export let inserted = {}
-
-export function flush() {
-  sheet.flush()
-  inserted = {}
-  registered = {}
+const sheet = new StyleSheet({ key: '' })
+if (isBrowser) {
   sheet.inject()
 }
 
-function insertionPlugin(context, content, selector, parent) {
-  switch (context) {
-    case 2: {
-      if (parent[0] === selector[0]) {
-        break
-      }
-    }
-    // after an at rule block
-    case 3: // eslint-disable-line no-fallthrough
-      sheet.insert(`${selector.join(',')}{${content}}`)
+const defaultContext: CSSContextType = {
+  stylis: new Stylis(),
+  inserted: {},
+  registered: {}
+}
+
+let current
+
+const insertionPlugin = stylisRuleSheet(function(rule: string) {
+  current += rule
+  sheet.insert(rule)
+})
+
+const returnFullPlugin = function(context) {
+  if (context === -1) {
+    current = ''
+  }
+  if (context === -2) {
+    return current
   }
 }
 
-function keyframeInsertionPlugin(context, content, selector) {
-  if (context === 3) {
-    sheet.insert(
-      `${selector[0].replace('keyframes', '-webkit-keyframes')}{${content}}`
-    )
-    sheet.insert(`${selector[0]}{${content}}`)
-  }
+defaultContext.stylis.use(insertionPlugin)(returnFullPlugin)
+
+const CSSContext: Context<CSSContextType> = createReactContext(defaultContext)
+
+type Props = {
+  props: Object | null,
+  type: React.ElementType,
+  children: Array<React.Node>,
+  context: CSSContextType
 }
 
-stylis.use(insertionPlugin)
-keyframeStylis.use(keyframeInsertionPlugin)
-
-function flatten(inArr) {
-  let arr = []
-  inArr.forEach(val => {
-    if (Array.isArray(val)) arr = arr.concat(flatten(val))
-    else arr = arr.concat(val)
-  })
-
-  return arr
-}
-
-function handleInterpolation(
-  interpolation: any,
-  couldBeSelectorInterpolation: boolean
+function getRegisteredStyles(
+  registered: CSSCache,
+  registeredStyles: string[],
+  classNames: string
 ) {
-  if (typeof interpolation === 'object') {
-    return createStringFromObject(interpolation)
-  }
-  if (
-    interpolation === undefined ||
-    interpolation === null ||
-    interpolation === false
-  )
-    return ''
-  if (
-    couldBeSelectorInterpolation === false &&
-    registered[interpolation] !== undefined
-  ) {
-    return registered[interpolation]
-  }
-  return interpolation
-}
+  let rawClassName = ''
 
-const hyphenateRegex = /[A-Z]|^ms/g
-
-const processStyleName = memoize(styleName =>
-  styleName.replace(hyphenateRegex, '-$&').toLowerCase()
-)
-
-const processStyleValue = (key, value) => {
-  if (value === undefined || value === null || typeof value === 'boolean')
-    return ''
-
-  if (unitless[key] !== 1 && !isNaN(value) && value !== 0) {
-    return value + 'px'
-  }
-  return value
-}
-
-function createStringFromObject(obj) {
-  let string = ''
-
-  if (Array.isArray(obj)) {
-    flatten(obj).forEach(interpolation => {
-      string += handleInterpolation(interpolation, false)
-    })
-  } else {
-    Object.keys(obj).forEach(key => {
-      if (typeof obj[key] !== 'object') {
-        string += `${processStyleName(key)}:${processStyleValue(
-          key,
-          obj[key]
-        )};`
-      } else {
-        string += `${key}{${createStringFromObject(obj[key])}}`
-      }
-    })
-  }
-  return string
-}
-
-function isLastCharDot(string) {
-  return string.charCodeAt(string.length - 1) === 46 // .
-}
-
-function createStyles(strings, ...interpolations) {
-  if (strings === undefined) return ''
-  let stringMode = true
-  let styles = ''
-  if (strings !== undefined && strings.raw === undefined) {
-    stringMode = false
-    styles = handleInterpolation(strings, false)
-  } else {
-    styles = strings[0]
-  }
-  interpolations.forEach((interpolation, i) => {
-    styles += handleInterpolation(interpolation, isLastCharDot(styles))
-    if (stringMode === true && strings[i + 1] !== undefined) {
-      styles += strings[i + 1]
+  classNames.split(' ').forEach(className => {
+    if (registered[className] !== undefined) {
+      registeredStyles.push(className)
+    } else {
+      rawClassName += `${className} `
     }
   })
-  return styles
+  return rawClassName
 }
 
-export function css(...args) {
-  const styles = createStyles(...args)
-  const hash = hashString(styles)
-  const cls = `css-${hash}`
-  if (registered[cls] === undefined) {
-    registered[cls] = styles
+const globalStyle = (context: CSSContextType, rawStyles: *) => {
+  const { styles, name } = serializeStyles(context.registered, rawStyles)
+  if (context.inserted[name] === undefined) {
+    context.stylis(``, styles)
   }
-  if (inserted[hash] === undefined) {
-    stylis(`.${cls}`, styles)
-    inserted[hash] = true
+}
+
+const css = (context: CSSContextType, rawStyles: *) => {
+  const { name, styles } = serializeStyles(context.registered, rawStyles)
+
+  let cls = `css-${name}`
+  if (context.registered[cls] === undefined) {
+    context.registered[cls] = styles
+  }
+  if (context.inserted[name] === undefined) {
+    context.stylis(`.${cls}`, styles)
   }
   return cls
 }
 
-export function injectGlobal(...args) {
-  const styles = createStyles(...args)
-  const hash = hashString(styles)
-  if (inserted[hash] === undefined) {
-    stylis('', styles)
-    inserted[hash] = true
+class Style extends React.Component<Props> {
+  constructor(props) {
+    super(props)
+    if (shouldHydrate) {
+    }
+  }
+  render() {
+    const { props, type, children, context } = this.props
+    let actualProps = props || {}
+
+    let registeredStyles = []
+    let className = ''
+    if (actualProps.className !== undefined) {
+      className = getRegisteredStyles(
+        context.registered,
+        registeredStyles,
+        actualProps.className
+      )
+    }
+    registeredStyles.push(actualProps.css)
+
+    className += css(context, registeredStyles)
+
+    const newProps = {
+      ...actualProps,
+      className
+    }
+    delete newProps.css
+
+    return React.createElement(type, newProps, ...children)
   }
 }
 
-export function hydrate(ids) {
-  ids.forEach(id => {
-    inserted[id] = true
-  })
+type GlobalProps = {
+  css: Object
 }
 
-export function keyframes(...args) {
-  const styles = createStyles(...args)
-  const hash = hashString(styles)
-  const name = `animation-${hash}`
-  if (inserted[hash] === undefined) {
-    keyframeStylis('', `@keyframes ${name}{${styles}}`)
-    inserted[hash] = true
-  }
-  return name
+export const Global = ({ css }: GlobalProps) => {
+  return (
+    <CSSContext.Consumer>
+      {context => {
+        return <GlobalChild css={css} context={context} />
+      }}
+    </CSSContext.Consumer>
+  )
 }
 
-export function fontFace(...args) {
-  const styles = createStyles(...args)
-  const hash = hashString(styles)
-  if (inserted[hash] === undefined) {
-    sheet.insert(`@font-face{${styles}}`)
-    inserted[hash] = true
+export class GlobalChild extends React.Component<{
+  ...GlobalProps,
+  context: CSSContextType
+}> {
+  sheet: StyleSheet
+  oldName: string
+
+  constructor(props: *) {
+    super(props)
+    this.sheet = new StyleSheet({ key: 'global' })
+  }
+  componentWillMount() {
+    this.insert(
+      serializeStyles(this.props.context.registered, [this.props.css])
+    )
+  }
+  componentWillUnmount() {
+    this.sheet.flush()
+  }
+  componentWillRecieveProps(nextProps: *) {
+    if (
+      nextProps.context === this.props.context &&
+      nextProps.css === this.props.css
+    ) {
+      return
+    }
+    let serialized = serializeStyles(this.props.context.registered, [
+      this.props.css
+    ])
+    if (serialized.name !== this.oldName) {
+      this.insert(serialized)
+    }
+  }
+  insert({ name, styles }: { name: string, styles: string }) {
+    this.oldName = name
+    this.props.context.stylis('', styles)
+  }
+  render() {
+    return null
   }
 }
+
+export const jsx = (
+  type: React.ElementType,
+  props: Object | null,
+  ...children: Array<React.Node>
+) => {
+  console.log(type)
+  if (props == null || props.css == null || type === Global) {
+    return React.createElement(type, props, ...children)
+  }
+  console.log(type)
+
+  return (
+    <CSSContext.Consumer>
+      {context => (
+        <Style
+          props={props}
+          type={type}
+          children={children}
+          context={context}
+        />
+      )}
+    </CSSContext.Consumer>
+  )
+}
+
+export { default as Provider } from './provider'

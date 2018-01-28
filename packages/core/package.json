@@ -16,9 +16,13 @@
     "rollup:umd": "UMD=true rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "stylis": "^3.2.11"
+    "create-react-context": "^0.1.4",
+    "emotion-utils": "^8.0.12",
+    "stylis": "^3.2.11",
+    "stylis-rule-sheet": "^0.0.7"
   },
   "devDependencies": {
+    "babel-preset-stage-0": "^6.24.1",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
     "rollup": "^0.48.2"

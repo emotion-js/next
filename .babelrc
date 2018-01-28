@@ -1,4 +1,4 @@
 {
-  "presets": ["env", "flow", "react"],
+  "presets": ["env", "flow", "react", "stage-0"],
   "plugins": ["preval"]
 }

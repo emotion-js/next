@@ -1,0 +1,11 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+module.name_mapper='^\(new-css-in-js\)$' -> '<PROJECT_ROOT>/packages/core/src'
+[strict]

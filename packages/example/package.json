@@ -4,10 +4,10 @@
   "private": true,
   "dependencies": {
     "new-css-in-js": "^0.0.1-12",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-new-css-in-js": "^0.0.1-12",
-    "react-scripts": "1.0.13"
+    "react-scripts": "1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

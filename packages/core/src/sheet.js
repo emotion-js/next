@@ -1,3 +1,4 @@
+// @flow
 /*
 
 high performance StyleSheet for css-in-js systems
@@ -22,108 +23,95 @@ styleSheet.flush()
 
 */
 
-function last(arr) {
-  return arr[arr.length - 1]
-}
-
-function sheetForTag(tag) {
+// $FlowFixMe
+function sheetForTag(tag: HTMLStyleElement): CSSStyleSheet {
   if (tag.sheet) {
+    // $FlowFixMe
     return tag.sheet
   }
 
   // this weirdness brought to you by firefox
   for (let i = 0; i < document.styleSheets.length; i++) {
     if (document.styleSheets[i].ownerNode === tag) {
+      // $FlowFixMe
       return document.styleSheets[i]
     }
   }
 }
 
-const isBrowser: boolean = typeof window !== 'undefined'
+type Options = { nonce?: string, key?: string, container?: HTMLElement }
 
-function makeStyleTag() {
+function makeStyleTag(opts: Options): HTMLStyleElement {
   let tag = document.createElement('style')
   tag.type = 'text/css'
-  tag.setAttribute('data-emotion', '')
+  tag.setAttribute('data-emotion', opts.key || '')
+  if (opts.nonce !== undefined) {
+    tag.setAttribute('nonce', opts.nonce)
+  }
   tag.appendChild(document.createTextNode(''))
-  ;(document.head || document.getElementsByTagName('head')[0]).appendChild(tag)
+  // $FlowFixMe
+  ;(opts.container !== undefined ? opts.container : document.head).appendChild(
+    tag
+  )
   return tag
 }
 
 export default class StyleSheet {
-  constructor() {
+  injected: boolean
+  isSpeedy: boolean
+  ctr: number
+  sheet: string[]
+  tags: HTMLStyleElement[]
+  nonce: string | void
+  opts: Options
+  constructor(options: Options) {
     this.isSpeedy = process.env.NODE_ENV === 'production' // the big drawback here is that the css won't be editable in devtools
     this.tags = []
     this.ctr = 0
-  }
-  getSheet() {
-    return sheetForTag(last(this.tags))
+    this.opts = options
   }
   inject() {
     if (this.injected) {
       throw new Error('already injected!')
     }
-    if (isBrowser) {
-      this.tags[0] = makeStyleTag()
-    } else {
-      // server side 'polyfill'. just enough behavior to be useful.
-      this.sheet = {
-        cssRules: []
-      }
-    }
+    this.tags[0] = makeStyleTag(this.opts)
     this.injected = true
   }
-  speedy(bool) {
+  speedy(bool: boolean) {
     if (this.ctr !== 0) {
       // cannot change speedy mode after inserting any rule to sheet. Either call speedy(${bool}) earlier in your app, or call flush() before speedy(${bool})
       throw new Error(`cannot change speedy now`)
     }
     this.isSpeedy = !!bool
   }
-  insert(rule) {
-    if (isBrowser) {
-      const sheet = this.getSheet()
-      // this is the ultrafast version, works across browsers
-      if (this.isSpeedy && sheet.insertRule) {
-        // this weirdness for perf, and chrome's weird bug
-        // https://stackoverflow.com/questions/20007992/chrome-suddenly-stopped-accepting-insertrule
-        try {
-          sheet.insertRule(rule, sheet.cssRules.length)
-        } catch (e) {
-          if (process.env.NODE_ENV !== 'production') {
-            // might need beter dx for this
-            console.warn('illegal rule', rule) // eslint-disable-line no-console
-          }
+  insert(rule: string, sourceMap?: string) {
+    // this is the ultrafast version, works across browsers
+    if (this.isSpeedy) {
+      const tag = this.tags[this.tags.length - 1]
+      const sheet = sheetForTag(tag)
+      try {
+        sheet.insertRule(rule, sheet.cssRules.length)
+      } catch (e) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('illegal rule', rule) // eslint-disable-line no-console
         }
-      } else {
-        // more browser weirdness. I don't even know
-        // else if(this.tags.length > 0 && this.tags::last().styleSheet) {
-        //   this.tags::last().styleSheet.cssText+= rule
-        // }
-        last(this.tags).appendChild(document.createTextNode(rule))
       }
     } else {
-      // enough 'spec compliance' to be able to extract the rules later
-      // in other words, just the cssText field
-      this.sheet.cssRules.push({ cssText: rule })
+      const tag = makeStyleTag(this.opts)
+      this.tags.push(tag)
+      tag.appendChild(document.createTextNode(rule + (sourceMap || '')))
     }
-
     this.ctr++
-    if (isBrowser && this.ctr % 65000 === 0) {
-      this.tags.push(makeStyleTag())
+    if (this.ctr % 65000 === 0) {
+      this.tags.push(makeStyleTag(this.opts))
     }
-    return this.ctr - 1
   }
   flush() {
-    if (isBrowser) {
-      this.tags.forEach(tag => tag.parentNode.removeChild(tag))
-      this.tags = []
-      this.ctr = 0
-      // todo - look for remnants in document.styleSheets
-    } else {
-      // simpler on server
-      this.sheet.cssRules = []
-    }
+    // $FlowFixMe
+    this.tags.forEach(tag => tag.parentNode.removeChild(tag))
+    this.tags = []
+    this.ctr = 0
+    // todo - look for remnants in document.styleSheets
     this.injected = false
   }
 }

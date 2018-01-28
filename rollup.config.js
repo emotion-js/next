@@ -14,8 +14,6 @@ const config = {
   exports: 'named',
   sourcemap: true,
   plugins: [
-    commonjs(),
-    resolve(),
     babel({
       presets: [
         [
@@ -26,11 +24,14 @@ const config = {
             exclude: ['transform-es2015-typeof-symbol']
           }
         ],
-        'flow'
+        'flow',
+        'react',
+        'stage-0'
       ],
-      plugins: ['preval'],
       babelrc: false
-    })
+    }),
+    commonjs(),
+    resolve()
   ],
   output: [
     { file: pkg.main, format: 'cjs' },
