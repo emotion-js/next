@@ -88,15 +88,12 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
                   this.props.className
                 )
               }
-
-              const { cls, rules } = scoped(
-                context,
-                serializeStyles.call(
-                  this,
-                  context.registered,
-                  styles.concat(classInterpolations)
-                )
+              const serialized = serializeStyles.call(
+                this,
+                context.registered,
+                styles.concat(classInterpolations)
               )
+              const { cls, rules } = scoped(context, serialized)
               if (
                 this.serialized === undefined &&
                 (this.shouldHydrate || !isBrowser)
@@ -117,7 +114,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
                 return (
                   <React.Fragment>
                     <style
-                      data-more=""
+                      data-more={serialized.name}
                       dangerouslySetInnerHTML={{ __html: this.serialized }}
                     />
                     {ele}

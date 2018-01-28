@@ -4,3 +4,4 @@
 
 * keyframes
 * tests
+* actually hydrate scoped rules

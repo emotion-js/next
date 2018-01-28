@@ -143,14 +143,23 @@ export class GlobalChild extends React.Component<{
   ) {
     this.oldName = name
     let rules = this.props.context.stylis(``, styles)
-    if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
+    let needsToSerializeValues =
+      this.serialized === undefined && (this.shouldHydrate || !isBrowser)
+    if (needsToSerializeValues) {
       this.serialized = rules.join('')
     }
-    if (isBrowser) {
+
+    if (isBrowser && !needsToSerializeValues) {
       this.sheet.flush()
+      this.sheet.inject()
       rules.forEach(rule => {
         this.sheet.insert(rule)
       })
+    }
+    // I need tests
+    if (this.shouldHydrate && !needsToSerializeValues) {
+      this.serialized = ''
+      this.forceUpdate()
     }
   }
   render() {
@@ -172,6 +181,7 @@ export const Keyframes = (props: {
   render: string => React.Node
 }) => {}
 
+// todo: make it so this type checks props with flow correctly
 export const jsx = (
   type: React.ElementType,
   props: Object | null,
