@@ -151,7 +151,6 @@ export const jsx = (
       }\``
     )
   }
-  console.log(type)
 
   return (
     <CSSContext.Consumer>
