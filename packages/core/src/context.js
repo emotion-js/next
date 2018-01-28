@@ -7,7 +7,11 @@ import stylisRuleSheet from 'stylis-rule-sheet'
 import createReactContext, { type Context } from 'create-react-context'
 
 const defaultContext: CSSContextType = {
-  stylis: new Stylis(),
+  stylis: new Stylis({
+    keyframe: false,
+    global: false,
+    semicolon: true
+  }),
   sheet: new StyleSheet({ key: '' }),
   inserted: {},
   registered: {},

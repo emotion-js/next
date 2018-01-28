@@ -8,17 +8,12 @@ import {
   processStyleValue,
   isBrowser,
   getRegisteredStyles,
-  scoped
+  scoped,
+  hydration
 } from './utils'
 import type { CSSContextType, CSSCache } from './types'
 import { serializeStyles } from './serialize'
 import { CSSContext } from './context'
-
-let shouldHydrate = false
-
-if (isBrowser) {
-  shouldHydrate = !!document.querySelector('data-more')
-}
 
 type Props = {
   props: Object | null,
@@ -28,10 +23,14 @@ type Props = {
 }
 
 class Style extends React.Component<Props> {
+  shouldHydrate: boolean
+  serialized: string
   constructor(props) {
     super(props)
-    if (shouldHydrate) {
-    }
+    this.shouldHydrate = hydration.shouldHydrate
+  }
+  componentDidMount() {
+    hydration.shouldHydrate = false
   }
   render() {
     const { props, type, children, context } = this.props
@@ -53,18 +52,33 @@ class Style extends React.Component<Props> {
         : actualProps.css
     )
 
-    className += scoped(
+    const { cls, rules } = scoped(
       context,
       serializeStyles(context.registered, registeredStyles)
     )
+    className += cls
+    if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
+      this.serialized = rules
+    }
 
     const newProps = {
       ...actualProps,
       className
     }
     delete newProps.css
-
-    return React.createElement(type, newProps, ...children)
+    const ele = React.createElement(type, newProps, ...children)
+    if (this.shouldHydrate || !isBrowser) {
+      return (
+        <React.Fragment>
+          <style
+            data-more=""
+            dangerouslySetInnerHTML={{ __html: this.serialized }}
+          />
+          {ele}
+        </React.Fragment>
+      )
+    }
+    return ele
   }
 }
 
@@ -88,11 +102,14 @@ export class GlobalChild extends React.Component<{
 }> {
   sheet: StyleSheet
   oldName: string
+  serialized: string
+  shouldHydrate: boolean
 
   constructor(props: *) {
     super(props)
     this.sheet = new StyleSheet({ key: 'global' })
     this.sheet.inject()
+    this.shouldHydrate = hydration.shouldHydrate
   }
   componentWillMount() {
     this.insert(
@@ -102,6 +119,9 @@ export class GlobalChild extends React.Component<{
   }
   componentWillUnmount() {
     this.sheet.flush()
+  }
+  componentDidMount() {
+    hydration.shouldHydrate = false
   }
   componentWillReceiveProps(nextProps: *) {
     if (
@@ -116,7 +136,6 @@ export class GlobalChild extends React.Component<{
     if (serialized.name !== this.oldName) {
       this.insert(nextProps.context, serialized)
     }
-    0
   }
   insert(
     context: CSSContextType,
@@ -124,6 +143,9 @@ export class GlobalChild extends React.Component<{
   ) {
     this.oldName = name
     let rules = this.props.context.stylis(``, styles)
+    if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
+      this.serialized = rules.join('')
+    }
     if (isBrowser) {
       this.sheet.flush()
       rules.forEach(rule => {
@@ -132,9 +154,23 @@ export class GlobalChild extends React.Component<{
     }
   }
   render() {
+    if (this.serialized !== undefined) {
+      return (
+        <style
+          data-more=""
+          dangerouslySetInnerHTML={{ __html: this.serialized }}
+        />
+      )
+    }
     return null
   }
 }
+
+// I'm not totally sure if this is the best way to do keyframes
+export const Keyframes = (props: {
+  keyframes: *,
+  render: string => React.Node
+}) => {}
 
 export const jsx = (
   type: React.ElementType,

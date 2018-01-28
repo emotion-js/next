@@ -60,5 +60,11 @@ export const scoped = (
       })
     }
   }
-  return cls
+  return { cls, rules: context.inserted[name] }
+}
+
+export let hydration = { shouldHydrate: false }
+
+if (isBrowser) {
+  hydration.shouldHydrate = !!document.querySelector('[data-more]')
 }

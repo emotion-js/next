@@ -13,7 +13,7 @@ import {
   type StyledOptions,
   type CreateStyled
 } from './utils'
-import { getRegisteredStyles, scoped } from '../utils'
+import { getRegisteredStyles, scoped, hydration, isBrowser } from '../utils'
 import { serializeStyles } from '../serialize'
 import { CSSContext } from '../context'
 
@@ -58,12 +58,20 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
 
     class Styled extends React.Component<*> {
       mergedProps: Object
+      shouldHydrate: boolean
+      serialized: string
       static toString: () => string
       static __emotion_real: any
       static __emotion_styles: Interpolations
       static __emotion_base: Styled
       static withComponent: (ElementType, options?: StyledOptions) => any
-
+      constructor(props) {
+        super(props)
+        this.shouldHydrate = hydration.shouldHydrate
+      }
+      componentWillUnmount() {
+        hydration.shouldHydrate = false
+      }
       render() {
         return (
           <CSSContext.Consumer>
@@ -81,7 +89,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
                 )
               }
 
-              className += scoped(
+              const { cls, rules } = scoped(
                 context,
                 serializeStyles.call(
                   this,
@@ -89,14 +97,34 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
                   styles.concat(classInterpolations)
                 )
               )
+              if (
+                this.serialized === undefined &&
+                (this.shouldHydrate || !isBrowser)
+              ) {
+                this.serialized = rules
+              }
 
-              return React.createElement(
+              className += cls
+
+              const ele = React.createElement(
                 baseTag,
                 omitAssign(omitFn, {}, this.props, {
                   className,
                   ref: this.props.innerRef
                 })
               )
+              if (this.shouldHydrate || !isBrowser) {
+                return (
+                  <React.Fragment>
+                    <style
+                      data-more=""
+                      dangerouslySetInnerHTML={{ __html: this.serialized }}
+                    />
+                    {ele}
+                  </React.Fragment>
+                )
+              }
+              return ele
             }}
           </CSSContext.Consumer>
         )
