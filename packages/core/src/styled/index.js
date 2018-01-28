@@ -71,7 +71,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
               let className = ''
               let classInterpolations = []
               this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
-                theme: context.theme || props.theme || {}
+                theme: context.theme || this.props.theme || {}
               })
               if (this.props.className) {
                 className += getRegisteredStyles(
