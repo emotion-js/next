@@ -1,7 +1,7 @@
 // @flow
 // @jsx jsx
 import React, { Component } from 'react'
-import { styled, css, jsx, Global } from 'new-css-in-js'
+import { styled, css, jsx, Global, Keyframes } from 'new-css-in-js'
 import logo from './react.svg'
 
 const Header = styled('header')`
@@ -18,36 +18,34 @@ class Home extends Component<{}> {
         css={css`
           text-align: center;
         `}
-        className="Home"
       >
         <Header>
-          <Global
-            css={css`
-              @keyframes Home-logo-spin {
-                from {
-                  transform: rotate(0deg);
-                }
-                to {
-                  transform: rotate(360deg);
-                }
+          <Keyframes
+            keyframes={css`
+              from {
+                transform: rotate(0deg);
+              }
+              to {
+                transform: rotate(360deg);
               }
             `}
+            render={animation => {
+              return (
+                <img
+                  src={logo}
+                  css={css`
+                    animation: ${animation} infinite 20s linear;
+                    height: 80px;
+                  `}
+                  alt="logo"
+                />
+              )
+            }}
           />
-          <img
-            src={logo}
-            css={css`
-              animation: Home-logo-spin infinite 20s linear;
-              height: 80px;
-            `}
-            alt="logo"
-          />
+
           <h2>Welcome to Razzle</h2>
         </Header>
-        <p
-          css={css`
-            font-size: large;
-          `}
-        >
+        <p css={{ fontSize: 'large' }}>
           To get started, edit <code>src/App.js</code> or{' '}
           <code>src/Home.js</code> and save to reload.
         </p>

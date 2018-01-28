@@ -175,12 +175,6 @@ export class GlobalChild extends React.Component<{
   }
 }
 
-// I'm not totally sure if this is the best way to do keyframes
-export const Keyframes = (props: {
-  keyframes: *,
-  render: string => React.Node
-}) => {}
-
 // todo: make it so this type checks props with flow correctly
 export const jsx = (
   type: React.ElementType,
@@ -215,3 +209,4 @@ export const jsx = (
 export { default as Provider } from './provider'
 export { createStyles as css } from './serialize'
 export { default as styled } from './styled'
+export { Keyframes } from './keyframes'
