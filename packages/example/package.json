@@ -1,9 +1,9 @@
 {
   "name": "example",
-  "version": "0.0.1-12",
+  "version": "0.0.2-0",
   "private": true,
   "dependencies": {
-    "new-css-in-js": "^0.0.1-12",
+    "new-css-in-js": "^0.0.2-0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-new-css-in-js": "^0.0.1-12",
