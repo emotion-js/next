@@ -91,7 +91,7 @@ export const createStyles = (
       styles += strings[i + 1]
     }
   }, this)
-  return { __styles: styles, toString: () => styles }
+  return { __styles: styles }
 }
 
 const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g

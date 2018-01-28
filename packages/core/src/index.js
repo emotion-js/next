@@ -3,10 +3,16 @@ import * as React from 'react'
 import { Stylis, hashString } from 'emotion-utils'
 import stylisRuleSheet from 'stylis-rule-sheet'
 import StyleSheet from './sheet'
-import { processStyleName, processStyleValue, isBrowser } from './utils'
-import createReactContext, { type Context } from 'create-react-context'
+import {
+  processStyleName,
+  processStyleValue,
+  isBrowser,
+  getRegisteredStyles,
+  scoped
+} from './utils'
 import type { CSSContextType, CSSCache } from './types'
 import { serializeStyles } from './serialize'
+import { CSSContext } from './context'
 
 let shouldHydrate = false
 
@@ -14,78 +20,11 @@ if (isBrowser) {
   shouldHydrate = !!document.querySelector('data-more')
 }
 
-const defaultContext: CSSContextType = {
-  stylis: new Stylis(),
-  sheet: new StyleSheet({ key: '' }),
-  inserted: {},
-  registered: {}
-}
-
-if (isBrowser) {
-  defaultContext.sheet.inject()
-}
-
-let current
-
-let sheetToInsert
-
-const insertionPlugin = stylisRuleSheet(function(rule: string) {
-  current.push(rule)
-})
-
-const returnFullPlugin = function(context) {
-  if (context === -1) {
-    current = []
-  }
-  if (context === -2) {
-    return current
-  }
-}
-
-defaultContext.stylis.use(insertionPlugin)(returnFullPlugin)
-
-const CSSContext: Context<CSSContextType> = createReactContext(defaultContext)
-
 type Props = {
   props: Object | null,
   type: React.ElementType,
   children: Array<React.Node>,
   context: CSSContextType
-}
-
-function getRegisteredStyles(
-  registered: CSSCache,
-  registeredStyles: string[],
-  classNames: string
-) {
-  let rawClassName = ''
-
-  classNames.split(' ').forEach(className => {
-    if (registered[className] !== undefined) {
-      registeredStyles.push(className)
-    } else {
-      rawClassName += `${className} `
-    }
-  })
-  return rawClassName
-}
-
-const scoped = (context: CSSContextType, rawStyles: *) => {
-  const { name, styles } = serializeStyles(context.registered, rawStyles)
-
-  let cls = `css-${name}`
-  if (context.registered[cls] === undefined) {
-    context.registered[cls] = styles
-  }
-  if (context.inserted[name] === undefined) {
-    let rules = context.stylis(`.${cls}`, styles)
-    if (isBrowser) {
-      rules.forEach(rule => {
-        context.sheet.insert(rule)
-      })
-    }
-  }
-  return cls
 }
 
 class Style extends React.Component<Props> {
@@ -99,6 +38,7 @@ class Style extends React.Component<Props> {
     let actualProps = props || {}
 
     let registeredStyles = []
+
     let className = ''
     if (actualProps.className !== undefined) {
       className = getRegisteredStyles(
@@ -107,9 +47,16 @@ class Style extends React.Component<Props> {
         actualProps.className
       )
     }
-    registeredStyles.push(actualProps.css)
+    registeredStyles.push(
+      typeof actualProps.css === 'function'
+        ? actualProps.css(context.theme)
+        : actualProps.css
+    )
 
-    className += scoped(context, registeredStyles)
+    className += scoped(
+      context,
+      serializeStyles(context.registered, registeredStyles)
+    )
 
     const newProps = {
       ...actualProps,
@@ -194,7 +141,6 @@ export const jsx = (
   props: Object | null,
   ...children: Array<React.Node>
 ) => {
-  console.log(type)
   if (props == null || props.css == null || type === Global) {
     return React.createElement(type, props, ...children)
   }
@@ -223,3 +169,4 @@ export const jsx = (
 
 export { default as Provider } from './provider'
 export { createStyles as css } from './serialize'
+export { default as styled } from './styled'

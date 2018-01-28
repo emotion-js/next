@@ -6,5 +6,6 @@ export type CSSContextType = {
   stylis: Function,
   inserted: CSSCache,
   registered: CSSCache,
-  sheet: StyleSheet
+  sheet: StyleSheet,
+  theme: Object
 }

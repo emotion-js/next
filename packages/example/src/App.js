@@ -1,7 +1,7 @@
 // @flow
 // @jsx jsx
 import React, { Component } from 'react'
-import { jsx, css } from 'new-css-in-js'
+import { jsx, css, styled } from 'new-css-in-js'
 import logo from './logo.svg'
 
 // fontFace`
@@ -28,6 +28,10 @@ const headerStyle = css`
   }
 `
 
+const Container = styled('div')`
+  text-align: ${props => props.align};
+`
+
 // const Logo = styled('img')`
 //   animation: ${logoSpin} infinite 20s linear;
 //   height: 80px;
@@ -36,7 +40,7 @@ const headerStyle = css`
 class App extends Component<{}> {
   render() {
     return (
-      <div css={{ textAlign: 'center' }}>
+      <Container align="center">
         <header css={headerStyle}>
           <img css={{ height: 80 }} src={logo} alt="logo" />
           <h2>Welcome to React</h2>
@@ -44,7 +48,7 @@ class App extends Component<{}> {
         <p css={{ fontSize: 'large' }}>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-      </div>
+      </Container>
     )
   }
 }
