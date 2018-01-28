@@ -1,7 +1,7 @@
 // @flow
 // @jsx jsx
 import React, { Component } from 'react'
-import { jsx } from 'new-css-in-js'
+import { jsx, css } from 'new-css-in-js'
 import logo from './logo.svg'
 
 // fontFace`
@@ -17,16 +17,16 @@ import logo from './logo.svg'
 //   to { transform: rotate(360deg); }
 // `
 
-// const Header = styled('div')`
-//   font-family: 'Oxygen', sans-serif;
-//   background-color: #222;
-//   height: 150px;
-//   padding: 20px;
-//   color: white;
-//   &:hover {
-//     color: hotpink;
-//   }
-// `
+const headerStyle = css`
+  font-family: 'Oxygen', sans-serif;
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+  &:hover {
+    color: hotpink;
+  }
+`
 
 // const Logo = styled('img')`
 //   animation: ${logoSpin} infinite 20s linear;
@@ -37,18 +37,7 @@ class App extends Component<{}> {
   render() {
     return (
       <div css={{ textAlign: 'center' }}>
-        <header
-          css={{
-            fontFamily: "'Oxygen', sans-serif",
-            backgroundColor: '#222',
-            height: 150,
-            padding: 20,
-            color: 'white',
-            ':hover': {
-              color: 'hotpink'
-            }
-          }}
-        >
+        <header css={headerStyle}>
           <img css={{ height: 80 }} src={logo} alt="logo" />
           <h2>Welcome to React</h2>
         </header>

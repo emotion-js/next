@@ -7,14 +7,6 @@ import App from './App'
 import { Global } from 'new-css-in-js'
 import registerServiceWorker from './registerServiceWorker'
 
-// injectGlobal`
-//   body {
-//     margin: 0;
-//     padding: 0;
-//     font-family: sans-serif;
-//   }
-// `
-
 ReactDOM.render(
   <React.Fragment>
     <App />

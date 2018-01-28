@@ -14,15 +14,15 @@ if (isBrowser) {
   shouldHydrate = !!document.querySelector('data-more')
 }
 
-const sheet = new StyleSheet({ key: '' })
-if (isBrowser) {
-  sheet.inject()
-}
-
 const defaultContext: CSSContextType = {
   stylis: new Stylis(),
+  sheet: new StyleSheet({ key: '' }),
   inserted: {},
   registered: {}
+}
+
+if (isBrowser) {
+  defaultContext.sheet.inject()
 }
 
 let current
@@ -30,31 +30,19 @@ let current
 let sheetToInsert
 
 const insertionPlugin = stylisRuleSheet(function(rule: string) {
-  current += rule
-  sheetToInsert.insert(rule)
+  current.push(rule)
 })
 
 const returnFullPlugin = function(context) {
   if (context === -1) {
-    current = ''
+    current = []
   }
   if (context === -2) {
     return current
   }
 }
 
-function globalPlugin(context, content) {
-  if (context === -1) {
-    if (typeof content === 'object') {
-      sheetToInsert = content.sheet
-      return content.styles
-    } else {
-      sheetToInsert = sheet
-    }
-  }
-}
-
-defaultContext.stylis.use(globalPlugin)(insertionPlugin)(returnFullPlugin)
+defaultContext.stylis.use(insertionPlugin)(returnFullPlugin)
 
 const CSSContext: Context<CSSContextType> = createReactContext(defaultContext)
 
@@ -82,14 +70,7 @@ function getRegisteredStyles(
   return rawClassName
 }
 
-const globalStyle = (context: CSSContextType, rawStyles: *) => {
-  const { styles, name } = serializeStyles(context.registered, rawStyles)
-  if (context.inserted[name] === undefined) {
-    context.stylis(``, styles)
-  }
-}
-
-const css = (context: CSSContextType, rawStyles: *) => {
+const scoped = (context: CSSContextType, rawStyles: *) => {
   const { name, styles } = serializeStyles(context.registered, rawStyles)
 
   let cls = `css-${name}`
@@ -97,7 +78,12 @@ const css = (context: CSSContextType, rawStyles: *) => {
     context.registered[cls] = styles
   }
   if (context.inserted[name] === undefined) {
-    context.stylis(`.${cls}`, styles)
+    let rules = context.stylis(`.${cls}`, styles)
+    if (isBrowser) {
+      rules.forEach(rule => {
+        context.sheet.insert(rule)
+      })
+    }
   }
   return cls
 }
@@ -123,7 +109,7 @@ class Style extends React.Component<Props> {
     }
     registeredStyles.push(actualProps.css)
 
-    className += css(context, registeredStyles)
+    className += scoped(context, registeredStyles)
 
     const newProps = {
       ...actualProps,
@@ -163,6 +149,7 @@ export class GlobalChild extends React.Component<{
   }
   componentWillMount() {
     this.insert(
+      this.props.context,
       serializeStyles(this.props.context.registered, [this.props.css])
     )
   }
@@ -180,13 +167,22 @@ export class GlobalChild extends React.Component<{
       this.props.css
     ])
     if (serialized.name !== this.oldName) {
-      this.insert(serialized)
+      this.insert(nextProps.context, serialized)
     }
     0
   }
-  insert({ name, styles }: { name: string, styles: string }) {
+  insert(
+    context: CSSContextType,
+    { name, styles }: { name: string, styles: string }
+  ) {
     this.oldName = name
-    this.props.context.stylis('', { styles, sheet: this.sheet })
+    let rules = this.props.context.stylis(``, styles)
+    if (isBrowser) {
+      this.sheet.flush()
+      rules.forEach(rule => {
+        this.sheet.insert(rule)
+      })
+    }
   }
   render() {
     return null
@@ -201,6 +197,13 @@ export const jsx = (
   console.log(type)
   if (props == null || props.css == null || type === Global) {
     return React.createElement(type, props, ...children)
+  }
+  if (process.env.NODE_ENV === 'development' && typeof props.css === 'string') {
+    throw new Error(
+      `Strings are not allowed as css prop values, please wrap it in a css template literal like this: css\`${
+        props.css
+      }\``
+    )
   }
   console.log(type)
 
@@ -219,3 +222,4 @@ export const jsx = (
 }
 
 export { default as Provider } from './provider'
+export { createStyles as css } from './serialize'

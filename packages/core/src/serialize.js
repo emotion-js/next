@@ -6,7 +6,7 @@ import { processStyleName, processStyleValue } from './utils'
 type Interpolation = any
 
 function handleInterpolation(
-  registered: CSSCache,
+  registered: CSSCache | null,
   interpolation: Interpolation
 ): string | number {
   if (interpolation == null) {
@@ -26,15 +26,18 @@ function handleInterpolation(
             interpolation(this.mergedProps, this.context)
       )
     case 'object':
+      if (interpolation.__styles !== undefined) {
+        return interpolation.__styles
+      }
       return createStringFromObject.call(this, registered, interpolation)
     default:
-      const cached = registered[interpolation]
+      const cached = registered === null ? undefined : registered[interpolation]
       return cached !== undefined ? cached : interpolation
   }
 }
 
 function createStringFromObject(
-  registered: CSSCache,
+  registered: CSSCache | null,
   obj: { [key: string]: Interpolation }
 ): string {
   let string = ''
@@ -46,7 +49,7 @@ function createStringFromObject(
   } else {
     Object.keys(obj).forEach(function(key: string) {
       if (typeof obj[key] !== 'object') {
-        if (registered[obj[key]] !== undefined) {
+        if (registered !== null && registered[obj[key]] !== undefined) {
           string += `${key}{${registered[obj[key]]}}`
         } else {
           string += `${processStyleName(key)}:${processStyleValue(
@@ -65,6 +68,30 @@ function createStringFromObject(
   }
 
   return string
+}
+
+export const createStyles = (
+  strings: Interpolation | string[],
+  ...interpolations: Interpolation[]
+) => {
+  let stringMode = true
+  let styles: string = ''
+  let identifierName = ''
+
+  if (strings == null || strings.raw === undefined) {
+    stringMode = false
+    styles += handleInterpolation.call(this, null, strings)
+  } else {
+    styles += strings[0]
+  }
+
+  interpolations.forEach(function(interpolation, i) {
+    styles += handleInterpolation.call(this, null, interpolation)
+    if (stringMode === true && strings[i + 1] !== undefined) {
+      styles += strings[i + 1]
+    }
+  }, this)
+  return { __styles: styles, toString: () => styles }
 }
 
 const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
