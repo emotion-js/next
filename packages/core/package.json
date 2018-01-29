@@ -1,8 +1,12 @@
 {
   "name": "new-css-in-js",
-  "version": "0.0.2-0",
+  "version": "0.0.2-1",
   "main": "lib/index.js",
-  "files": ["src", "dist", "lib"],
+  "files": [
+    "src",
+    "dist",
+    "lib"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -24,6 +28,5 @@
     "rimraf": "^2.6.1",
     "rollup": "^0.55.1"
   },
-  "repository":
-    "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/core"
+  "repository": "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/core"
 }
