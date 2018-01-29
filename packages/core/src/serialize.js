@@ -70,10 +70,10 @@ function createStringFromObject(
   return string
 }
 
-export const createStyles = (
+export function createStyles(
   strings: Interpolation | string[],
   ...interpolations: Interpolation[]
-) => {
+) {
   let stringMode = true
   let styles: string = ''
   let identifierName = ''
