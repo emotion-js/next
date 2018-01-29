@@ -44,7 +44,11 @@ function createStringFromObject(
 
   if (Array.isArray(obj)) {
     obj.forEach(function(interpolation: Interpolation) {
-      string += handleInterpolation.call(this, interpolation, false)
+      string += handleInterpolation.call(
+        this,
+        registered,
+        interpolation
+      )
     }, this)
   } else {
     Object.keys(obj).forEach(function(key: string) {
