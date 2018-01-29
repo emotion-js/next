@@ -1,21 +1,8 @@
 // @flow
 // @jsx jsx
 import React, { Component } from 'react'
-import { jsx, css, styled } from 'new-css-in-js'
+import { jsx, css, styled, Global, Keyframes } from 'new-css-in-js'
 import logo from './logo.svg'
-
-// fontFace`
-// font-family: 'Oxygen';
-// font-style: normal;
-// font-weight: 400;
-// src: local('Oxygen Regular'), local('Oxygen-Regular'), url(https://fonts.gstatic.com/s/oxygen/v6/qBSyz106i5ud7wkBU-FrPevvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
-// unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-// `
-
-// const logoSpin = keyframes`
-//   from { transform: rotate(0deg); }
-//   to { transform: rotate(360deg); }
-// `
 
 const headerStyle = css`
   font-family: 'Oxygen', sans-serif;
@@ -32,17 +19,51 @@ const Container = styled('div')`
   text-align: ${props => props.align};
 `
 
-// const Logo = styled('img')`
-//   animation: ${logoSpin} infinite 20s linear;
-//   height: 80px;
-// `
+const Logo = styled('img')`
+  animation: ${props => props.animation} infinite 20s linear;
+  height: 80px;
+`
 
 class App extends Component<{}> {
   render() {
     return (
       <Container align="center">
+        <Global
+          css={css`
+            @font-face {
+              font-family: 'Oxygen';
+              font-style: normal;
+              font-weight: 400;
+              src: local('Oxygen Regular'), local('Oxygen-Regular'),
+                url(https://fonts.gstatic.com/s/oxygen/v6/qBSyz106i5ud7wkBU-FrPevvDin1pK8aKteLpeZ5c0A.woff2)
+                  format('woff2');
+              unicode-range: U+0000-00ff, U+0131, U+0152-0153, U+02c6, U+02da,
+                U+02dc, U+2000-206f, U+2074, U+20ac, U+2212, U+2215;
+            }
+          `}
+        />
         <header css={headerStyle}>
-          <img css={{ height: 80 }} src={logo} alt="logo" />
+          <Keyframes
+            keyframes={css`
+              from {
+                transform: rotate(0deg);
+              }
+              to {
+                transform: rotate(360deg);
+              }
+            `}
+            render={animation => {
+              return (
+                <Logo
+                  animation={animation}
+                  css={{ height: 80 }}
+                  src={logo}
+                  alt="logo"
+                />
+              )
+            }}
+          />
+
           <h2>Welcome to React</h2>
         </header>
         <p css={{ fontSize: 'large' }}>
