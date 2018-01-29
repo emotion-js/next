@@ -2,7 +2,6 @@
 
 ### Todo
 
-* keyframes
 * tests
 * actually hydrate scoped rules
 * Provider
