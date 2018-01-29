@@ -2,7 +2,10 @@
   "private": true,
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -15,8 +18,7 @@
     "lint": "eslint .",
     "coverage": "jest --coverage --ci --runInBand",
     "bootstrap": "lerna bootstrap",
-    "benchmark":
-      "npm run rollup && lerna exec --scope benchmarks npm run benchmark",
+    "benchmark": "npm run rollup && lerna exec --scope benchmarks npm run benchmark",
     "build:example": "lerna exec --scope example npm run build",
     "start:example": "lerna exec --scope example npm run start",
     "babel": "lerna run babel",
@@ -27,7 +29,9 @@
     "stylis": "^3.2.11"
   },
   "jest": {
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "moduleNameMapper": {
       "^new-css-in-js$": "<rootDir>/packages/core/src",
       "^react-new-css-in-js$": "<rootDir>/packages/react/src",
@@ -63,6 +67,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
+    "flow-bin": "^0.64.0",
     "jest": "^20.0.4",
     "jest-glamor-react": "^3.1.0",
     "lerna": "^2.1.0",
@@ -79,5 +84,7 @@
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^3.0.0"
   },
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ]
 }
