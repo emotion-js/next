@@ -29,6 +29,9 @@ function handleInterpolation(
       if (interpolation.__styles !== undefined) {
         return interpolation.__styles
       }
+      if (interpolation.__serialized !== undefined) {
+        return interpolation.toString()
+      }
       return createStringFromObject.call(this, registered, interpolation)
     default:
       const cached = registered === null ? undefined : registered[interpolation]
@@ -44,11 +47,7 @@ function createStringFromObject(
 
   if (Array.isArray(obj)) {
     obj.forEach(function(interpolation: Interpolation) {
-      string += handleInterpolation.call(
-        this,
-        registered,
-        interpolation
-      )
+      string += handleInterpolation.call(this, registered, interpolation)
     }, this)
   } else {
     Object.keys(obj).forEach(function(key: string) {
@@ -101,7 +100,7 @@ export function createStyles(
 const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
 
 export const serializeStyles = function(
-  registered: CSSCache,
+  registered: CSSCache | null,
   args: Array<Interpolation>
 ): { styles: string, name: string } {
   let styles = ''

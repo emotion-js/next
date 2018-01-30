@@ -1,7 +1,7 @@
 // @flow
 // @jsx jsx
 import React, { Component } from 'react'
-import { jsx, css, styled, Global, Keyframes } from 'new-css-in-js'
+import { jsx, css, styled, Global, Keyframes, keyframes } from 'new-css-in-js'
 import logo from './logo.svg'
 
 const headerStyle = css`
@@ -14,6 +14,15 @@ const headerStyle = css`
     color: hotpink;
   }
 `
+
+const animation = keyframes(css`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`)
 
 const Container = styled('div')`
   text-align: ${props => props.align};
@@ -43,27 +52,13 @@ class App extends Component<{}> {
           `}
         />
         <header css={headerStyle}>
-          <Keyframes
-            keyframes={css`
-              from {
-                transform: rotate(0deg);
-              }
-              to {
-                transform: rotate(360deg);
-              }
-            `}
-            render={animation => {
-              return (
-                <Logo
-                  animation={animation}
-                  css={{ height: 80 }}
-                  src={logo}
-                  alt="logo"
-                />
-              )
-            }}
+          <Keyframes keyframes={animation} />
+          <Logo
+            animation={animation}
+            css={{ height: 80 }}
+            src={logo}
+            alt="logo"
           />
-
           <h2>Welcome to React</h2>
         </header>
         <p css={{ fontSize: 'large' }}>

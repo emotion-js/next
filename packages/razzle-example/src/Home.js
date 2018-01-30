@@ -1,7 +1,7 @@
 // @flow
 // @jsx jsx
 import React, { Component } from 'react'
-import { styled, css, jsx, Global, Keyframes } from 'new-css-in-js'
+import { styled, css, jsx, Global, Keyframes, keyframes } from 'new-css-in-js'
 import logo from './react.svg'
 
 const Header = styled('header')`
@@ -10,6 +10,15 @@ const Header = styled('header')`
   padding: 20px;
   color: white;
 `
+
+const animation = keyframes(css`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`)
 
 class Home extends Component<{}> {
   render() {
@@ -20,27 +29,14 @@ class Home extends Component<{}> {
         `}
       >
         <Header>
-          <Keyframes
-            keyframes={css`
-              from {
-                transform: rotate(0deg);
-              }
-              to {
-                transform: rotate(360deg);
-              }
+          <Keyframes keyframes={animation} />
+          <img
+            src={logo}
+            css={css`
+              animation: ${animation} infinite 20s linear;
+              height: 80px;
             `}
-            render={animation => {
-              return (
-                <img
-                  src={logo}
-                  css={css`
-                    animation: ${animation} infinite 20s linear;
-                    height: 80px;
-                  `}
-                  alt="logo"
-                />
-              )
-            }}
+            alt="logo"
           />
 
           <h2>Welcome to Razzle</h2>

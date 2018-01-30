@@ -5,6 +5,23 @@ import type { CSSContextType } from './types'
 import { hydration, isBrowser } from './utils'
 import { serializeStyles } from './serialize'
 
+export const keyframes = (arg: { __styles: string }) => {
+  const serialized = serializeStyles(null, [arg])
+  const ret: {
+    toString?: () => string,
+    __serialized: typeof serialized
+  } = {
+    __serialized: serialized
+  }
+  Object.defineProperty(ret, 'toString', {
+    enumerable: false,
+    value() {
+      return `animation-${serialized.name}`
+    }
+  })
+  return ret
+}
+
 export const insertKeyframes = (
   context: CSSContextType,
   { name, styles }: { name: string, styles: string }
@@ -21,33 +38,19 @@ export const insertKeyframes = (
   return context.inserted[name]
 }
 
-// I'm not totally sure if this is the best way to do keyframes
-export const Keyframes = ({
-  keyframes,
-  render
-}: {
-  keyframes: Object,
-  render: string => React.Node
-}) => {
+export const Keyframes = ({ keyframes }: { keyframes: Object }) => {
   return (
     <CSSContext.Consumer>
       {context => {
-        return (
-          <KeyframesChild
-            keyframes={keyframes}
-            render={render}
-            context={context}
-          />
-        )
+        return <KeyframesChild keyframes={keyframes} context={context} />
       }}
     </CSSContext.Consumer>
   )
 }
 
 class KeyframesChild extends React.Component<{
-  render: string => React.Node,
   context: CSSContextType,
-  keyframes: Object
+  keyframes: { __serialized: { name: string, styles: string } }
 }> {
   shouldHydrate: boolean
   serialized: string
@@ -59,28 +62,24 @@ class KeyframesChild extends React.Component<{
     hydration.shouldHydrate = false
   }
   render() {
-    const { keyframes, render, context } = this.props
-    const serialized = serializeStyles(context.registered, [
-      typeof keyframes === 'function' ? keyframes(context.theme) : keyframes
-    ])
-    const name = `animation-${serialized.name}`
-    serialized.styles = `@keyframes ${name}{${serialized.styles}}`
+    const { keyframes, context } = this.props
+    const name = `animation-${keyframes.__serialized.name}`
+    const serialized = {
+      name,
+      styles: `@keyframes ${name}{${keyframes.__serialized.styles}}`
+    }
     const rules = insertKeyframes(context, serialized)
     if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
       this.serialized = rules
     }
-    const ele = this.props.render(name)
     if (this.shouldHydrate || !isBrowser) {
       return (
-        <React.Fragment>
-          <style
-            data-more=""
-            dangerouslySetInnerHTML={{ __html: this.serialized }}
-          />
-          {ele}
-        </React.Fragment>
+        <style
+          data-more=""
+          dangerouslySetInnerHTML={{ __html: this.serialized }}
+        />
       )
     }
-    return ele
+    return null
   }
 }
