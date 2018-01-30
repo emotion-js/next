@@ -1,6 +1,6 @@
 {
   "name": "new-css-in-js",
-  "version": "0.0.2-2",
+  "version": "0.0.3-0",
   "main": "lib/index.js",
   "files": [
     "src",
