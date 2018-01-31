@@ -2,9 +2,7 @@
 
 exports[`thing 1`] = `
 <div>
-  <style
-    data-more=""
-  >
+  <style>
     .css-k008qs {
       display: -webkit-box;
       display: -webkit-flex;

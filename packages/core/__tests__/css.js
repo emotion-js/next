@@ -35,6 +35,7 @@ expect.addSnapshotSerializer({
         node.children = [
           stringify(parse(node.props.dangerouslySetInnerHTML.__html))
         ]
+        delete node.props['data-more']
         delete node.props.dangerouslySetInnerHTML
       }
     })
