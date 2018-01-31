@@ -68,3 +68,7 @@ export let hydration = { shouldHydrate: false }
 if (isBrowser) {
   hydration.shouldHydrate = !!document.querySelector('[data-more]')
 }
+
+if (process.env.NODE_ENV === 'test') {
+  hydration.shouldHydrate = true
+}
