@@ -1,12 +1,9 @@
 {
   "name": "new-css-in-js",
   "version": "0.0.3-0",
-  "main": "lib/index.js",
-  "files": [
-    "src",
-    "dist",
-    "lib"
-  ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "files": ["src", "dist", "lib"],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -26,7 +23,8 @@
     "babel-preset-stage-0": "^6.24.1",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
-    "rollup": "^0.55.1"
+    "rollup": "^0.51.3"
   },
-  "repository": "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/core"
+  "repository":
+    "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/core"
 }

@@ -1,66 +1,75 @@
-import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
-import replace from 'rollup-plugin-replace'
 import uglify from 'rollup-plugin-uglify'
+import replace from 'rollup-plugin-replace'
+import babel from 'rollup-plugin-babel'
 import alias from 'rollup-plugin-alias'
+import cjs from 'rollup-plugin-commonjs'
 import path from 'path'
+import { rollup as lernaAliases } from 'lerna-alias'
 
 const pkg = require(path.resolve(process.cwd(), './package.json'))
 
-const config = {
-  input: './src/index.js',
-  external: [
-    'react',
-    'new-css-in-js',
-    'emotion-utils',
-    'stylis-rule-sheet',
-    'prop-types',
-    'create-react-context'
-  ],
-  exports: 'named',
-  sourcemap: true,
-  plugins: [
-    babel({
-      presets: [
-        [
-          '@babel/env',
-          {
-            loose: true,
-            modules: false
-          }
-        ],
-        '@babel/flow',
-        '@babel/react',
-        '@babel/stage-0'
+const basePlugins = [
+  cjs({ exclude: [path.join(__dirname, 'packages', '*/src/**/*')] }),
+  resolve(),
+  babel({
+    presets: [
+      [
+        '@babel/env',
+        {
+          loose: true,
+          modules: false,
+          exclude: ['transform-typeof-symbol']
+        }
       ],
-      babelrc: false
-    }),
-    commonjs(),
-    resolve()
-  ],
+      '@babel/stage-0',
+      '@babel/react',
+      '@babel/flow'
+    ],
+    plugins: ['codegen', 'closure-elimination'],
+    babelrc: false
+  })
+]
+
+const baseConfig = {
+  input: './src/index.js',
+  exports: 'named',
+  sourcemap: true
+}
+
+const baseExternal = ['react', 'prop-types', 'preact']
+
+const mainConfig = Object.assign({}, baseConfig, {
+  external: baseExternal.concat([
+    'emotion',
+    'emotion-utils',
+    'hoist-non-react-statics',
+    'stylis-rule-sheet',
+    'create-react-context'
+  ]),
+  plugins: basePlugins,
   output: [
     { file: pkg.main, format: 'cjs' },
     { file: pkg.module, format: 'es' }
   ]
-}
-const umdConfig = Object.assign({}, config, {
-  external: ['react'],
-  globals: { react: 'React' },
-  plugins: config.plugins.concat(
-    alias({
-      'new-css-in-js': path.resolve(__dirname, './packages/core/src/index.js')
-    }),
+})
+
+const umdConfig = Object.assign({}, baseConfig, {
+  plugins: [alias(lernaAliases())].concat(basePlugins).concat(
     replace({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     uglify()
   ),
-  output: {
-    file: './dist/DO-NOT-USE.min.js',
-    format: 'umd',
-    name: pkg.name
-  }
+  output: [
+    {
+      file: './dist/new-css-in-js.umd.min.js',
+      format: 'umd',
+      name: pkg.name
+    }
+  ],
+  globals: { react: 'React', 'prop-types': 'PropTypes', preact: 'preact' },
+  external: baseExternal
 })
 
-export default [config, umdConfig]
+export default [mainConfig, umdConfig]
