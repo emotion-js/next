@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test:watch": "jest --watch --verbose --env=jsdom",
-    "test": "npm-run-all -p flow lint jest",
+    "test": "npm run build && npm-run-all -p flow lint jest",
     "jest": "jest --coverage",
     "rollup": "lerna run rollup",
     "bundlesize": "bundlesize",
