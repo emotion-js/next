@@ -3,8 +3,7 @@ language: node_js
 node_js:
   - "8"
 
-before_script:
-  - yarn run bootstrap
+install: yarn
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov/bin/codecov
