@@ -4,11 +4,11 @@ exports[`thing 1`] = `
 <div>
   <style>
     .css-k008qs {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-    }
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
   </style>
   <div
     className="css-k008qs"

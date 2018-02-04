@@ -1,10 +1,11 @@
 // @flow
+import * as React from 'react'
 import type { CSSContextType } from './types'
 import StyleSheet from './sheet'
 import { isBrowser } from './utils'
 import { Stylis, hashString } from 'emotion-utils'
 import stylisRuleSheet from 'stylis-rule-sheet'
-import createReactContext, { type Context } from 'create-react-context'
+import { type Context } from 'create-react-context'
 
 const defaultContext: CSSContextType = {
   stylis: new Stylis({
@@ -41,6 +42,7 @@ const returnFullPlugin = function(context) {
 
 defaultContext.stylis.use(insertionPlugin)(returnFullPlugin)
 
-export const CSSContext: Context<CSSContextType> = createReactContext(
+// $FlowFixMe
+export const CSSContext: Context<CSSContextType> = React.createContext(
   defaultContext
 )

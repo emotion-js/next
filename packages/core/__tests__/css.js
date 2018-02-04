@@ -23,6 +23,7 @@ function markNodes(nodes) {
   })
 }
 
+// this still needs to replace hashes
 // $FlowFixMe
 expect.addSnapshotSerializer({
   test: val =>
@@ -32,6 +33,7 @@ expect.addSnapshotSerializer({
     markNodes(nodes)
     nodes.forEach(node => {
       if (typeof node.props['data-more'] === 'string') {
+        // this is probably doable without a snapshot serializer
         node.children = [
           stringify(parse(node.props.dangerouslySetInnerHTML.__html))
         ]
