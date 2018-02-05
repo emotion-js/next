@@ -1,7 +1,7 @@
 // @flow
 // @jsx jsx
 import React, { Component } from 'react'
-import { jsx, css, styled, Global, Keyframes, keyframes } from 'new-css-in-js'
+import { jsx, css, styled, Global, Style, keyframes } from 'new-css-in-js'
 import logo from './logo.svg'
 
 const headerStyle = css`
@@ -51,8 +51,8 @@ class App extends Component<{}> {
             }
           `}
         />
-        <header css={headerStyle}>
-          <Keyframes keyframes={animation} />
+        <Style styles={[animation, headerStyle]} />
+        <header className={headerStyle}>
           <Logo
             animation={animation}
             css={{ height: 80 }}

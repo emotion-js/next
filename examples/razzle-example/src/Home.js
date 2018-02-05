@@ -1,7 +1,7 @@
 // @flow
 // @jsx jsx
 import React, { Component } from 'react'
-import { styled, css, jsx, Global, Keyframes, keyframes } from 'new-css-in-js'
+import { styled, css, jsx, Global, Style, keyframes } from 'new-css-in-js'
 import logo from './react.svg'
 
 const Header = styled('header')`
@@ -29,7 +29,7 @@ class Home extends Component<{}> {
         `}
       >
         <Header>
-          <Keyframes keyframes={animation} />
+          <Style styles={animation} />
           <img
             src={logo}
             css={css`

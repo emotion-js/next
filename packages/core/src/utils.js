@@ -1,6 +1,6 @@
 // @flow
 import { memoize, unitless } from 'emotion-utils'
-import type { CSSCache, CSSContextType } from './types'
+import type { CSSCache, CSSContextType, InsertableStyles } from './types'
 
 const hyphenateRegex = /[A-Z]|^ms/g
 
@@ -43,16 +43,15 @@ export function getRegisteredStyles(
   return rawClassName
 }
 
-export const scoped = (
+export const insertStyles = (
   context: CSSContextType,
-  { name, styles }: { name: string, styles: string }
+  { name, styles, scope }: InsertableStyles
 ) => {
-  let cls = `css-${name}`
-  if (context.registered[cls] === undefined) {
-    context.registered[cls] = styles
+  if (scope !== '' && context.registered[`css-${name}`] === undefined) {
+    context.registered[`css-${name}`] = styles
   }
   if (context.inserted[name] === undefined) {
-    let rules = context.stylis(`.${cls}`, styles)
+    let rules = context.stylis(scope, styles)
     context.inserted[name] = rules.join('')
     if (isBrowser) {
       rules.forEach(rule => {
@@ -60,7 +59,7 @@ export const scoped = (
       })
     }
   }
-  return { cls, rules: context.inserted[name] }
+  return context.inserted[name]
 }
 
 export let hydration = { shouldHydrate: false }
@@ -70,5 +69,9 @@ if (isBrowser) {
 }
 
 if (process.env.NODE_ENV === 'test') {
-  hydration.shouldHydrate = true
+  // $FlowFixMe
+  Object.defineProperty(hydration, 'shouldHydrate', {
+    set: () => {},
+    get: () => true
+  })
 }

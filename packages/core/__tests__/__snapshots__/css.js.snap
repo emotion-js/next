@@ -1,5 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`css call to render 1`] = `
+<div>
+  <style>
+    .css-ulmpz9 {
+  color: green;
+}
+  </style>
+  <div
+    className="css-ulmpz9"
+  >
+    something
+  </div>
+</div>
+`;
+
+exports[`global 1`] = `
+<div>
+  <style>
+    body {
+  color: hotpink;
+}
+  </style>
+</div>
+`;
+
+exports[`keyframes 1`] = `
+<div>
+  <style>
+    @-webkit-keyframes animation-1ozfi5a {
+  from {
+    color: green;
+  }
+
+  to {
+    color: hotpink;
+  }
+}
+
+@keyframes animation-1ozfi5a {
+  from {
+    color: green;
+  }
+
+  to {
+    color: hotpink;
+  }
+}
+  </style>
+  <div>
+    animation-1ozfi5a
+  </div>
+</div>
+`;
+
 exports[`thing 1`] = `
 <div>
   <style>

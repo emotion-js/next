@@ -8,14 +8,13 @@ import {
   processStyleValue,
   isBrowser,
   getRegisteredStyles,
-  scoped,
+  insertStyles,
   hydration
 } from './utils'
 import type { CSSContextType, CSSCache } from './types'
 import { serializeStyles } from './serialize'
 import { CSSContext } from './context'
 import { Global } from './global'
-import { Keyframes } from './keyframes'
 
 type Props = {
   props: Object | null,
@@ -53,12 +52,9 @@ class Style extends React.Component<Props> {
         ? actualProps.css(context.theme)
         : actualProps.css
     )
-
-    const { cls, rules } = scoped(
-      context,
-      serializeStyles(context.registered, registeredStyles)
-    )
-    className += cls
+    const serialized = serializeStyles(context.registered, registeredStyles)
+    const rules = insertStyles(context, serialized)
+    className += serialized.toString()
     if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
       this.serialized = rules
     }
@@ -91,12 +87,7 @@ export const jsx: typeof React.createElement = (
   props: Object | null,
   ...children: Array<React.Node>
 ) => {
-  if (
-    props == null ||
-    props.css == null ||
-    type === Global ||
-    type === Keyframes
-  ) {
+  if (props == null || props.css == null || type === Global || type === Style) {
     return React.createElement(type, props, ...children)
   }
   if (process.env.NODE_ENV === 'development' && typeof props.css === 'string') {
@@ -124,5 +115,6 @@ export const jsx: typeof React.createElement = (
 export { default as Provider } from './provider'
 export { createStyles as css } from './serialize'
 export { default as styled } from './styled'
-export { Global, Keyframes }
+export { Global }
+export { Style } from './style'
 export { keyframes } from './keyframes'

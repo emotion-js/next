@@ -13,7 +13,12 @@ import {
   type StyledOptions,
   type CreateStyled
 } from './utils'
-import { getRegisteredStyles, scoped, hydration, isBrowser } from '../utils'
+import {
+  getRegisteredStyles,
+  insertStyles,
+  hydration,
+  isBrowser
+} from '../utils'
 import { serializeStyles } from '../serialize'
 import { CSSContext } from '../context'
 
@@ -93,15 +98,15 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
                 context.registered,
                 styles.concat(classInterpolations)
               )
-              const { cls, rules } = scoped(context, serialized)
+              const rules = insertStyles(context, serialized)
+              className += serialized.toString()
+
               if (
                 this.serialized === undefined &&
                 (this.shouldHydrate || !isBrowser)
               ) {
                 this.serialized = rules
               }
-
-              className += cls
 
               const ele = React.createElement(
                 baseTag,

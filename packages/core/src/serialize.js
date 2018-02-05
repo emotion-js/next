@@ -26,12 +26,13 @@ function handleInterpolation(
             interpolation(this.mergedProps, this.context)
       )
     case 'object':
-      if (interpolation.__styles !== undefined) {
-        return interpolation.__styles
-      }
-      if (interpolation.__serialized !== undefined) {
+      if (interpolation.scope === '') {
         return interpolation.toString()
       }
+      if (interpolation.styles !== undefined) {
+        return interpolation.styles
+      }
+
       return createStringFromObject.call(this, registered, interpolation)
     default:
       const cached = registered === null ? undefined : registered[interpolation]
@@ -94,7 +95,19 @@ export function createStyles(
       styles += strings[i + 1]
     }
   }, this)
-  return { __styles: styles }
+  styles = styles.replace(labelPattern, (match, p1: string) => {
+    identifierName += `-${p1}`
+    return ''
+  })
+  let name = hashString(styles) + identifierName
+
+  const ret: Object = {
+    styles,
+    name,
+    scope: `.css-${name}`,
+    toString: () => `css-${name}`
+  }
+  return ret
 }
 
 const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
@@ -102,7 +115,7 @@ const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
 export const serializeStyles = function(
   registered: CSSCache | null,
   args: Array<Interpolation>
-): { styles: string, name: string } {
+): { styles: string, name: string, scope: string } {
   let styles = ''
   let identifierName = ''
   args.forEach(function(interpolation, i) {
@@ -112,6 +125,11 @@ export const serializeStyles = function(
     identifierName += `-${p1}`
     return ''
   })
-  let name = hashString(styles + identifierName) + identifierName
-  return { styles, name }
+  let name = hashString(styles) + identifierName
+  return {
+    styles,
+    name,
+    scope: `.css-${name}`,
+    toString: () => `css-${name}`
+  }
 }

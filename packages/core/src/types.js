@@ -9,3 +9,5 @@ export type CSSContextType = {
   sheet: StyleSheet,
   theme: Object
 }
+
+export type InsertableStyles = { name: string, styles: string, scope: string }
