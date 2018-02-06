@@ -15,6 +15,7 @@ import type { CSSContextType, CSSCache } from './types'
 import { serializeStyles } from './serialize'
 import { CSSContext } from './context'
 import { Global } from './global'
+import { Dynamic } from './dynamic'
 
 type Props = {
   props: Object | null,
@@ -87,7 +88,13 @@ export const jsx: typeof React.createElement = (
   props: Object | null,
   ...children: Array<React.Node>
 ) => {
-  if (props == null || props.css == null || type === Global || type === Style) {
+  if (
+    props == null ||
+    props.css == null ||
+    type === Global ||
+    type === Style ||
+    type === Dynamic
+  ) {
     return React.createElement(type, props, ...children)
   }
   if (process.env.NODE_ENV === 'development' && typeof props.css === 'string') {
@@ -115,6 +122,6 @@ export const jsx: typeof React.createElement = (
 export { default as Provider } from './provider'
 export { css } from './css'
 export { default as styled } from './styled'
-export { Global }
+export { Global, Dynamic }
 export { Style } from './style'
 export { keyframes } from './keyframes'

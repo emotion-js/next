@@ -56,13 +56,62 @@ function makeStyleTag(opts: Options): HTMLStyleElement {
   return tag
 }
 
+export class DynamicStyleSheet {
+  injected: boolean
+  opts: Options
+  ctr: number
+  injected: boolean
+  tag: HTMLStyleElement
+  sheet: CSSStyleSheet
+  constructor(options: Options) {
+    this.ctr = 0
+    this.opts = options
+  }
+  inject() {
+    if (process.env.NODE_ENV !== 'production' && this.tag !== undefined) {
+      throw new Error('This stylesheet has already been injected')
+    }
+    this.tag = makeStyleTag(this.opts)
+    this.sheet = sheetForTag(this.tag)
+  }
+  insertRules(rules: Array<string>) {
+    this.removeRules()
+    rules.forEach(this.insert, this)
+  }
+  insert(rule: string) {
+    try {
+      this.sheet.insertRule(rule, this.ctr)
+      this.ctr++
+    } catch (e) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn(`Invalid Rule: "${rule}"`, e)
+      }
+    }
+  }
+  removeRules() {
+    if (this.ctr !== 0) {
+      while (this.ctr--) {
+        this.sheet.deleteRule(this.ctr)
+      }
+      this.ctr = 0
+    }
+  }
+  flush() {
+    //$FlowFixMe
+    this.tag.parentNode.removeChild(this.tag)
+    this.ctr = 0
+    // $FlowFixMe
+    this.tag = undefined
+    // $FlowFixMe
+    this.sheet = undefined
+  }
+}
+
 export default class StyleSheet {
   injected: boolean
   isSpeedy: boolean
   ctr: number
-  sheet: string[]
   tags: HTMLStyleElement[]
-  nonce: string | void
   opts: Options
   constructor(options: Options) {
     this.isSpeedy = process.env.NODE_ENV === 'production' // the big drawback here is that the css won't be editable in devtools

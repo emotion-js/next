@@ -1,7 +1,15 @@
 // @flow
 // @jsx jsx
-import React, { Component } from 'react'
-import { jsx, css, styled, Global, Style, keyframes } from 'new-css-in-js'
+import * as React from 'react'
+import {
+  jsx,
+  css,
+  styled,
+  Global,
+  Style,
+  keyframes,
+  Dynamic
+} from 'new-css-in-js'
 import logo from './logo.svg'
 
 const headerStyle = css`
@@ -33,7 +41,43 @@ const Logo = styled('img')`
   height: 80px;
 `
 
-class App extends Component<{}> {
+const val = () => Math.floor(Math.random() * 255)
+
+class DynamicBackground extends React.Component<
+  { children: React.Node },
+  { val: string }
+> {
+  state = {
+    val: 'rgb(0,0,0)'
+  }
+  raf: ?AnimationFrameID
+  componentDidMount() {
+    this.changeStyle()
+  }
+  changeStyle() {
+    this.raf = requestAnimationFrame(() => {
+      this.setState({ val: `rgb(${val()}, ${val()}, ${val()})` })
+      this.changeStyle()
+    })
+  }
+  componentWillUnmount() {
+    if (this.raf != null) {
+      cancelAnimationFrame(this.raf)
+    }
+  }
+  render() {
+    return (
+      <Dynamic
+        css={css([headerStyle, { backgroundColor: this.state.val }])}
+        render={className => {
+          return <header className={className}>{this.props.children}</header>
+        }}
+      />
+    )
+  }
+}
+
+class App extends React.Component<{}> {
   render() {
     return (
       <Container align="center">
@@ -52,15 +96,16 @@ class App extends Component<{}> {
           `}
         />
         <Style styles={[animation, headerStyle]} />
-        <header className={headerStyle}>
+        <DynamicBackground>
           <Logo
             animation={animation}
             css={{ height: 80 }}
             src={logo}
             alt="logo"
           />
+
           <h2>Welcome to React</h2>
-        </header>
+        </DynamicBackground>
         <p css={{ fontSize: 'large' }}>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
