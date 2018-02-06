@@ -113,7 +113,7 @@ export const jsx: typeof React.createElement = (
 }
 
 export { default as Provider } from './provider'
-export { createStyles as css } from './serialize'
+export { css } from './css'
 export { default as styled } from './styled'
 export { Global }
 export { Style } from './style'

@@ -10,4 +10,6 @@ export type CSSContextType = {
   theme: Object
 }
 
+export type Interpolation = any
+
 export type InsertableStyles = { name: string, styles: string, scope: string }

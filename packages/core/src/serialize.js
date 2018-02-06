@@ -1,11 +1,9 @@
 // @flow
-import type { CSSCache } from './types'
+import type { CSSCache, Interpolation } from './types'
 import { hashString } from 'emotion-utils'
 import { processStyleName, processStyleValue } from './utils'
 
-type Interpolation = any
-
-function handleInterpolation(
+export function handleInterpolation(
   registered: CSSCache | null,
   interpolation: Interpolation
 ): string | number {
@@ -74,43 +72,7 @@ function createStringFromObject(
   return string
 }
 
-export function createStyles(
-  strings: Interpolation | string[],
-  ...interpolations: Interpolation[]
-) {
-  let stringMode = true
-  let styles: string = ''
-  let identifierName = ''
-
-  if (strings == null || strings.raw === undefined) {
-    stringMode = false
-    styles += handleInterpolation.call(this, null, strings)
-  } else {
-    styles += strings[0]
-  }
-
-  interpolations.forEach(function(interpolation, i) {
-    styles += handleInterpolation.call(this, null, interpolation)
-    if (stringMode === true && strings[i + 1] !== undefined) {
-      styles += strings[i + 1]
-    }
-  }, this)
-  styles = styles.replace(labelPattern, (match, p1: string) => {
-    identifierName += `-${p1}`
-    return ''
-  })
-  let name = hashString(styles) + identifierName
-
-  const ret: Object = {
-    styles,
-    name,
-    scope: `.css-${name}`,
-    toString: () => `css-${name}`
-  }
-  return ret
-}
-
-const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
+export const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
 
 export const serializeStyles = function(
   registered: CSSCache | null,
