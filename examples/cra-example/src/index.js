@@ -1,10 +1,9 @@
 // @jsx jsx
-import { jsx } from 'new-css-in-js'
+import { jsx, Global } from 'new-css-in-js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 // import { injectGlobal } from 'new-css-in-js'
 import App from './App'
-import { Global } from 'new-css-in-js'
 import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(

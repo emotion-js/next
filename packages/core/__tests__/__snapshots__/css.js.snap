@@ -15,6 +15,19 @@ exports[`css call to render 1`] = `
 </div>
 `;
 
+exports[`dynamic 1`] = `
+<div>
+  <style>
+    .css-181qz4b {
+  color: hotpink;
+}
+  </style>
+  <div
+    className="css-181qz4b"
+  />
+</div>
+`;
+
 exports[`global 1`] = `
 <div>
   <style>

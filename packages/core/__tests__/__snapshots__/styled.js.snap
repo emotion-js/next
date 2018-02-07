@@ -1,0 +1,687 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`styled basic render 1`] = `
+Array [
+  <style>
+    .css-1gv3b0m {
+  color: blue;
+  font-size: 20px;
+}
+
+@media (min-width:420px) {
+  .css-1gv3b0m {
+    color: blue;
+  }
+}
+  </style>,
+  <h1
+    className="css-1gv3b0m"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled basic render with object as style 1`] = `
+Array [
+  <style>
+    .css-bk9fzy {
+  font-size: 20px;
+}
+  </style>,
+  <h1
+    className="css-bk9fzy"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled call expression 1`] = `
+Array [
+  <style>
+    .css-mdajr1 {
+  font-size: 20px;
+}
+  </style>,
+  <div
+    className="css-mdajr1"
+  >
+    hello world
+  </div>,
+]
+`;
+
+exports[`styled composing components 1`] = `
+Array [
+  <style>
+    .css-1b7ydu3 {
+  color: green;
+  display: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+  </style>,
+  <button
+    className="css-1b7ydu3"
+  >
+    hello world
+  </button>,
+]
+`;
+
+exports[`styled composition 1`] = `
+Array [
+  <style>
+    .css-16g7lb6 {
+  font-size: 20px;
+  font-size: 13.333333333333334px;
+}
+  </style>,
+  <h1
+    className="legacy__class css-16g7lb6"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled composition 2`] = `
+Array [
+  <style>
+    .css-nkwayg {
+  color: blue;
+  color: red;
+  color: blue;
+  font-size: 20px;
+  font-size: 32px;
+}
+  </style>,
+  <h1
+    className="legacy__class css-nkwayg"
+    scale={2}
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled composition based on props 1`] = `
+Array [
+  <style>
+    .css-gtv7mb {
+  color: blue;
+}
+  </style>,
+  <h1
+    className="css-gtv7mb"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled composition based on props 2`] = `
+Array [
+  <style>
+    .css-yzbqh3 {
+  color: green;
+}
+  </style>,
+  <h1
+    className="css-yzbqh3"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled composition of nested pseudo selectors 1`] = `
+Array [
+  <style>
+    .css-wsfuun {
+  font-size: 2rem;
+  padding: 16px;
+}
+
+.css-wsfuun:hover {
+  color: blue;
+}
+
+.css-wsfuun:hover:active {
+  color: red;
+}
+  </style>,
+  <button
+    className="css-wsfuun"
+  >
+    Should be purple
+  </button>,
+]
+`;
+
+exports[`styled function in expression 1`] = `
+Array [
+  <style>
+    .css-oc8k80 {
+  font-size: 20px;
+  font-size: 40px;
+}
+  </style>,
+  <h1
+    className="legacy__class css-oc8k80"
+    scale={2}
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled glamorous style api & composition 1`] = `
+Array [
+  <style>
+    .css-1yodimz {
+  font-size: 20px;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+  </style>,
+  <h1
+    className="css-1yodimz"
+    fontSize={20}
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled handles more than 10 dynamic properties 1`] = `
+Array [
+  <style>
+    .css-cl3qzr {
+  text-decoration: underline;
+  border-right: solid blue 54px;
+  background: white;
+  color: black;
+  display: block;
+  border-radius: 3px;
+  padding: 25px;
+  width: 500px;
+  z-index: 100;
+  font-size: 18px;
+  text-align: center;
+}
+  </style>,
+  <h1
+    className="legacy__class css-cl3qzr"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled higher order component 1`] = `
+Array [
+  <style>
+    .css-1dwlhgs {
+  font-size: 20px;
+  background-color: #7fc8d6;
+  background-color: '#343a40';
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+  </style>,
+  <div
+    className="css-1dwlhgs"
+  />,
+]
+`;
+
+exports[`styled inline function return value is a function 1`] = `
+Array [
+  <style>
+    .css-mdajr1 {
+  font-size: 20px;
+}
+  </style>,
+  <h1
+    className="css-mdajr1"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled innerRef 1`] = `
+Array [
+  <style>
+    .css-dae0kw {
+  font-size: 12px;
+}
+  </style>,
+  <h1
+    className="css-dae0kw"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled input placeholder 1`] = `
+Array [
+  <style>
+    .css-1uekv1x::-webkit-input-placeholder {
+  background-color: green;
+}
+
+.css-1uekv1x::-moz-placeholder {
+  background-color: green;
+}
+
+.css-1uekv1x:-ms-input-placeholder {
+  background-color: green;
+}
+
+.css-1uekv1x::placeholder {
+  background-color: green;
+}
+  </style>,
+  <input
+    className="css-1uekv1x"
+  >
+    hello world
+  </input>,
+]
+`;
+
+exports[`styled input placeholder object 1`] = `
+Array [
+  <style>
+    .css-135lywr::-webkit-input-placeholder {
+  background-color: green;
+}
+
+.css-135lywr::-moz-placeholder {
+  background-color: green;
+}
+
+.css-135lywr:-ms-input-placeholder {
+  background-color: green;
+}
+
+.css-135lywr::placeholder {
+  background-color: green;
+}
+  </style>,
+  <input
+    className="css-135lywr"
+  >
+    hello world
+  </input>,
+]
+`;
+
+exports[`styled nested 1`] = `
+Array [
+  <style>
+    .css-fdlhxa {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.css-fdlhxa div {
+  color: green;
+}
+
+.css-fdlhxa div span {
+  color: red;
+}
+  </style>,
+  <div
+    className="css-fdlhxa"
+  >
+    hello 
+    <style>
+      .css-mdajr1 {
+  font-size: 20px;
+}
+    </style>
+    <h1
+      className="css-mdajr1"
+    >
+      This will be green
+    </h1>
+     world
+  </div>,
+]
+`;
+
+exports[`styled no dynamic 1`] = `
+Array [
+  <style>
+    .css-1f7s68s {
+  float: left;
+}
+  </style>,
+  <h1
+    className="css-1f7s68s"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled no prop filtering on non string tags 1`] = `
+Array [
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>,
+  <a
+    a={true}
+    aria-label="some label"
+    b={true}
+    className="css-7o6h5j"
+    cool={true}
+    data-wow="value"
+    filtering={true}
+    href="link"
+    is={true}
+    prop={true}
+    wow={true}
+  >
+    hello world
+  </a>,
+]
+`;
+
+exports[`styled no prop filtering on string tags started with upper case 1`] = `
+Array [
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>,
+  <SomeCustomLink
+    a={true}
+    aria-label="some label"
+    b={true}
+    className="css-7o6h5j"
+    cool={true}
+    data-wow="value"
+    filtering={true}
+    href="link"
+    is={true}
+    prop={true}
+    wow={true}
+  >
+    hello world
+  </SomeCustomLink>,
+]
+`;
+
+exports[`styled object as style 1`] = `
+Array [
+  <style>
+    .css-1yodimz {
+  font-size: 20px;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+  </style>,
+  <h1
+    className="css-1yodimz"
+    fontSize={20}
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled object composition 1`] = `
+Array [
+  <style>
+    .css-1k5i427 {
+  border-radius: 50%;
+  -webkit-transition: -webkit-transform 400ms ease-in-out;
+  -webkit-transition: transform 400ms ease-in-out;
+  transition: transform 400ms ease-in-out;
+  border: 3px solid currentColor;
+  width: 96px;
+  height: 96px;
+  color: red;
+  color: blue;
+}
+
+.css-1k5i427:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+  </style>,
+  <img
+    className="css-1k5i427"
+  />,
+]
+`;
+
+exports[`styled objects 1`] = `
+Array [
+  <style>
+    .css-1b8zhb0 {
+  padding: 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+  </style>,
+  <h1
+    className="css-1b8zhb0"
+    display="flex"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled objects with spread properties 1`] = `
+Array [
+  <style>
+    .css-bk9fzy {
+  font-size: 20px;
+}
+  </style>,
+  <figure
+    className="css-bk9fzy"
+  >
+    hello world
+  </figure>,
+]
+`;
+
+exports[`styled prop filtering 1`] = `
+Array [
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>,
+  <a
+    aria-label="some label"
+    className="css-7o6h5j"
+    data-wow="value"
+    href="link"
+    is={true}
+  >
+    hello world
+  </a>,
+]
+`;
+
+exports[`styled prop filtering on composed styled components that are string tags 1`] = `
+Array [
+  <style>
+    .css-1dxilk9 {
+  background-color: hotpink;
+  color: green;
+}
+  </style>,
+  <a
+    aria-label="some label"
+    className="css-1dxilk9"
+    data-wow="value"
+    href="link"
+    is={true}
+  >
+    hello world
+  </a>,
+]
+`;
+
+exports[`styled random expressions undefined return 1`] = `
+Array [
+  <style>
+    .css-6pg9ex {
+  color: green;
+}
+  </style>,
+  <h1
+    className="legacy__class css-6pg9ex"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled random object expression 1`] = `
+Array [
+  <style>
+    .css-14bb7d4 {
+  background-color: hotpink;
+  font-size: 1rem;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  color: green;
+}
+  </style>,
+  <h1
+    className="legacy__class css-14bb7d4"
+  >
+    hello world
+  </h1>,
+]
+`;
+
+exports[`styled throws if undefined is passed as the component 1`] = `
+"You are trying to create a styled element with an undefined component.
+You may have forgotten to import it."
+`;
+
+exports[`styled with higher order component that hoists statics 1`] = `
+Array [
+  <style>
+    .css-18m13of {
+  padding: 8px;
+}
+  </style>,
+  <style>
+    .css-5jivaz {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: hotpink;
+  padding: 8px;
+}
+  </style>,
+  <div
+    className="css-5jivaz"
+  />,
+]
+`;
+
+exports[`styled withComponent does not carry styles from flattened component 1`] = `
+Array [
+  <style>
+    .css-4ecmgi {
+  color: hotpink;
+}
+  </style>,
+  <p
+    className="css-4ecmgi"
+  />,
+]
+`;
+
+exports[`styled withComponent will replace tags but keep styling classes 1`] = `
+<article>
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>
+  <h1
+    className="css-7o6h5j"
+  >
+    My Title
+  </h1>
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>
+  <h2
+    className="css-7o6h5j"
+  >
+    My Subtitle
+  </h2>
+</article>
+`;
+
+exports[`styled withComponent with function interpolation 1`] = `
+<article>
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>
+  <h1
+    className="css-7o6h5j"
+  >
+    My Title
+  </h1>
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>
+  <h2
+    className="css-7o6h5j"
+  >
+    My Subtitle
+  </h2>
+</article>
+`;

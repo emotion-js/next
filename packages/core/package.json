@@ -25,9 +25,11 @@
   },
   "devDependencies": {
     "babel-preset-stage-0": "^6.24.1",
+    "html-tag-names": "^1.1.2",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
-    "rollup": "^0.51.3"
+    "rollup": "^0.51.3",
+    "svg-tag-names": "^1.1.1"
   },
   "repository": "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/core"
 }

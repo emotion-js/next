@@ -2,13 +2,12 @@
 import * as React from 'react'
 import { STYLES_KEY } from 'emotion-utils'
 import type { ElementType } from 'react'
-import typeof ReactType from 'react'
 import {
   testOmitPropsOnComponent,
   testAlwaysTrue,
   testOmitPropsOnStringTag,
   omitAssign,
-  setTheme,
+  tags,
   type Interpolations,
   type StyledOptions,
   type CreateStyled
@@ -86,7 +85,10 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
               this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
                 theme: context.theme || this.props.theme || {}
               })
-              if (this.props.className) {
+              if (
+                this.props.className &&
+                typeof this.props.className === 'string'
+              ) {
                 className += getRegisteredStyles(
                   context.registered,
                   classInterpolations,
@@ -161,26 +163,9 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     return Styled
   }
 }
-if (process.env.NODE_ENV !== 'production' && typeof Proxy !== 'undefined') {
-  createStyled = new Proxy(createStyled, {
-    get(target, property) {
-      switch (property) {
-        // react-hot-loader tries to access this stuff
-        case '__proto__':
-        case 'name':
-        case 'prototype':
-        case 'displayName': {
-          return target[property]
-        }
-        default: {
-          throw new Error(
-            `You're trying to use the styled shorthand without babel-plugin-emotion.` +
-              `\nPlease install and setup babel-plugin-emotion or use the function call syntax(\`styled('${property}')\` instead of \`styled.${property}\`)`
-          )
-        }
-      }
-    }
-  })
-}
+
+tags.forEach(tagName => {
+  createStyled[tagName] = createStyled(tagName)
+})
 
 export default createStyled
