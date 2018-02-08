@@ -45,22 +45,27 @@ export function getRegisteredStyles(
 
 export const insertStyles = (
   context: CSSContextType,
-  // $FlowFixMe
-  { name, styles, type }: InsertableStyles
+  insertable: InsertableStyles
 ) => {
-  if (type === 1 && context.registered[`css-${name}`] === undefined) {
-    context.registered[`css-${name}`] = styles
+  if (
+    insertable.type === 1 &&
+    context.registered[`css-${insertable.name}`] === undefined
+  ) {
+    context.registered[`css-${insertable.name}`] = insertable.styles
   }
-  if (context.inserted[name] === undefined) {
-    let rules = context.stylis(type === 1 ? `.css-${name}` : '', styles)
-    context.inserted[name] = rules.join('')
+  if (context.inserted[insertable.name] === undefined) {
+    let rules = context.stylis(
+      insertable.type === 1 ? `.css-${insertable.name}` : '',
+      insertable.styles
+    )
+    context.inserted[insertable.name] = rules.join('')
     if (isBrowser) {
       rules.forEach(rule => {
         context.sheet.insert(rule)
       })
     }
   }
-  return context.inserted[name]
+  return context.inserted[insertable.name]
 }
 
 export let hydration = { shouldHydrate: false }
