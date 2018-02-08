@@ -40,7 +40,13 @@ test('keyframes', () => {
   const tree = renderer.create(
     <div>
       <Style styles={animation} />
-      <div>{animation.toString()}</div>
+      <div
+        css={css`
+          animation: ${animation}${true};
+        `}
+      >
+        {animation.toString()}
+      </div>
     </div>
   )
 
@@ -76,4 +82,20 @@ test('dynamic', () => {
   )
 
   expect(tree.toJSON()).toMatchSnapshot()
+})
+
+test('functions get toStringed in css calls', () => {
+  expect(
+    css`
+      ${() => {}};
+    `
+  ).toMatchSnapshot()
+})
+
+test('css call composition', () => {
+  const first = css`
+    color: hotpink;
+  `
+  const second = css({ ':hover': first })
+  expect(second).toMatchSnapshot()
 })

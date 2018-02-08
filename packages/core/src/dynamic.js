@@ -30,8 +30,11 @@ export class Dynamic extends React.Component<Props> {
       <CSSContext.Consumer>
         {context => {
           const { css } = this.props
-          const serialized = serializeStyles(context.registered, [css])
-          const rules = context.stylis(serialized.scope, serialized.styles)
+          const serialized = serializeStyles([css])
+          const rules = context.stylis(
+            `.css-${serialized.name}`,
+            serialized.styles
+          )
           if (this.sheet === undefined && isBrowser) {
             this.sheet = new DynamicStyleSheet(StyleSheetOptions)
             this.sheet.inject()
@@ -46,7 +49,7 @@ export class Dynamic extends React.Component<Props> {
           ) {
             this.serialized = rules.join('')
           }
-          const child = this.props.render(serialized.toString())
+          const child = this.props.render(serialized.cls)
           if (this.shouldHydrate || !isBrowser) {
             return (
               <React.Fragment>

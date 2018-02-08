@@ -5,13 +5,15 @@ import type { CSSContextType, InsertableStyles } from './types'
 import { hydration, isBrowser, insertStyles } from './utils'
 import { serializeStyles } from './serialize'
 
-export const keyframes = (arg: { styles: string, name: string }) => {
+export const keyframes = (arg: InsertableStyles): InsertableStyles => {
   const name = `animation-${arg.name}`
   const ret = {
     styles: `@keyframes ${name}{${arg.styles}}`,
     name,
-    scope: '',
-    toString: () => `animation-${arg.name}`
+    type: 2,
+    toString: function() {
+      return this.name
+    }
   }
   return ret
 }

@@ -12,4 +12,18 @@ export type CSSContextType = {
 
 export type Interpolation = any
 
-export type InsertableStyles = { name: string, styles: string, scope: string }
+export type ScopedInsertableStyles = {
+  name: string,
+  styles: string,
+  type: 1,
+  cls: string
+}
+export type KeyframesInsertableStyles = {
+  name: string,
+  styles: string,
+  type: 2
+}
+
+export type InsertableStyles =
+  | ScopedInsertableStyles
+  | KeyframesInsertableStyles

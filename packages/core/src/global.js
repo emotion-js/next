@@ -36,10 +36,7 @@ class GlobalChild extends React.Component<{
     this.shouldHydrate = hydration.shouldHydrate
   }
   componentWillMount() {
-    this.insert(
-      this.props.context,
-      serializeStyles(this.props.context.registered, [this.props.css])
-    )
+    this.insert(this.props.context, serializeStyles([this.props.css]))
   }
   componentWillUnmount() {
     this.sheet.flush()
@@ -54,9 +51,7 @@ class GlobalChild extends React.Component<{
     ) {
       return
     }
-    let serialized = serializeStyles(this.props.context.registered, [
-      this.props.css
-    ])
+    let serialized = serializeStyles([this.props.css])
     if (serialized.name !== this.oldName) {
       this.insert(nextProps.context, serialized)
     }

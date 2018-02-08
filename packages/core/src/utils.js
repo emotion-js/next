@@ -35,7 +35,7 @@ export function getRegisteredStyles(
 
   classNames.split(' ').forEach(className => {
     if (registered[className] !== undefined) {
-      registeredStyles.push(className)
+      registeredStyles.push(registered[className])
     } else {
       rawClassName += `${className} `
     }
@@ -45,13 +45,14 @@ export function getRegisteredStyles(
 
 export const insertStyles = (
   context: CSSContextType,
-  { name, styles, scope }: InsertableStyles
+  // $FlowFixMe
+  { name, styles, type }: InsertableStyles
 ) => {
-  if (scope !== '' && context.registered[`css-${name}`] === undefined) {
+  if (type === 1 && context.registered[`css-${name}`] === undefined) {
     context.registered[`css-${name}`] = styles
   }
   if (context.inserted[name] === undefined) {
-    let rules = context.stylis(scope, styles)
+    let rules = context.stylis(type === 1 ? `.css-${name}` : '', styles)
     context.inserted[name] = rules.join('')
     if (isBrowser) {
       rules.forEach(rule => {
@@ -75,3 +76,6 @@ if (process.env.NODE_ENV === 'test') {
     get: () => true
   })
 }
+
+export const SCOPED_TYPE = 1
+export const KEYFRAMES_TYPE = 2

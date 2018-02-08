@@ -269,7 +269,7 @@ describe('styled', () => {
 
   test('function in expression', () => {
     const fontSize = 20
-    const H1 = styled('h1')`
+    const H1 = styled('h1', { label: 'H1' })`
       font-size: ${fontSize + 'px'};
     `
 

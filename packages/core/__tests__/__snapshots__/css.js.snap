@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`css call composition 1`] = `
+Object {
+  "name": "d4uv9l",
+  "styles": ":hover{
+    color: hotpink;
+  }",
+  "toString": [Function],
+  "type": 1,
+}
+`;
+
 exports[`css call to render 1`] = `
 <div>
   <style>
@@ -26,6 +37,17 @@ exports[`dynamic 1`] = `
     className="css-181qz4b"
   />
 </div>
+`;
+
+exports[`functions get toStringed in css calls 1`] = `
+Object {
+  "name": "1qc3tyc",
+  "styles": "
+      function () {};
+    ",
+  "toString": [Function],
+  "type": 1,
+}
 `;
 
 exports[`global 1`] = `
@@ -61,7 +83,15 @@ exports[`keyframes 1`] = `
   }
 }
   </style>
-  <div>
+  <style>
+    .css-rwyxac {
+  -webkit-animation: animation-1ozfi5a;
+  animation: animation-1ozfi5a;
+}
+  </style>
+  <div
+    className="css-rwyxac"
+  >
     animation-1ozfi5a
   </div>
 </div>

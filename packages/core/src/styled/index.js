@@ -97,11 +97,10 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
               }
               const serialized = serializeStyles.call(
                 this,
-                context.registered,
                 styles.concat(classInterpolations)
               )
               const rules = insertStyles(context, serialized)
-              className += serialized.toString()
+              className += serialized.cls
 
               if (
                 this.serialized === undefined &&

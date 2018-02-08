@@ -1,25 +1,25 @@
 // @flow
-import type { CSSCache, Interpolation } from './types'
+import type { CSSCache, Interpolation, ScopedInsertableStyles } from './types'
 import { hashString } from 'emotion-utils'
 import { handleInterpolation, labelPattern } from './serialize'
 
 export function css(
   strings: Interpolation | string[],
   ...interpolations: Interpolation[]
-) {
+): ScopedInsertableStyles & { toString: () => string } {
   let stringMode = true
   let styles: string = ''
   let identifierName = ''
 
   if (strings == null || strings.raw === undefined) {
     stringMode = false
-    styles += handleInterpolation.call(this, null, strings)
+    styles += handleInterpolation.call(this, strings)
   } else {
     styles += strings[0]
   }
 
   interpolations.forEach(function(interpolation, i) {
-    styles += handleInterpolation.call(this, null, interpolation)
+    styles += handleInterpolation.call(this, interpolation)
     if (stringMode === true && strings[i + 1] !== undefined) {
       styles += strings[i + 1]
     }
@@ -32,23 +32,14 @@ export function css(
 
   const ret: Object = {
     styles,
+    type: 1,
     get name() {
-      if (name === undefined) {
-        name = hashString(styles) + identifierName
-      }
-      return name
+      delete this.name
+      this.name = hashString(styles) + identifierName
+      return this.name
     },
-    get scope() {
-      if (name === undefined) {
-        name = hashString(styles) + identifierName
-      }
-      return `.css-${name}`
-    },
-    toString: () => {
-      if (name === undefined) {
-        name = hashString(styles) + identifierName
-      }
-      return `css-${name}`
+    toString() {
+      return `css-${this.name}`
     }
   }
   return ret

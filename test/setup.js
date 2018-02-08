@@ -30,9 +30,16 @@ expect.addSnapshotSerializer({
     nodes.forEach(node => {
       if (typeof node.props['data-more'] === 'string') {
         // this is probably doable without a snapshot serializer
-        node.children = [
-          stringify(parse(node.props.dangerouslySetInnerHTML.__html))
-        ]
+        try {
+          node.children = [
+            stringify(parse(node.props.dangerouslySetInnerHTML.__html))
+          ]
+        } catch (e) {
+          throw new Error(
+            `Error parsing css: ${node.props.dangerouslySetInnerHTML.__html}`
+          )
+        }
+
         delete node.props['data-more']
         delete node.props.dangerouslySetInnerHTML
       }

@@ -169,13 +169,13 @@ Array [
 exports[`styled function in expression 1`] = `
 Array [
   <style>
-    .css-oc8k80 {
+    .css-oc8k80-H1 {
   font-size: 20px;
   font-size: 40px;
 }
   </style>,
   <h1
-    className="legacy__class css-oc8k80"
+    className="legacy__class css-oc8k80-H1"
     scale={2}
   >
     hello world

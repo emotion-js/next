@@ -53,9 +53,9 @@ class Style extends React.Component<Props> {
         ? actualProps.css(context.theme)
         : actualProps.css
     )
-    const serialized = serializeStyles(context.registered, registeredStyles)
+    const serialized = serializeStyles(registeredStyles)
     const rules = insertStyles(context, serialized)
-    className += serialized.toString()
+    className += serialized.cls
     if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
       this.serialized = rules
     }
