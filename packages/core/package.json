@@ -1,35 +1,28 @@
 {
-  "name": "new-css-in-js",
-  "version": "0.0.4-0",
+  "name": "@emotion/core",
+  "version": "0.0.1",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": [
-    "src",
-    "dist",
-    "lib"
-  ],
+  "files": ["src", "dist"],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all clean rollup",
     "clean": "rimraf dist",
-    "rollup": "rollup -c ../../rollup.config.js",
-    "babel": "babel src -d lib"
+    "rollup": "rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "babel-cli": "^6.26.0",
-    "create-react-context": "^0.1.4",
-    "emotion-utils": "^8.0.12",
-    "stylis": "^3.2.11",
-    "stylis-rule-sheet": "^0.0.7"
+    "emotion-utils": "^9.0.0",
+    "@emotion/sheet": "^0.0.1",
+    "@emotion/types": "^0.0.1",
+    "@emotion/utils": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": ">=16.3.0 || 16.3.0-alpha.0"
   },
   "devDependencies": {
-    "babel-preset-stage-0": "^6.24.1",
     "html-tag-names": "^1.1.2",
-    "npm-run-all": "^4.0.2",
-    "rimraf": "^2.6.1",
-    "rollup": "^0.51.3",
     "svg-tag-names": "^1.1.1"
   },
-  "repository": "https://github.com/mitchellhamilton/new-css-in-js/tree/master/packages/core"
+  "repository": "https://github.com/emotion/next/tree/master/packages/core"
 }

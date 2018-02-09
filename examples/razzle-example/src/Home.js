@@ -1,7 +1,11 @@
 // @flow
-// @jsx jsx
-import React, { Component } from 'react'
-import { styled, css, jsx, Global, Style, keyframes } from 'new-css-in-js'
+/** @jsx jsx */
+import { Component } from 'react'
+import styled from '@emotion/styled'
+import jsx from '@emotion/jsx'
+import Style from '@emotion/style'
+import css from '@emotion/css'
+import keyframes from '@emotion/keyframes'
 import logo from './react.svg'
 
 const Header = styled('header')`

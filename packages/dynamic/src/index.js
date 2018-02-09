@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react'
-import { hydration, isBrowser, insertStyles } from './utils'
-import { serializeStyles } from './serialize'
-import { CSSContext } from './context'
-import { DynamicStyleSheet } from './sheet'
+import { hydration, CSSContext } from '@emotion/core'
+import { isBrowser } from '@emotion/utils'
+import { serializeStyles } from '@emotion/serialize'
+import { DynamicStyleSheet } from '@emotion/sheet'
 
 type Props = {
   css: Object,
@@ -12,11 +12,12 @@ type Props = {
 
 const StyleSheetOptions = { key: 'dynamic' }
 
-export class Dynamic extends React.Component<Props> {
+class Dynamic extends React.Component<Props> {
   shouldHydrate: boolean
   serialized: string
   shouldHydrate = hydration.shouldHydrate
   sheet: DynamicStyleSheet
+  static __emotion_component = true
   componentDidMount() {
     hydration.shouldHydrate = false
   }
@@ -67,3 +68,5 @@ export class Dynamic extends React.Component<Props> {
     )
   }
 }
+
+export default Dynamic

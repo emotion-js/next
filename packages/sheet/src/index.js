@@ -97,7 +97,7 @@ export class DynamicStyleSheet {
     }
   }
   flush() {
-    //$FlowFixMe
+    // $FlowFixMe
     this.tag.parentNode.removeChild(this.tag)
     this.ctr = 0
     // $FlowFixMe

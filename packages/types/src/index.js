@@ -1,6 +1,11 @@
 // @flow
-import StyleSheet from './sheet'
 export type CSSCache = { [string]: string }
+
+interface StyleSheet {
+  insert(rule: string): void;
+  inject(): void;
+  flush(): void;
+}
 
 export type CSSContextType = {
   stylis: Function,
@@ -27,3 +32,6 @@ export type KeyframesInsertableStyles = {
 export type InsertableStyles =
   | ScopedInsertableStyles
   | KeyframesInsertableStyles
+
+export const SCOPED_TYPE = 1
+export const KEYFRAMES_TYPE = 2

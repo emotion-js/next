@@ -12,14 +12,9 @@ import {
   type StyledOptions,
   type CreateStyled
 } from './utils'
-import {
-  getRegisteredStyles,
-  insertStyles,
-  hydration,
-  isBrowser
-} from '../utils'
-import { serializeStyles } from '../serialize'
-import { CSSContext } from '../context'
+import { hydration, CSSContext } from '@emotion/core'
+import { getRegisteredStyles, insertStyles, isBrowser } from '@emotion/utils'
+import { serializeStyles } from '@emotion/serialize'
 
 let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
   if (process.env.NODE_ENV !== 'production') {

@@ -9,5 +9,6 @@
 [lints]
 
 [options]
-module.name_mapper='^\(new-css-in-js\)$' -> '<PROJECT_ROOT>/packages/core/src'
-[strict]
+module.name_mapper='^@emotion\/\([a-zA-Z0-9_\-]+\)$' -> '<PROJECT_ROOT>/packages/\1/src/index'
+
+module.name_mapper='^@emotion\/sheet$' -> '<PROJECT_ROOT>/packages/sheet/src/index'

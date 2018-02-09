@@ -15,10 +15,7 @@ module.exports = {
     'standard/computed-property-even-spacing': 0,
     'no-template-curly-in-string': 0,
     'no-undef': 0,
-    camelcase: 0,
-    // I think this regex is wrong
-    // https://github.com/yannickcr/eslint-plugin-react/blob/master/lib/util/pragma.js#L7
-    'no-unused-vars': 0
+    camelcase: 0
   },
   overrides: [
     {

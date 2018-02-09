@@ -1,9 +1,9 @@
 // @flow
-import type { CSSCache, Interpolation, ScopedInsertableStyles } from './types'
+import type { Interpolation, ScopedInsertableStyles } from '@emotion/types'
 import { hashString } from 'emotion-utils'
-import { handleInterpolation, labelPattern } from './serialize'
+import { handleInterpolation, labelPattern } from '@emotion/serialize'
 
-export function css(
+function css(
   strings: Interpolation | string[],
   ...interpolations: Interpolation[]
 ): ScopedInsertableStyles & { toString: () => string } {
@@ -28,7 +28,6 @@ export function css(
     identifierName += `-${p1}`
     return ''
   })
-  let name
 
   const ret: Object = {
     styles,
@@ -44,3 +43,5 @@ export function css(
   }
   return ret
 }
+
+export default css

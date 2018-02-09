@@ -1,16 +1,16 @@
 // @flow
 import * as React from 'react'
-import { CSSContext } from './context'
-import type { CSSContextType } from './types'
-import StyleSheet from './sheet'
-import { hydration, isBrowser } from './utils'
-import { serializeStyles } from './serialize'
+import { CSSContext, hydration } from '@emotion/core'
+import type { CSSContextType } from '@emotion/types'
+import StyleSheet from '@emotion/sheet'
+import { isBrowser } from '@emotion/utils'
+import { serializeStyles } from '@emotion/serialize'
 
 type GlobalProps = {
   css: Object
 }
 
-export const Global = ({ css }: GlobalProps) => {
+const Global = ({ css }: GlobalProps) => {
   return (
     <CSSContext.Consumer>
       {context => {
@@ -19,6 +19,8 @@ export const Global = ({ css }: GlobalProps) => {
     </CSSContext.Consumer>
   )
 }
+
+Global.__emotion_component = true
 
 class GlobalChild extends React.Component<{
   ...GlobalProps,
@@ -56,6 +58,7 @@ class GlobalChild extends React.Component<{
       this.insert(nextProps.context, serialized)
     }
   }
+  // TODO: move all this stuff to render
   insert(
     context: CSSContextType,
     { name, styles }: { name: string, styles: string }
@@ -93,3 +96,5 @@ class GlobalChild extends React.Component<{
     return null
   }
 }
+
+export default Global

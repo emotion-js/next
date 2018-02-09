@@ -1,11 +1,10 @@
 // @flow
 import * as React from 'react'
-import { CSSContext } from './context'
-import type { CSSContextType, InsertableStyles } from './types'
-import { hydration, isBrowser, insertStyles } from './utils'
-import { serializeStyles } from './serialize'
+import { CSSContext, hydration } from '@emotion/core'
+import type { InsertableStyles } from '@emotion/types'
+import { isBrowser, insertStyles } from '@emotion/utils'
 
-export class Style extends React.Component<{
+export default class Style extends React.Component<{
   styles: InsertableStyles | Array<InsertableStyles>
 }> {
   shouldHydrate: boolean

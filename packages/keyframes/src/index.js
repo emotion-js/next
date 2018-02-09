@@ -1,17 +1,11 @@
 // @flow
-import * as React from 'react'
-import { CSSContext } from './context'
 import type {
   CSSContextType,
   ScopedInsertableStyles,
   KeyframesInsertableStyles
-} from './types'
-import { hydration, isBrowser, insertStyles } from './utils'
-import { serializeStyles } from './serialize'
+} from '@emotion/types'
 
-export const keyframes = (
-  arg: ScopedInsertableStyles
-): KeyframesInsertableStyles => {
+const keyframes = (arg: ScopedInsertableStyles): KeyframesInsertableStyles => {
   const name = `animation-${arg.name}`
   const ret = {
     styles: `@keyframes ${name}{${arg.styles}}`,
@@ -23,3 +17,5 @@ export const keyframes = (
   }
   return ret
 }
+
+export default keyframes

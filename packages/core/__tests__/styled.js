@@ -2,9 +2,10 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import hoistNonReactStatics from 'hoist-non-react-statics'
-import { styled, css } from 'new-css-in-js'
-import { mount } from 'enzyme'
-import enzymeToJson from 'enzyme-to-json'
+import styled from '@emotion/styled'
+// import { mount } from 'enzyme'
+// import enzymeToJson from 'enzyme-to-json'
+import css from '@emotion/css'
 
 describe('styled', () => {
   test('no dynamic', () => {

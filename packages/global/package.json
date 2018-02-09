@@ -1,0 +1,18 @@
+{
+  "name": "@emotion/global",
+  "version": "0.0.1",
+  "description": "React component to render global styles for emotion",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "license": "MIT",
+  "repository":
+    "https://github.com/emotion-js/next/tree/master/packages/global",
+  "dependencies": {
+    "@emotion/utils": "^0.0.1",
+    "@emotion/sheet": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": ">=16.3.0 || 16.3.0-alpha.0",
+    "@emotion/core": "^0.0.1"
+  }
+}

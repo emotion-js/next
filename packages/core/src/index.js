@@ -1,127 +1,82 @@
 // @flow
+import { isBrowser } from '@emotion/utils'
 import * as React from 'react'
-import { Stylis, hashString } from 'emotion-utils'
-import stylisRuleSheet from 'stylis-rule-sheet'
-import StyleSheet from './sheet'
-import {
-  processStyleName,
-  processStyleValue,
-  isBrowser,
-  getRegisteredStyles,
-  insertStyles,
-  hydration
-} from './utils'
-import type { CSSContextType, CSSCache } from './types'
-import { serializeStyles } from './serialize'
-import { CSSContext } from './context'
-import { Global } from './global'
-import { Dynamic } from './dynamic'
+import type { CSSContextType } from '@emotion/types'
+import StyleSheet from '@emotion/sheet'
+import { Stylis } from 'emotion-utils'
+import stylisRuleSheet from './rule-sheet'
 
-type Props = {
-  props: Object | null,
-  type: React.ElementType,
-  children: Array<React.Node>,
-  context: CSSContextType
+type RenderFn<T> = (value: T) => React.Node
+
+export type ProviderProps<T> = {
+  value: T,
+  children?: React.Node
 }
 
-class Style extends React.Component<Props> {
-  shouldHydrate: boolean
-  serialized: string
-  constructor(props) {
-    super(props)
-    this.shouldHydrate = hydration.shouldHydrate
+export type ConsumerProps<T> = {
+  children: RenderFn<T> | [RenderFn<T>]
+}
+
+export type ConsumerState<T> = {
+  value: T
+}
+
+export type Provider<T> = React.Component<ProviderProps<T>>
+export type Consumer<T> = React.Component<ConsumerProps<T>, ConsumerState<T>>
+
+export type Context<T> = {
+  Provider: Class<Provider<T>>,
+  Consumer: Class<Consumer<T>>
+}
+
+export let hydration = { shouldHydrate: false }
+
+if (isBrowser) {
+  hydration.shouldHydrate = !!document.querySelector('[data-more]')
+}
+
+if (process.env.NODE_ENV === 'test') {
+  // $FlowFixMe
+  Object.defineProperty(hydration, 'shouldHydrate', {
+    set: () => {},
+    get: () => true
+  })
+}
+
+const defaultContext: CSSContextType = {
+  stylis: new Stylis({
+    keyframe: false,
+    global: false,
+    semicolon: true
+  }),
+  sheet: new StyleSheet({ key: '' }),
+  inserted: {},
+  registered: {},
+  theme: {}
+}
+
+if (isBrowser) {
+  defaultContext.sheet.inject()
+}
+
+let current
+
+const insertionPlugin = stylisRuleSheet(function(rule: string) {
+  current.push(rule)
+})
+
+const returnFullPlugin = function(context) {
+  if (context === -1) {
+    current = []
   }
-  componentDidMount() {
-    hydration.shouldHydrate = false
-  }
-  render() {
-    const { props, type, children, context } = this.props
-    let actualProps = props || {}
-
-    let registeredStyles = []
-
-    let className = ''
-    if (actualProps.className !== undefined) {
-      className = getRegisteredStyles(
-        context.registered,
-        registeredStyles,
-        actualProps.className
-      )
-    }
-    registeredStyles.push(
-      typeof actualProps.css === 'function'
-        ? actualProps.css(context.theme)
-        : actualProps.css
-    )
-    const serialized = serializeStyles(registeredStyles)
-    const rules = insertStyles(context, serialized)
-    className += serialized.cls
-    if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
-      this.serialized = rules
-    }
-
-    const newProps = {
-      ...actualProps,
-      className
-    }
-    delete newProps.css
-    const ele = React.createElement(type, newProps, ...children)
-    if (this.shouldHydrate || !isBrowser) {
-      return (
-        <React.Fragment>
-          <style
-            data-more=""
-            dangerouslySetInnerHTML={{ __html: this.serialized }}
-          />
-          {ele}
-        </React.Fragment>
-      )
-    }
-    return ele
+  if (context === -2) {
+    return current
   }
 }
 
-// todo: make it so this type checks props with flow correctly
+defaultContext.stylis.use(insertionPlugin)(returnFullPlugin)
+
 // $FlowFixMe
-export const jsx: typeof React.createElement = (
-  type: React.ElementType,
-  props: Object | null,
-  ...children: Array<React.Node>
-) => {
-  if (
-    props == null ||
-    props.css == null ||
-    type === Global ||
-    type === Style ||
-    type === Dynamic
-  ) {
-    return React.createElement(type, props, ...children)
-  }
-  if (process.env.NODE_ENV === 'development' && typeof props.css === 'string') {
-    throw new Error(
-      `Strings are not allowed as css prop values, please wrap it in a css template literal like this: css\`${
-        props.css
-      }\``
-    )
-  }
-
-  return (
-    <CSSContext.Consumer>
-      {context => (
-        <Style
-          props={props}
-          type={type}
-          children={children}
-          context={context}
-        />
-      )}
-    </CSSContext.Consumer>
-  )
-}
-
-export { default as Provider } from './provider'
-export { css } from './css'
-export { default as styled } from './styled'
-export { Global, Dynamic }
-export { Style } from './style'
-export { keyframes } from './keyframes'
+export const CSSContext: Context<CSSContextType> = React.createContext(
+  defaultContext
+)

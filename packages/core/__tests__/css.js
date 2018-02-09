@@ -1,7 +1,11 @@
 // @flow
-// @jsx jsx
-import * as React from 'react'
-import { jsx, css, Style, keyframes, Global, Dynamic } from 'new-css-in-js'
+/** @jsx jsx */
+import jsx from '@emotion/jsx'
+import Style from '@emotion/style'
+import Global from '@emotion/global'
+import Dynamic from '@emotion/dynamic'
+import css from '@emotion/css'
+import keyframes from '@emotion/keyframes'
 import renderer from 'react-test-renderer'
 
 test('thing', () => {

@@ -7,17 +7,12 @@
   "license": "MIT",
   "scripts": {
     "test:watch": "jest --watch --verbose --env=jsdom",
-    "test": "npm run build && npm-run-all -p flow lint jest",
+    "test": "npm run build && npm-run-all -p flow lint coverage",
     "jest": "jest --coverage",
-    "rollup": "lerna run rollup",
-    "bundlesize": "bundlesize",
-    "test:size": "npm-run-all rollup bundlesize",
-    "build": "npm run rollup",
+    "test:size": "npm-run-all build bundlesize",
+    "build": "node scripts/build",
     "lint": "eslint .",
     "coverage": "jest --coverage --ci --runInBand",
-    "bootstrap": "lerna bootstrap",
-    "benchmark":
-      "npm run rollup && lerna exec --scope benchmarks npm run benchmark",
     "build:example": "lerna exec --scope example npm run build",
     "start:example": "lerna exec --scope example npm run start",
     "babel": "lerna run babel",
@@ -26,13 +21,6 @@
   "dependencies": {
     "babel-plugin-preval": "^1.5.0",
     "stylis": "^3.2.11"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "^new-css-in-js$": "<rootDir>/packages/core/src",
-      "^react-new-css-in-js$": "<rootDir>/packages/react/src",
-      "^new-css-in-js-server$": "<rootDir>/packages/server/src"
-    }
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.39",
@@ -84,5 +72,5 @@
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^3.0.0"
   },
-  "workspaces": ["packages/*", "examples/*"]
+  "workspaces": ["packages/*", "examples/*", "scripts/*"]
 }

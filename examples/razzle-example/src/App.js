@@ -1,10 +1,12 @@
 // @flow
-// @jsx jsx
+/** @jsx jsx */
 import * as React from 'react'
 import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
 import Home from './Home'
-import { Global, css, jsx } from 'new-css-in-js'
+import Global from '@emotion/global'
+import jsx from '@emotion/jsx'
+import css from '@emotion/css'
 
 const App = () => (
   <React.Fragment>
