@@ -1,6 +1,6 @@
 {
   "name": "@emotion/utils",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "internal utils for emotion",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",

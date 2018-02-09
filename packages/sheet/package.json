@@ -1,6 +1,6 @@
 {
   "name": "@emotion/sheet",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "emotion's stylesheet",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",

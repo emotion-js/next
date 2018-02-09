@@ -1,18 +1,18 @@
 {
   "name": "@emotion/dynamic",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "React component to render highly dynamic styles for emotion",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "license": "MIT",
   "repository": "https://github.com/emotion-js/next/tree/master/packages/dynamic",
   "dependencies": {
-    "@emotion/sheet": "^0.0.1",
-    "@emotion/utils": "^0.0.1"
+    "@emotion/sheet": "^0.0.4",
+    "@emotion/utils": "^0.0.4"
   },
   "peerDependencies": {
-    "react": ">=16.3.0 || 16.3.0-alpha.0",
-    "@emotion/core": "^0.0.1"
+    "@emotion/core": "^0.0.1",
+    "react": ">=16.3.0 || 16.3.0-alpha.0"
   },
   "publishConfig": {
     "access": "public"

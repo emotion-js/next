@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "0.0.4-0",
+  "version": "0.0.4",
   "private": true,
   "dependencies": {
     "new-css-in-js": "^0.0.4-0",
