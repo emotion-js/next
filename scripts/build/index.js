@@ -75,4 +75,16 @@ export * from '../src/index.js'${
   )
 }
 
+// async function changePackages(packages) {
+//   await Promise.all(
+//     packages.map(async pkg => {
+//       pkg.pkg.publishConfig = { access: 'public' }
+//       await writeFile(
+//         path.resolve(pkg.path, 'package.json'),
+//         JSON.stringify(pkg.pkg, null, 2)
+//       )
+//     })
+//   )
+// }
+
 doBuild()

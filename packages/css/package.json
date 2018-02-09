@@ -10,5 +10,8 @@
     "@emotion/types": "^0.0.1",
     "@emotion/serialize": "^0.0.1",
     "emotion-utils": "^9.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

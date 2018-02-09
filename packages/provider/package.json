@@ -1,14 +1,15 @@
 {
   "name": "@emotion/provider",
   "version": "0.0.1",
-  "description":
-    "A provider component to provide options to emotion and allow theming",
+  "description": "A provider component to provide options to emotion and allow theming",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "license": "MIT",
-  "repository":
-    "https://github.com/emotion-js/next/tree/master/packages/provider",
+  "repository": "https://github.com/emotion-js/next/tree/master/packages/provider",
   "peerDependencies": {
     "react": ">=16.3.0 || 16.3.0-alpha.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

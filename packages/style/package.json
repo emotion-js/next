@@ -12,5 +12,8 @@
   "peerDependencies": {
     "react": ">=16.3.0 || 16.3.0-alpha.0",
     "@emotion/core": "0.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

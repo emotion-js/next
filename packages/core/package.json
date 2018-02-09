@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -24,5 +27,8 @@
     "html-tag-names": "^1.1.2",
     "svg-tag-names": "^1.1.1"
   },
-  "repository": "https://github.com/emotion/next/tree/master/packages/core"
+  "repository": "https://github.com/emotion/next/tree/master/packages/core",
+  "publishConfig": {
+    "access": "public"
+  }
 }
