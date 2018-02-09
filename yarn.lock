@@ -4325,6 +4325,10 @@ emotion-utils@^8.0.12:
   version "8.0.12"
   resolved "https://registry.yarnpkg.com/emotion-utils/-/emotion-utils-8.0.12.tgz#5e0fd72db3008f26ce4f80b1972df08841df2168"
 
+emotion-utils@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/emotion-utils/-/emotion-utils-9.0.0.tgz#e34099f6f8566d4f30932363cffbc29fbdcd3294"
+
 encodeurl@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
