@@ -1,6 +1,6 @@
 {
   "name": "@emotion/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "files": [
@@ -15,11 +15,11 @@
     "rollup": "rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "@emotion/sheet": "^0.0.5",
-    "@emotion/types": "^0.0.5",
-    "@emotion/utils": "^0.1.0",
-    "emotion-utils": "^9.0.0",
-    "@emotion/cache": "^0.1.0"
+    "@emotion/cache": "^0.2.0",
+    "@emotion/sheet": "^0.2.0",
+    "@emotion/types": "^0.2.0",
+    "@emotion/utils": "^0.2.0",
+    "emotion-utils": "^9.0.0"
   },
   "peerDependencies": {
     "react": ">=16.3.0 || 16.3.0-alpha.0"
