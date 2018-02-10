@@ -66,7 +66,10 @@ class DynamicBackground extends React.Component<
   render() {
     return (
       <Dynamic
-        css={css([headerStyle, { backgroundColor: this.state.val }])}
+        css={css([
+          headerStyle,
+          { backgroundColor: this.state.val, transition: 'all 300ms' }
+        ])}
         render={className => {
           return <header className={className}>{this.props.children}</header>
         }}
