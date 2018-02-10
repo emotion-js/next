@@ -27,7 +27,7 @@ async function doBuild() {
     ret.config = makeRollupConfig(ret)
     return ret
   })
-
+  // await changePackages(packages)
   await Promise.all(
     packages.map(async pkg => {
       const bundle = await rollup.rollup(pkg.config)
@@ -53,8 +53,10 @@ async function doBuild() {
             console.log(chalk.magenta('Generated esm bundle for', pkg.pkg.name))
           )
       ])
-      await writeFlowFiles([esmPath, cjsPath], bundle.exports)
-      console.log(chalk.magenta('Wrote flow files for', pkg.pkg.name))
+      if (!pkg.name.endsWith('.macro')) {
+        await writeFlowFiles([esmPath, cjsPath], bundle.exports)
+        console.log(chalk.magenta('Wrote flow files for', pkg.pkg.name))
+      }
     })
   )
 }
@@ -78,7 +80,13 @@ export * from '../src/index.js'${
 // async function changePackages(packages) {
 //   await Promise.all(
 //     packages.map(async pkg => {
-//       pkg.pkg.publishConfig = { access: 'public' }
+//       pkg.pkg.files = ['src', 'dist']
+//       if (
+//         pkg.pkg.peerDependencies &&
+//         pkg.pkg.peerDependencies['@emotion/core']
+//       ) {
+//         pkg.pkg.peerDependencies['@emotion/core'] = '^0.0.4'
+//       }
 //       await writeFile(
 //         path.resolve(pkg.path, 'package.json'),
 //         JSON.stringify(pkg.pkg, null, 2)

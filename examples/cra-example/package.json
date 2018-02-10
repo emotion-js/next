@@ -3,7 +3,13 @@
   "version": "0.0.4",
   "private": true,
   "dependencies": {
-    "new-css-in-js": "^0.0.4-0",
+    "@emotion/core": "^0.0.4",
+    "@emotion/styled.macro": "^0.0.4",
+    "@emotion/css": "^0.0.4",
+    "@emotion/keyframes": "^0.0.4",
+    "@emotion/style": "^0.0.4",
+    "@emotion/global": "^0.0.4",
+    "@emotion/jsx": "^0.0.4",
     "react": "^16.3.0-alpha.0",
     "react-dom": "^16.3.0-alpha.0",
     "react-scripts": "2.0.0-next.9754a231"
@@ -20,11 +26,6 @@
       "last 2 firefox versions",
       "last 2 edge versions"
     ],
-    "production": [
-      ">1%",
-      "last 4 versions",
-      "Firefox ESR",
-      "not ie < 11"
-    ]
+    "production": [">1%", "last 4 versions", "Firefox ESR", "not ie < 11"]
   }
 }

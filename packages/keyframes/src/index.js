@@ -1,6 +1,5 @@
 // @flow
 import type {
-  CSSContextType,
   ScopedInsertableStyles,
   KeyframesInsertableStyles
 } from '@emotion/types'

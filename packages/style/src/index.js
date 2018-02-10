@@ -9,7 +9,10 @@ export default class Style extends React.Component<{
 }> {
   shouldHydrate: boolean
   serialized: string
-  shouldHydrate = hydration.shouldHydrate
+  constructor() {
+    super()
+    this.shouldHydrate = hydration.shouldHydrate
+  }
 
   componentDidMount() {
     hydration.shouldHydrate = false

@@ -9,6 +9,7 @@
 [lints]
 
 [options]
-module.name_mapper='^@emotion\/\([a-zA-Z0-9_\-]+\)$' -> '<PROJECT_ROOT>/packages/\1/src/index'
+module.name_mapper='^@emotion\/\([a-zA-Z0-9_\-.]+\)$' -> '<PROJECT_ROOT>/packages/\1/src/index'
+module.name_mapper='^@emotion\/\([a-zA-Z0-9_\-]+\)\.macro$' -> '<PROJECT_ROOT>/test/empty'
 
 module.name_mapper='^@emotion\/sheet$' -> '<PROJECT_ROOT>/packages/sheet/src/index'

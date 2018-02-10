@@ -23,6 +23,12 @@ module.exports = {
       env: {
         jest: true
       }
+    },
+    {
+      files: ['**/__fixtures__/*'],
+      rules: {
+        'no-unused-vars': 0
+      }
     }
   ]
 }

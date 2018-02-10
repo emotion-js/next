@@ -1,11 +1,11 @@
 const resolve = require('rollup-plugin-node-resolve')
-const uglify = require('rollup-plugin-uglify')
-const replace = require('rollup-plugin-replace')
+// const uglify = require('rollup-plugin-uglify')
+// const replace = require('rollup-plugin-replace')
 const babel = require('rollup-plugin-babel')
-const alias = require('rollup-plugin-alias')
+// const alias = require('rollup-plugin-alias')
 const cjs = require('rollup-plugin-commonjs')
 const path = require('path')
-const lernaAliases = require('lerna-alias').rollup
+// const lernaAliases = require('lerna-alias').rollup
 
 module.exports = data => {
   const { pkg } = data
@@ -37,7 +37,7 @@ module.exports = data => {
               exclude: ['transform-typeof-symbol']
             }
           ],
-          '@babel/stage-0',
+          '@babel/stage-3',
           '@babel/react',
           '@babel/flow'
         ],

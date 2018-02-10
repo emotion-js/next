@@ -13,5 +13,9 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
 }

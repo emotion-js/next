@@ -1,15 +1,13 @@
 // @flow
-// @jsx jsx
+/** @jsx jsx */
 import * as React from 'react'
-import {
-  jsx,
-  css,
-  styled,
-  Global,
-  Style,
-  keyframes,
-  Dynamic
-} from 'new-css-in-js'
+import jsx from '@emotion/jsx'
+import Style from '@emotion/style'
+import Global from '@emotion/global'
+import Dynamic from '@emotion/dynamic'
+import css from '@emotion/css'
+import keyframes from '@emotion/keyframes'
+import styled from '@emotion/styled.macro'
 import logo from './logo.svg'
 
 const headerStyle = css`
@@ -32,11 +30,11 @@ const animation = keyframes(css`
   }
 `)
 
-const Container = styled('div')`
+const Container = styled.div`
   text-align: ${props => props.align};
 `
 
-const Logo = styled('img')`
+const Logo = styled.img`
   animation: ${props => props.animation} infinite 20s linear;
   height: 80px;
 `

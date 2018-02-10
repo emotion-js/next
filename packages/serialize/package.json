@@ -8,5 +8,9 @@
   "repository": "https://github.com/emotion-js/next/tree/master/packages/serialize",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
 }

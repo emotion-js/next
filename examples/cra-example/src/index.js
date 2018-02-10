@@ -1,6 +1,5 @@
-// @jsx jsx
-import { jsx, Global } from 'new-css-in-js'
 import React from 'react'
+import Global from '@emotion/global'
 import ReactDOM from 'react-dom'
 // import { injectGlobal } from 'new-css-in-js'
 import App from './App'

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@emotion/styled.macro basic 1`] = `
+"import styled from '@emotion/styled.macro'
+    const SomeComponent = styled.div\`color: hotpink;\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _styled from \\"@emotion/styled-base\\";
+const SomeComponent = _styled(\\"div\\")\`color: hotpink;\`;"
+`;
+
+exports[`@emotion/styled.macro callExpression 1`] = `
+"import styled from '@emotion/styled.macro'
+      const SomeComponent = styled('div')\`color: hotpink;\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const SomeComponent = styled('div')\`color: hotpink;\`;"
+`;
