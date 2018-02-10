@@ -3,10 +3,7 @@
   "version": "0.1.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": [
-    "src",
-    "dist"
-  ],
+  "files": ["src", "dist"],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -18,7 +15,8 @@
     "@emotion/sheet": "^0.0.5",
     "@emotion/types": "^0.0.5",
     "@emotion/utils": "^0.1.0",
-    "emotion-utils": "^9.0.0"
+    "emotion-utils": "^9.0.0",
+    "@emotion/cache": "^0.1.0"
   },
   "peerDependencies": {
     "react": ">=16.3.0 || 16.3.0-alpha.0"

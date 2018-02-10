@@ -3,6 +3,7 @@
 import jsx from '@emotion/jsx'
 import Style from '@emotion/style'
 import Global from '@emotion/global'
+import Provider from '@emotion/provider'
 import Dynamic from '@emotion/dynamic'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
@@ -122,4 +123,14 @@ test('css call composition', () => {
   `
   const second = css({ ':hover': first })
   expect(second).toMatchSnapshot()
+})
+
+test('theming with the css prop', () => {
+  const tree = renderer.create(
+    <Provider theme={{ primary: 'hotpink' }}>
+      <div css={theme => ({ color: theme.primary })} />
+    </Provider>
+  )
+
+  expect(tree.toJSON()).toMatchSnapshot()
 })

@@ -1,4 +1,4 @@
-const resolve = require('rollup-plugin-node-resolve')
+// const resolve = require('rollup-plugin-node-resolve')
 // const uglify = require('rollup-plugin-uglify')
 const replace = require('rollup-plugin-replace')
 const babel = require('rollup-plugin-babel')
@@ -26,7 +26,7 @@ module.exports = data => {
       cjs({
         exclude: [path.join(__dirname, '..', '..', 'packages', '*/src/**/*')]
       }),
-      resolve(),
+      // resolve(),
       babel({
         presets: [
           [

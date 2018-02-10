@@ -628,6 +628,21 @@ Array [
 ]
 `;
 
+exports[`styled theming 1`] = `
+Array [
+  <style>
+    .css-4ecmgi {
+  color: hotpink;
+}
+  </style>,
+  <div
+    className="css-4ecmgi"
+  >
+    this should be hotpink
+  </div>,
+]
+`;
+
 exports[`styled throws if undefined is passed as the component 1`] = `
 "You are trying to create a styled element with an undefined component.
 You may have forgotten to import it."

@@ -130,6 +130,19 @@ exports[`keyframes 1`] = `
 </div>
 `;
 
+exports[`theming with the css prop 1`] = `
+Array [
+  <style>
+    .css-1lrxbo5 {
+  color: hotpink;
+}
+  </style>,
+  <div
+    className="css-1lrxbo5"
+  />,
+]
+`;
+
 exports[`thing 1`] = `
 <div>
   <style>

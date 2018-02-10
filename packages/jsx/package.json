@@ -7,7 +7,8 @@
   "license": "MIT",
   "repository": "https://github.com/emotion-js/next/tree/master/packages/jsx",
   "dependencies": {
-    "@emotion/utils": "^0.1.0"
+    "@emotion/utils": "^0.1.0",
+    "@emotion/serialize": "^0.0.5"
   },
   "peerDependencies": {
     "@emotion/core": "^0.0.4",
@@ -16,8 +17,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "src",
-    "dist"
-  ]
+  "files": ["src", "dist"]
 }

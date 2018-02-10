@@ -3,6 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import styled from '@emotion/styled'
+import Provider from '@emotion/provider'
 // import { mount } from 'enzyme'
 // import enzymeToJson from 'enzyme-to-json'
 import css from '@emotion/css'
@@ -651,6 +652,19 @@ describe('styled', () => {
     `
     const OneMoreComponent = AnotherComponent.withComponent('p')
     const tree = renderer.create(<OneMoreComponent />).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+  test('theming', () => {
+    const Div = styled.div`
+      color: ${props => props.theme.primary};
+    `
+    const tree = renderer
+      .create(
+        <Provider theme={{ primary: 'hotpink' }}>
+          <Div>this should be hotpink</Div>
+        </Provider>
+      )
+      .toJSON()
     expect(tree).toMatchSnapshot()
   })
   test('same component rendered multiple times', () => {
