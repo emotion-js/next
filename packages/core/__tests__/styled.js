@@ -7,6 +7,14 @@ import styled from '@emotion/styled'
 // import enzymeToJson from 'enzyme-to-json'
 import css from '@emotion/css'
 
+const SomeComponent = (props: { lol: true }) => (props.lol ? 'yes' : 'no')
+
+// test to make sure flow prop errors work.
+// should probably try to make it so that components that require className props
+// and have the css prop passed to them don't have type errors
+// $FlowFixMe
+;<SomeComponent /> // eslint-disable-line no-unused-expressions
+
 describe('styled', () => {
   test('no dynamic', () => {
     const H1 = styled.h1`

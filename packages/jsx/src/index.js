@@ -69,7 +69,6 @@ class Style extends React.Component<Props> {
   }
 }
 
-// todo: make it so this type checks props with flow correctly
 // $FlowFixMe
 const jsx: typeof React.createElement = (
   type: React.ElementType,
