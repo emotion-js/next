@@ -1,14 +1,14 @@
 {
   "name": "@emotion/style",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React component to render component for emotion",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "license": "MIT",
   "repository": "https://github.com/emotion-js/next/tree/master/packages/style",
   "dependencies": {
-    "@emotion/utils": "^0.0.4",
-    "@emotion/types": "^0.0.4"
+    "@emotion/types": "^0.0.5",
+    "@emotion/utils": "^0.0.5"
   },
   "peerDependencies": {
     "@emotion/core": "^0.0.4",
@@ -17,5 +17,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": ["src", "dist"]
+  "files": [
+    "src",
+    "dist"
+  ]
 }
