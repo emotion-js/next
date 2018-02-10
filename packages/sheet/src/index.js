@@ -107,7 +107,7 @@ export class DynamicStyleSheet {
   }
 }
 
-export default class StyleSheet {
+export class StyleSheet {
   injected: boolean
   isSpeedy: boolean
   ctr: number

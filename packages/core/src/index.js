@@ -2,8 +2,7 @@
 import { isBrowser } from '@emotion/utils'
 import * as React from 'react'
 import type { CSSContextType } from '@emotion/types'
-import StyleSheet from '@emotion/sheet'
-import stylis from './stylis'
+import createCache from '@emotion/cache'
 
 type RenderFn<T> = (value: T) => React.Node
 
@@ -44,29 +43,15 @@ if (__TEST__) {
   })
 }
 
-const createInstance = () => {
-  const context: CSSContextType = {
-    stylis,
-    sheet: new StyleSheet({ key: '' }),
-    inserted: {},
-    registered: {},
-    theme: {}
-  }
-  if (isBrowser) {
-    context.sheet.inject()
-  }
-  return context
-}
-
 // $FlowFixMe
-const CSSContext: Context<CSSContextType> = React.createContext(null)
+export const CSSContext: Context<CSSContextType> = React.createContext(null)
 
 export function consumer(func: CSSContextType => React.Node) {
   return (
     <CSSContext.Consumer>
       {context => {
         if (context === null) {
-          const instance = createInstance()
+          const instance = createCache()
           return (
             <CSSContext.Provider value={instance}>
               {func(instance)}
