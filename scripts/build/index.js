@@ -80,12 +80,11 @@ export * from '../src/index.js'${
 // async function changePackages(packages) {
 //   await Promise.all(
 //     packages.map(async pkg => {
-//       pkg.pkg.files = ['src', 'dist']
 //       if (
 //         pkg.pkg.peerDependencies &&
 //         pkg.pkg.peerDependencies['@emotion/core']
 //       ) {
-//         pkg.pkg.peerDependencies['@emotion/core'] = '^0.0.4'
+//         pkg.pkg.peerDependencies['@emotion/core'] = '0.x.x'
 //       }
 //       await writeFile(
 //         path.resolve(pkg.path, 'package.json'),

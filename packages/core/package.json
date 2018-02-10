@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
