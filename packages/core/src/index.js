@@ -3,8 +3,7 @@ import { isBrowser } from '@emotion/utils'
 import * as React from 'react'
 import type { CSSContextType } from '@emotion/types'
 import StyleSheet from '@emotion/sheet'
-import { Stylis } from 'emotion-utils'
-import stylisRuleSheet from './rule-sheet'
+import stylis from './stylis'
 
 type RenderFn<T> = (value: T) => React.Node
 
@@ -35,7 +34,9 @@ if (isBrowser) {
   hydration.shouldHydrate = !!document.querySelector('[data-more]')
 }
 
-if (process.env.NODE_ENV === 'test') {
+declare var __TEST__: boolean
+
+if (__TEST__) {
   // $FlowFixMe
   Object.defineProperty(hydration, 'shouldHydrate', {
     set: () => {},
@@ -43,40 +44,38 @@ if (process.env.NODE_ENV === 'test') {
   })
 }
 
-const defaultContext: CSSContextType = {
-  stylis: new Stylis({
-    keyframe: false,
-    global: false,
-    semicolon: true
-  }),
-  sheet: new StyleSheet({ key: '' }),
-  inserted: {},
-  registered: {},
-  theme: {}
-}
-
-if (isBrowser) {
-  defaultContext.sheet.inject()
-}
-
-let current
-
-const insertionPlugin = stylisRuleSheet(function(rule: string) {
-  current.push(rule)
-})
-
-const returnFullPlugin = function(context) {
-  if (context === -1) {
-    current = []
+const createInstance = () => {
+  const context: CSSContextType = {
+    stylis,
+    sheet: new StyleSheet({ key: '' }),
+    inserted: {},
+    registered: {},
+    theme: {}
   }
-  if (context === -2) {
-    return current
+  if (isBrowser) {
+    context.sheet.inject()
   }
+  return context
 }
-
-defaultContext.stylis.use(insertionPlugin)(returnFullPlugin)
 
 // $FlowFixMe
-export const CSSContext: Context<CSSContextType> = React.createContext(
-  defaultContext
-)
+const CSSContext: Context<CSSContextType> = React.createContext(null)
+
+export function consumer(func: CSSContextType => React.Node) {
+  return (
+    <CSSContext.Consumer>
+      {context => {
+        if (context === null) {
+          const instance = createInstance()
+          return (
+            <CSSContext.Provider value={instance}>
+              {func(instance)}
+            </CSSContext.Provider>
+          )
+        } else {
+          return func(context)
+        }
+      }}
+    </CSSContext.Consumer>
+  )
+}

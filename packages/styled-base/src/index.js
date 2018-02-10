@@ -12,7 +12,8 @@ import {
   type StyledOptions,
   type CreateStyled
 } from './utils'
-import { hydration, CSSContext } from '@emotion/core'
+import type { CSSContextType } from '@emotion/types'
+import { hydration, consumer } from '@emotion/core'
 import { getRegisteredStyles, insertStyles, isBrowser } from '@emotion/utils'
 import { serializeStyles } from '@emotion/serialize'
 
@@ -68,64 +69,61 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         super(props)
         this.shouldHydrate = hydration.shouldHydrate
       }
-      componentWillUnmount() {
+      componentDidMount() {
         hydration.shouldHydrate = false
       }
-      render() {
-        return (
-          <CSSContext.Consumer>
-            {context => {
-              let className = ''
-              let classInterpolations = []
-              this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
-                theme: context.theme || this.props.theme || {}
-              })
-              if (
-                this.props.className &&
-                typeof this.props.className === 'string'
-              ) {
-                className += getRegisteredStyles(
-                  context.registered,
-                  classInterpolations,
-                  this.props.className
-                )
-              }
-              const serialized = serializeStyles.call(
-                this,
-                styles.concat(classInterpolations)
-              )
-              const rules = insertStyles(context, serialized)
-              className += serialized.cls
-
-              if (
-                this.serialized === undefined &&
-                (this.shouldHydrate || !isBrowser)
-              ) {
-                this.serialized = rules
-              }
-
-              const ele = React.createElement(
-                baseTag,
-                omitAssign(omitFn, {}, this.props, {
-                  className,
-                  ref: this.props.innerRef
-                })
-              )
-              if (this.shouldHydrate || !isBrowser) {
-                return (
-                  <React.Fragment>
-                    <style
-                      data-more={serialized.name}
-                      dangerouslySetInnerHTML={{ __html: this.serialized }}
-                    />
-                    {ele}
-                  </React.Fragment>
-                )
-              }
-              return ele
-            }}
-          </CSSContext.Consumer>
+      renderChild = (context: CSSContextType) => {
+        let className = ''
+        let classInterpolations = []
+        this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
+          theme: context.theme || this.props.theme || {}
+        })
+        if (this.props.className && typeof this.props.className === 'string') {
+          className += getRegisteredStyles(
+            context.registered,
+            classInterpolations,
+            this.props.className
+          )
+        }
+        const serialized = serializeStyles.call(
+          this,
+          styles.concat(classInterpolations)
         )
+        const rules = insertStyles(context, serialized)
+        className += serialized.cls
+
+        if (
+          this.serialized === undefined &&
+          (this.shouldHydrate || !isBrowser)
+        ) {
+          this.serialized = rules
+        }
+
+        const ele = React.createElement(
+          baseTag,
+          omitAssign(omitFn, {}, this.props, {
+            className,
+            ref: this.props.innerRef
+          })
+        )
+        if (
+          (this.shouldHydrate || !isBrowser) &&
+          this.serialized !== undefined
+        ) {
+          return (
+            <React.Fragment>
+              <style
+                data-more={serialized.name}
+                dangerouslySetInnerHTML={{ __html: this.serialized }}
+              />
+              {ele}
+            </React.Fragment>
+          )
+        }
+        return ele
+      }
+      render() {
+        return consumer(this.renderChild)
       }
     }
     Styled.displayName =

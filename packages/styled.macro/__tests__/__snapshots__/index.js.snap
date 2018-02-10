@@ -16,5 +16,6 @@ exports[`@emotion/styled.macro callExpression 1`] = `
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const SomeComponent = styled('div')\`color: hotpink;\`;"
+import _styled from \\"@emotion/styled-base\\";
+const SomeComponent = _styled('div')\`color: hotpink;\`;"
 `;

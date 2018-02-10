@@ -653,4 +653,25 @@ describe('styled', () => {
     const tree = renderer.create(<OneMoreComponent />).toJSON()
     expect(tree).toMatchSnapshot()
   })
+  test('same component rendered multiple times', () => {
+    const SomeComponent = styled.div`
+      color: green;
+    `
+
+    const tree = renderer.create(<SomeComponent />).toJSON()
+    expect(tree).toMatchSnapshot()
+    expect(renderer.create(<SomeComponent />).toJSON()).toEqual(
+      renderer.create(<SomeComponent />).toJSON()
+    )
+    expect(
+      renderer
+        .create(
+          <SomeComponent>
+            <SomeComponent />
+            <SomeComponent />
+          </SomeComponent>
+        )
+        .toJSON()
+    ).toMatchSnapshot()
+  })
 })

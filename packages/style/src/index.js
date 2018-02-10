@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
-import { CSSContext, hydration } from '@emotion/core'
-import type { InsertableStyles } from '@emotion/types'
+import { consumer, hydration } from '@emotion/core'
+import type { InsertableStyles, CSSContextType } from '@emotion/types'
 import { isBrowser, insertStyles } from '@emotion/utils'
 
 export default class Style extends React.Component<{
@@ -17,36 +17,37 @@ export default class Style extends React.Component<{
   componentDidMount() {
     hydration.shouldHydrate = false
   }
+  renderChild = (context: CSSContextType) => {
+    const { styles } = this.props
+    let rules = ''
+    if (Array.isArray(styles)) {
+      styles.forEach(style => {
+        let renderedStyle = insertStyles(context, style)
+        if (renderedStyle !== undefined) {
+          // $FlowFixMe
+          rules += renderedStyle
+        }
+      })
+    } else {
+      let renderedStyle = insertStyles(context, styles)
+      if (renderedStyle !== undefined) {
+        rules = renderedStyle
+      }
+    }
+    if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
+      this.serialized = rules
+    }
+    if ((this.shouldHydrate || !isBrowser) && rules !== '') {
+      return (
+        <style
+          data-more=""
+          dangerouslySetInnerHTML={{ __html: this.serialized }}
+        />
+      )
+    }
+    return null
+  }
   render() {
-    return (
-      <CSSContext.Consumer>
-        {context => {
-          const { styles } = this.props
-          let rules = ''
-          if (Array.isArray(styles)) {
-            styles.forEach(style => {
-              rules += insertStyles(context, style)
-            })
-          } else {
-            rules = insertStyles(context, styles)
-          }
-          if (
-            this.serialized === undefined &&
-            (this.shouldHydrate || !isBrowser)
-          ) {
-            this.serialized = rules
-          }
-          if (this.shouldHydrate || !isBrowser) {
-            return (
-              <style
-                data-more=""
-                dangerouslySetInnerHTML={{ __html: this.serialized }}
-              />
-            )
-          }
-          return null
-        }}
-      </CSSContext.Consumer>
-    )
+    return consumer(this.renderChild)
   }
 }

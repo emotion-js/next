@@ -1,6 +1,8 @@
 // @flow
 import { parse, stringify } from 'css'
 
+global.__TEST__ = true
+
 function getNodes(node, nodes = []) {
   if (node.children) {
     node.children.forEach(child => getNodes(child, nodes))

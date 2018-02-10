@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import { CSSContext, hydration } from '@emotion/core'
+import { consumer, hydration } from '@emotion/core'
 import type { CSSContextType } from '@emotion/types'
 import StyleSheet from '@emotion/sheet'
 import { isBrowser } from '@emotion/utils'
@@ -11,13 +11,9 @@ type GlobalProps = {
 }
 
 const Global = ({ css }: GlobalProps) => {
-  return (
-    <CSSContext.Consumer>
-      {context => {
-        return <GlobalChild css={css} context={context} />
-      }}
-    </CSSContext.Consumer>
-  )
+  return consumer(context => {
+    return <GlobalChild css={css} context={context} />
+  })
 }
 
 Global.__emotion_component = true

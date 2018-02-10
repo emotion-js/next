@@ -1,6 +1,6 @@
 const resolve = require('rollup-plugin-node-resolve')
 // const uglify = require('rollup-plugin-uglify')
-// const replace = require('rollup-plugin-replace')
+const replace = require('rollup-plugin-replace')
 const babel = require('rollup-plugin-babel')
 // const alias = require('rollup-plugin-alias')
 const cjs = require('rollup-plugin-commonjs')
@@ -43,7 +43,8 @@ module.exports = data => {
         ],
         plugins: ['codegen', 'closure-elimination'],
         babelrc: false
-      })
+      }),
+      replace({ __TEST__: "process.env.NODE_ENV === 'test'" })
     ]
   }
 

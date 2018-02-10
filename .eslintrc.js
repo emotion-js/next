@@ -30,5 +30,8 @@ module.exports = {
         'no-unused-vars': 0
       }
     }
-  ]
+  ],
+  globals: {
+    __TEST__: false
+  }
 }

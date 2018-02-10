@@ -1,9 +1,10 @@
 // @flow
 import * as React from 'react'
-import { hydration, CSSContext } from '@emotion/core'
+import { hydration, consumer } from '@emotion/core'
 import { isBrowser } from '@emotion/utils'
 import { serializeStyles } from '@emotion/serialize'
 import { DynamicStyleSheet } from '@emotion/sheet'
+import type { CSSContextType } from '@emotion/types'
 
 type Props = {
   css: Object,
@@ -26,46 +27,37 @@ class Dynamic extends React.Component<Props> {
       this.sheet.flush()
     }
   }
-  render() {
-    return (
-      <CSSContext.Consumer>
-        {context => {
-          const { css } = this.props
-          const serialized = serializeStyles([css])
-          const rules = context.stylis(
-            `.css-${serialized.name}`,
-            serialized.styles
-          )
-          if (this.sheet === undefined && isBrowser) {
-            this.sheet = new DynamicStyleSheet(StyleSheetOptions)
-            this.sheet.inject()
-          }
-          if (isBrowser) {
-            this.sheet.insertRules(rules)
-          }
+  renderChild = (context: CSSContextType) => {
+    const { css } = this.props
+    const serialized = serializeStyles([css])
+    const rules = context.stylis(`.css-${serialized.name}`, serialized.styles)
+    if (this.sheet === undefined && isBrowser) {
+      this.sheet = new DynamicStyleSheet(StyleSheetOptions)
+      this.sheet.inject()
+    }
+    if (isBrowser) {
+      this.sheet.insertRules(rules)
+    }
 
-          if (
-            this.serialized === undefined &&
-            (this.shouldHydrate || !isBrowser)
-          ) {
-            this.serialized = rules.join('')
-          }
-          const child = this.props.render(serialized.cls)
-          if (this.shouldHydrate || !isBrowser) {
-            return (
-              <React.Fragment>
-                <style
-                  data-more=""
-                  dangerouslySetInnerHTML={{ __html: this.serialized }}
-                />
-                {child}
-              </React.Fragment>
-            )
-          }
-          return child
-        }}
-      </CSSContext.Consumer>
-    )
+    if (this.serialized === undefined && (this.shouldHydrate || !isBrowser)) {
+      this.serialized = rules.join('')
+    }
+    const child = this.props.render(serialized.cls)
+    if (this.shouldHydrate || !isBrowser) {
+      return (
+        <React.Fragment>
+          <style
+            data-more=""
+            dangerouslySetInnerHTML={{ __html: this.serialized }}
+          />
+          {child}
+        </React.Fragment>
+      )
+    }
+    return child
+  }
+  render() {
+    return consumer(this.renderChild)
   }
 }
 

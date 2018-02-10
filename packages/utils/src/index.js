@@ -41,6 +41,6 @@ export const insertStyles = (
         context.sheet.insert(rule)
       })
     }
+    return context.inserted[insertable.name]
   }
-  return context.inserted[insertable.name]
 }

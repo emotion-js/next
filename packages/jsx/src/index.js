@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import { hydration, CSSContext } from '@emotion/core'
+import { hydration, consumer } from '@emotion/core'
 import { isBrowser, getRegisteredStyles, insertStyles } from '@emotion/utils'
 import type { CSSContextType } from '@emotion/types'
 import { serializeStyles } from '@emotion/serialize'
@@ -54,7 +54,7 @@ class Style extends React.Component<Props> {
     }
     delete newProps.css
     const ele = React.createElement(type, newProps, ...children)
-    if (this.shouldHydrate || !isBrowser) {
+    if (this.serialized !== undefined) {
       return (
         <React.Fragment>
           <style
@@ -86,18 +86,9 @@ const jsx: typeof React.createElement = (
     )
   }
 
-  return (
-    <CSSContext.Consumer>
-      {context => (
-        <Style
-          props={props}
-          type={type}
-          children={children}
-          context={context}
-        />
-      )}
-    </CSSContext.Consumer>
-  )
+  return consumer(context => (
+    <Style props={props} type={type} children={children} context={context} />
+  ))
 }
 
 export default jsx

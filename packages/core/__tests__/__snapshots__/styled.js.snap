@@ -595,6 +595,39 @@ Array [
 ]
 `;
 
+exports[`styled same component rendered multiple times 1`] = `
+Array [
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>,
+  <div
+    className="css-7o6h5j"
+  />,
+]
+`;
+
+exports[`styled same component rendered multiple times 2`] = `
+Array [
+  <style>
+    .css-7o6h5j {
+  color: green;
+}
+  </style>,
+  <div
+    className="css-7o6h5j"
+  >
+    <div
+      className="css-7o6h5j"
+    />
+    <div
+      className="css-7o6h5j"
+    />
+  </div>,
+]
+`;
+
 exports[`styled throws if undefined is passed as the component 1`] = `
 "You are trying to create a styled element with an undefined component.
 You may have forgotten to import it."
