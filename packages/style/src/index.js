@@ -48,6 +48,6 @@ export default class Style extends React.Component<{
     return null
   }
   render() {
-    return consumer(this.renderChild)
+    return consumer(this, this.renderChild)
   }
 }

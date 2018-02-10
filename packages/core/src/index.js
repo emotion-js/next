@@ -46,15 +46,20 @@ if (__TEST__) {
 // $FlowFixMe
 export const CSSContext: Context<CSSContextType> = React.createContext(null)
 
-export function consumer(func: CSSContextType => React.Node) {
+export function consumer(
+  instance: { emotionCache?: CSSContextType },
+  func: CSSContextType => React.Node
+) {
   return (
     <CSSContext.Consumer>
       {context => {
         if (context === null) {
-          const instance = createCache()
+          if (instance.emotionCache === undefined) {
+            instance.emotionCache = createCache()
+          }
           return (
-            <CSSContext.Provider value={instance}>
-              {func(instance)}
+            <CSSContext.Provider value={instance.emotionCache}>
+              {func(instance.emotionCache)}
             </CSSContext.Provider>
           )
         } else {

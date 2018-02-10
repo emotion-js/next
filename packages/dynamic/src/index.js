@@ -57,7 +57,7 @@ class Dynamic extends React.Component<Props> {
     return child
   }
   render() {
-    return consumer(this.renderChild)
+    return consumer(this, this.renderChild)
   }
 }
 

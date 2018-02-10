@@ -10,43 +10,29 @@ type GlobalProps = {
   css: Object
 }
 
-const Global = ({ css }: GlobalProps) => {
-  return consumer(context => {
-    return <GlobalChild css={css} context={context} />
-  })
-}
-
-Global.__emotion_component = true
-
-class GlobalChild extends React.Component<{
-  ...GlobalProps,
-  context: CSSContextType
-}> {
+class Global extends React.Component<GlobalProps> {
   sheet: StyleSheet
   oldName: string
   serialized: string
   shouldHydrate: boolean
 
-  constructor(props: *) {
-    super(props)
-    if (isBrowser) {
-      this.sheet = new StyleSheet({ key: 'global' })
-      this.sheet.inject()
-    }
-    this.shouldHydrate = hydration.shouldHydrate
-  }
-  componentWillMount() {}
+  shouldHydrate = hydration.shouldHydrate
+  static __emotion_component = true
   componentWillUnmount() {
     this.sheet.flush()
   }
   componentDidMount() {
     hydration.shouldHydrate = false
   }
-  render() {
+  renderChild = (context: CSSContextType) => {
     const serialized = serializeStyles([this.props.css])
     if (this.oldName !== serialized.name) {
+      if (isBrowser) {
+        this.sheet = new StyleSheet({ key: 'global' })
+        this.sheet.inject()
+      }
       this.oldName = serialized.name
-      let rules = this.props.context.stylis(``, serialized.styles)
+      let rules = context.stylis(``, serialized.styles)
       let needsToSerializeValues =
         this.serialized === undefined && (this.shouldHydrate || !isBrowser)
       if (needsToSerializeValues) {
@@ -73,6 +59,9 @@ class GlobalChild extends React.Component<{
       )
     }
     return null
+  }
+  render() {
+    return consumer(this, this.renderChild)
   }
 }
 

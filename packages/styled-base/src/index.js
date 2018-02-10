@@ -123,7 +123,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         return ele
       }
       render() {
-        return consumer(this.renderChild)
+        return consumer(this, this.renderChild)
       }
     }
     Styled.displayName =

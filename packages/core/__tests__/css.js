@@ -32,6 +32,26 @@ test('css call to render', () => {
   expect(tree.toJSON()).toMatchSnapshot()
 })
 
+test('css call to render with array as styles', () => {
+  const cls = css`
+    color: green;
+  `
+  const cls2 = css`
+    color: hotpink;
+  `
+  const tree = renderer.create(
+    <div css={{ color: 'yellow' }}>
+      <Style styles={[cls, cls2]} />
+      <Style styles={[cls]} />
+
+      <div className={cls.toString()}>something</div>
+      <div className={cls2.toString()}>anothor thing</div>
+    </div>
+  )
+
+  expect(tree.toJSON()).toMatchSnapshot()
+})
+
 test('keyframes', () => {
   const animation = keyframes(css`
     from {

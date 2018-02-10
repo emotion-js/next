@@ -8,8 +8,7 @@ import { serializeStyles } from '@emotion/serialize'
 type Props = {
   props: Object | null,
   type: React.ElementType,
-  children: Array<React.Node>,
-  context: CSSContextType
+  children: Array<React.Node>
 }
 
 class Style extends React.Component<Props> {
@@ -22,8 +21,8 @@ class Style extends React.Component<Props> {
   componentDidMount() {
     hydration.shouldHydrate = false
   }
-  render() {
-    const { props, type, children, context } = this.props
+  renderChild = (context: CSSContextType) => {
+    const { props, type, children } = this.props
     let actualProps = props || {}
 
     let registeredStyles = []
@@ -67,6 +66,9 @@ class Style extends React.Component<Props> {
     }
     return ele
   }
+  render() {
+    return consumer(this, this.renderChild)
+  }
 }
 
 // $FlowFixMe
@@ -80,15 +82,13 @@ const jsx: typeof React.createElement = (
   }
   if (process.env.NODE_ENV === 'development' && typeof props.css === 'string') {
     throw new Error(
-      `Strings are not allowed as css prop values, please wrap it in a css template literal like this: css\`${
+      `Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/css' like this: css\`${
         props.css
       }\``
     )
   }
 
-  return consumer(context => (
-    <Style props={props} type={type} children={children} context={context} />
-  ))
+  return <Style props={props} type={type} children={children} />
 }
 
 export default jsx
