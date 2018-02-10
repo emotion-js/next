@@ -1,13 +1,13 @@
 {
   "name": "@emotion/jsx",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "a custom createElement for emotion with the css prop",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "license": "MIT",
   "repository": "https://github.com/emotion-js/next/tree/master/packages/jsx",
   "dependencies": {
-    "@emotion/utils": "^0.0.5"
+    "@emotion/utils": "^0.1.0"
   },
   "peerDependencies": {
     "@emotion/core": "^0.0.4",
