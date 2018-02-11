@@ -94,6 +94,22 @@ test('global', () => {
   expect(tree.toJSON()).toMatchSnapshot()
 })
 
+test('@font-face in global', () => {
+  const tree = renderer.create(
+    <div>
+      <Global
+        css={{
+          '@font-face': {
+            fontFamily: 'some-name'
+          }
+        }}
+      />
+    </div>
+  )
+
+  expect(tree.toJSON()).toMatchSnapshot()
+})
+
 test('dynamic', () => {
   const tree = renderer.create(
     <div>
