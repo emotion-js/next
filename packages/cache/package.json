@@ -10,7 +10,7 @@
     "@emotion/sheet": "^0.2.0",
     "@emotion/types": "^0.2.0",
     "@emotion/utils": "^0.2.0",
-    "emotion-utils": "^9.0.0"
+    "emotion-utils": "^9.0.1"
   },
   "publishConfig": {
     "access": "public"

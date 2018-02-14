@@ -150,3 +150,46 @@ test('theming with the css prop', () => {
 
   expect(tree.toJSON()).toMatchSnapshot()
 })
+
+test('object with false', () => {
+  const tree = renderer.create(
+    <div>
+      <div css={{ color: 'hotpink', display: false }}>something</div>
+    </div>
+  )
+
+  expect(tree.toJSON()).toMatchSnapshot()
+})
+
+test('label in css call', () => {
+  const tree = renderer.create(
+    <div>
+      <div
+        css={css`
+          color: hotpink;
+          label: this-is-hotpink;
+        `}
+      >
+        something
+      </div>
+    </div>
+  )
+
+  expect(tree.toJSON()).toMatchSnapshot()
+})
+
+test('string as css prop throws', () => {
+  expect(() => {
+    renderer.create(
+      <div>
+        <div
+          css={`
+            color: hotpink;
+          `}
+        >
+          something
+        </div>
+      </div>
+    )
+  }).toThrowErrorMatchingSnapshot()
+})

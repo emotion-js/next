@@ -140,6 +140,42 @@ exports[`keyframes 1`] = `
 </div>
 `;
 
+exports[`label in css call 1`] = `
+<div>
+  <style>
+    .css-1qs3104 {
+  color: hotpink;
+}
+  </style>
+  <div
+    className="css-1qs3104"
+  >
+    something
+  </div>
+</div>
+`;
+
+exports[`object with false 1`] = `
+<div>
+  <style>
+    .css-954372 {
+  color: hotpink;
+}
+  </style>
+  <div
+    className="css-954372"
+  >
+    something
+  </div>
+</div>
+`;
+
+exports[`string as css prop throws 1`] = `
+"Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/css' like this: css\`
+            color: hotpink;
+          \`"
+`;
+
 exports[`theming with the css prop 1`] = `
 Array [
   <style>

@@ -80,7 +80,7 @@ const jsx: typeof React.createElement = (
   if (props == null || props.css == null || type.__emotion_component === true) {
     return React.createElement(type, props, ...children)
   }
-  if (process.env.NODE_ENV === 'development' && typeof props.css === 'string') {
+  if (typeof props.css === 'string' && process.env.NODE_ENV !== 'production') {
     throw new Error(
       `Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/css' like this: css\`${
         props.css
