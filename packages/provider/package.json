@@ -1,13 +1,13 @@
 {
   "name": "@emotion/provider",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A provider component to provide options to emotion and allow theming",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "license": "MIT",
   "repository": "https://github.com/emotion-js/next/tree/master/packages/provider",
   "dependencies": {
-    "@emotion/cache": "^0.2.0"
+    "@emotion/cache": "^0.2.1"
   },
   "peerDependencies": {
     "@emotion/core": "0.x.x",
