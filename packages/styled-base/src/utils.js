@@ -5,15 +5,6 @@ export type Interpolations = Array<any>
 
 declare var codegen: { $call: Function, require: string => RegExp }
 
-export const tags = codegen`
-
-const htmlTagNames = require('html-tag-names')
-const svgTagNames = require('svg-tag-names')
-
-module.exports = JSON.stringify(htmlTagNames
-.concat(svgTagNames)
-.filter((tag, index, array) => array.indexOf(tag) === index))`
-
 const reactPropsRegex = codegen.require('./props')
 export const testOmitPropsOnStringTag: (key: string) => boolean = memoize(key =>
   reactPropsRegex.test(key)

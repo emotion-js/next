@@ -7,7 +7,6 @@ import {
   testAlwaysTrue,
   testOmitPropsOnStringTag,
   omitAssign,
-  tags,
   type Interpolations,
   type StyledOptions,
   type CreateStyled
@@ -155,9 +154,5 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     return Styled
   }
 }
-
-tags.forEach(tagName => {
-  createStyled[tagName] = createStyled(tagName)
-})
 
 export default createStyled
