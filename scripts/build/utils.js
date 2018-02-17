@@ -38,7 +38,7 @@ function getOutputConfigs(pkg) {
       file: esmPath
     },
     {
-      format: 'es',
+      format: 'cjs',
       sourcemap: true,
       file: cjsPath
     }

@@ -27,7 +27,10 @@ async function doBuild() {
         })
       )
       if (!pkg.name.endsWith('.macro')) {
-        await writeFlowFiles([esmPath, cjsPath], bundle.exports)
+        await writeFlowFiles(
+          pkg.outputConfigs.map(({ file }) => file),
+          bundle.exports
+        )
         console.log(chalk.magenta('Wrote flow files for', pkg.pkg.name))
       }
     })
