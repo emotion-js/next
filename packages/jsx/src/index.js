@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import { hydration, consumer } from '@emotion/core'
-import { isBrowser, getRegisteredStyles, insertStyles } from '@emotion/utils'
+import { getRegisteredStyles, insertStyles } from '@emotion/utils'
 import type { CSSContextType } from '@emotion/types'
 import { serializeStyles } from '@emotion/serialize'
 

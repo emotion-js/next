@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { consumer, hydration } from '@emotion/core'
 import type { InsertableStyles, CSSContextType } from '@emotion/types'
-import { isBrowser, insertStyles } from '@emotion/utils'
+import { insertStyles } from '@emotion/utils'
 
 type Props = {
   styles: InsertableStyles | Array<InsertableStyles>
