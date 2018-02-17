@@ -8,7 +8,7 @@ interface StyleSheet {
 }
 
 export type CSSContextType = {
-  stylis: Function,
+  stylis: (string, string) => Array<string>,
   inserted: CSSCache,
   registered: CSSCache,
   sheet: StyleSheet,

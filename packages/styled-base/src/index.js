@@ -13,7 +13,7 @@ import {
 } from './utils'
 import type { CSSContextType } from '@emotion/types'
 import { hydration, consumer } from '@emotion/core'
-import { getRegisteredStyles, insertStyles, isBrowser } from '@emotion/utils'
+import { getRegisteredStyles, insertStyles } from '@emotion/utils'
 import { serializeStyles } from '@emotion/serialize'
 
 let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
@@ -77,7 +77,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
           theme: context.theme || this.props.theme || {}
         })
-        if (this.props.className && typeof this.props.className === 'string') {
+        if (typeof this.props.className === 'string') {
           className += getRegisteredStyles(
             context.registered,
             classInterpolations,
@@ -91,10 +91,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         const rules = insertStyles(context, serialized)
         className += serialized.cls
 
-        if (
-          this.serialized === undefined &&
-          (this.shouldHydrate || !isBrowser)
-        ) {
+        if (this.serialized === undefined && this.shouldHydrate) {
           this.serialized = rules
         }
 
@@ -105,10 +102,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
             ref: this.props.innerRef
           })
         )
-        if (
-          (this.shouldHydrate || !isBrowser) &&
-          this.serialized !== undefined
-        ) {
+        if (this.shouldHydrate && this.serialized !== undefined) {
           return (
             <React.Fragment>
               <style

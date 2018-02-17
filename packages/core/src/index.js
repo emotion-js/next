@@ -35,7 +35,7 @@ if (isBrowser) {
 
 declare var __TEST__: boolean
 
-if (__TEST__) {
+if (__TEST__ || !isBrowser) {
   // $FlowFixMe
   Object.defineProperty(hydration, 'shouldHydrate', {
     set: () => {},

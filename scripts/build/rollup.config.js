@@ -19,8 +19,6 @@ module.exports = data => {
 
   const config = {
     input: path.resolve(data.path, 'src', 'index.js'),
-    exports: 'named',
-    sourcemap: true,
     external,
     plugins: [
       cjs({
