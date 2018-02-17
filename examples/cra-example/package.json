@@ -1,15 +1,15 @@
 {
   "name": "example",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^0.2.1",
-    "@emotion/css": "^0.2.1",
-    "@emotion/global": "^0.2.1",
-    "@emotion/jsx": "^0.2.1",
-    "@emotion/keyframes": "^0.2.0",
-    "@emotion/style": "^0.2.0",
-    "@emotion/styled.macro": "^0.2.2",
+    "@emotion/core": "^0.2.3",
+    "@emotion/css": "^0.2.3",
+    "@emotion/global": "^0.2.3",
+    "@emotion/jsx": "^0.2.3",
+    "@emotion/keyframes": "^0.2.3",
+    "@emotion/style": "^0.2.3",
+    "@emotion/styled.macro": "^0.2.3",
     "react": "^16.3.0-alpha.0",
     "react-dom": "^16.3.0-alpha.0",
     "react-scripts": "2.0.0-next.9754a231"
