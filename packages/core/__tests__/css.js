@@ -4,7 +4,7 @@ import jsx from '@emotion/jsx'
 import Style from '@emotion/style'
 import Global from '@emotion/global'
 import Provider from '@emotion/provider'
-import Dynamic from '@emotion/dynamic'
+import dynamic from '@emotion/dynamic'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import renderer from 'react-test-renderer'
@@ -111,13 +111,29 @@ test('@font-face in global', () => {
 })
 
 test('dynamic', () => {
+  const TheThing = dynamic`
+  position: absolute;
+  cursor: pointer;
+  width: 0px;
+  height: 0px;
+  border-color: ${'transparent'};
+  border-style: solid;
+  border-top-width: ${0}px;
+  transform: translate(50%, 50%);
+  border-bottom-color: ${props => props.color};
+  border-right-width: ${props => props.size / 2}px;
+  border-bottom-width: ${props => props.size / 2}px;
+  border-left-width: ${props => props.size / 2}px;
+  margin-left: ${props => props.x}px;
+  margin-top: ${props => props.y}px;
+`
   const tree = renderer.create(
     <div>
-      <Dynamic
-        css={css`
-          color: hotpink;
-        `}
-        render={className => <div className={className} />}
+      <TheThing
+        x={5}
+        y={20}
+        size={20}
+        children={className => <div className={className} />}
       />
     </div>
   )

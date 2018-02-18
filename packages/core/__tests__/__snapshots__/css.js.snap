@@ -72,12 +72,27 @@ Array [
 exports[`dynamic 1`] = `
 <div>
   <style>
-    .css-181qz4b {
-  color: hotpink;
+    .css-1d1232a {
+  position: absolute;
+  cursor: pointer;
+  width: 0px;
+  height: 0px;
+  border-color: transparent;
+  border-style: solid;
+  border-top-width: 0px;
+  -webkit-transform: translate(50%,50%);
+  -ms-transform: translate(50%,50%);
+  transform: translate(50%,50%);
+  border-bottom-color: undefined;
+  border-right-width: 10px;
+  border-bottom-width: 10px;
+  border-left-width: 10px;
+  margin-left: 5px;
+  margin-top: 20px;
 }
   </style>
   <div
-    className="css-181qz4b"
+    className="css-1d1232a"
   />
 </div>
 `;

@@ -4,7 +4,7 @@ import * as React from 'react'
 import jsx from '@emotion/jsx'
 import Style from '@emotion/style'
 import Global from '@emotion/global'
-import Dynamic from '@emotion/dynamic'
+import dynamic from '@emotion/dynamic'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import styled from '@emotion/styled.macro'
@@ -19,6 +19,7 @@ const headerStyle = css`
   &:hover {
     color: hotpink;
   }
+  transition: all 300ms;
 `
 
 const animation = keyframes(css`
@@ -40,6 +41,8 @@ const Logo = styled.img`
 `
 
 const val = () => Math.floor(Math.random() * 255)
+
+const Dynamic = dynamic`background-color: ${props => props.backgroundColor}`
 
 class DynamicBackground extends React.Component<
   { children: React.Node },
@@ -66,12 +69,13 @@ class DynamicBackground extends React.Component<
   render() {
     return (
       <Dynamic
-        css={css([
-          headerStyle,
-          { backgroundColor: this.state.val, transition: 'all 300ms' }
-        ])}
-        render={className => {
-          return <header className={className}>{this.props.children}</header>
+        backgroundColor={this.state.val}
+        children={className => {
+          return (
+            <header css={headerStyle} className={className}>
+              {this.props.children}
+            </header>
+          )
         }}
       />
     )

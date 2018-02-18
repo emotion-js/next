@@ -26,9 +26,9 @@ exports[`ssr className 1`] = `
 exports[`ssr dynamic 1`] = `
 
 <style data-more>
-  .css-1lrxbo5{color:hotpink;}
+  .css-2dwmuti{color:hotpink;}
 </style>
-<div class="css-1lrxbo5">
+<div class="css-2dwmuti">
 </div>
 
 `;

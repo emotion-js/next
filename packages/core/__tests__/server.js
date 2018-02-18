@@ -9,7 +9,7 @@ import jsx from '@emotion/jsx'
 import Style from '@emotion/style'
 import styled from '@emotion/styled'
 import Global from '@emotion/global'
-import Dynamic from '@emotion/dynamic'
+import dynamic from '@emotion/dynamic'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import { renderToString } from 'react-dom/server'
@@ -59,14 +59,18 @@ cases(
       }
     },
     dynamic: {
-      render: () => (
-        <Dynamic
-          css={{ color: 'hotpink' }}
-          render={className => {
-            return <div className={className} />
-          }}
-        />
-      )
+      render: () => {
+        const Dynamic = dynamic`
+          color: hotpink;
+        `
+        return (
+          <Dynamic
+            children={className => {
+              return <div className={className} />
+            }}
+          />
+        )
+      }
     },
     className: {
       render: () => {
