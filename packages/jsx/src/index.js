@@ -12,12 +12,9 @@ type Props = {
 }
 
 class Style extends React.Component<Props> {
-  shouldHydrate: boolean
   serialized: string
-  constructor(props) {
-    super(props)
-    this.shouldHydrate = hydration.shouldHydrate
-  }
+  shouldHydrate = hydration.shouldHydrate
+
   componentDidMount() {
     hydration.shouldHydrate = false
   }

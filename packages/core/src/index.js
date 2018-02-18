@@ -33,9 +33,7 @@ if (isBrowser) {
   hydration.shouldHydrate = !!document.querySelector('[data-more]')
 }
 
-declare var __TEST__: boolean
-
-if (__TEST__ || !isBrowser) {
+if (process.env.NODE_ENV === 'test' || !isBrowser) {
   // $FlowFixMe
   Object.defineProperty(hydration, 'shouldHydrate', {
     set: () => {},

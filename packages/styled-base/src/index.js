@@ -7,7 +7,6 @@ import {
   testAlwaysTrue,
   testOmitPropsOnStringTag,
   omitAssign,
-  type Interpolations,
   type StyledOptions,
   type CreateStyled
 } from './utils'
@@ -56,72 +55,10 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     }
 
     class Styled extends React.Component<*> {
-      mergedProps: Object
-      shouldHydrate: boolean
-      serialized: string
-      static toString: () => string
-      static __emotion_real: any
-      static __emotion_styles: Interpolations
-      static __emotion_base: Styled
-      renderChild: CSSContextType => React.Node
-      static withComponent: (ElementType, options?: StyledOptions) => any
-      constructor(props) {
-        super(props)
-        this.shouldHydrate = hydration.shouldHydrate
-        this.renderChild = (context: CSSContextType) => {
-          let className = ''
-          let classInterpolations = []
-          this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
-            theme: context.theme || this.props.theme || {}
-          })
-          if (typeof this.props.className === 'string') {
-            className += getRegisteredStyles(
-              context.registered,
-              classInterpolations,
-              this.props.className
-            )
-          }
-          const serialized = serializeStyles.call(
-            this,
-            styles.concat(classInterpolations)
-          )
-          const rules = insertStyles(context, serialized)
-          className += serialized.cls
-
-          if (this.serialized === undefined && this.shouldHydrate) {
-            this.serialized = rules
-          }
-
-          const ele = React.createElement(
-            baseTag,
-            omitAssign(omitFn, {}, this.props, {
-              className,
-              ref: this.props.innerRef
-            })
-          )
-          if (this.shouldHydrate && this.serialized !== undefined) {
-            return (
-              <React.Fragment>
-                <style
-                  data-more={serialized.name}
-                  dangerouslySetInnerHTML={{ __html: this.serialized }}
-                />
-                {ele}
-              </React.Fragment>
-            )
-          }
-          return ele
-        }
-      }
-      componentDidMount() {
-        hydration.shouldHydrate = false
-      }
-      render() {
-        return consumer(this, this.renderChild)
-      }
-    }
-    Styled.displayName =
-      identifierName !== undefined
+      static __emotion_real = Styled
+      static __emotion_base = baseTag
+      static __emotion_styles = styles
+      static displayName = identifierName !== undefined
         ? identifierName
         : `Styled(${
             typeof baseTag === 'string'
@@ -129,21 +66,76 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
               : baseTag.displayName || baseTag.name || 'Component'
           })`
 
-    Styled[STYLES_KEY] = styles
-    Styled.__emotion_base = baseTag
-    Styled.__emotion_real = Styled
+      static withComponent = (
+        nextTag: ElementType,
+        nextOptions?: StyledOptions
+      ) => {
+        return createStyled(
+          nextTag,
+          nextOptions !== undefined
+            ? // $FlowFixMe
+              omitAssign(testAlwaysTrue, {}, options, nextOptions)
+            : options
+        )(...args)
+      }
 
-    Styled.withComponent = (
-      nextTag: ElementType,
-      nextOptions?: StyledOptions
-    ) => {
-      return createStyled(
-        nextTag,
-        nextOptions !== undefined
-          ? // $FlowFixMe
-            omitAssign(testAlwaysTrue, {}, options, nextOptions)
-          : options
-      )(...args)
+      mergedProps: Object
+      shouldHydrate: boolean
+      serialized: string
+
+      shouldHydrate = hydration.shouldHydrate
+
+      renderChild = (context: CSSContextType) => {
+        let className = ''
+        let classInterpolations = []
+        this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
+          theme: context.theme || this.props.theme || {}
+        })
+        if (typeof this.props.className === 'string') {
+          className += getRegisteredStyles(
+            context.registered,
+            classInterpolations,
+            this.props.className
+          )
+        }
+        const serialized = serializeStyles.call(
+          this,
+          styles.concat(classInterpolations)
+        )
+        const rules = insertStyles(context, serialized)
+        className += serialized.cls
+
+        if (this.serialized === undefined && this.shouldHydrate) {
+          this.serialized = rules
+        }
+
+        const ele = React.createElement(
+          baseTag,
+          omitAssign(omitFn, {}, this.props, {
+            className,
+            ref: this.props.innerRef
+          })
+        )
+        if (this.shouldHydrate && this.serialized !== undefined) {
+          return (
+            <React.Fragment>
+              <style
+                data-more={serialized.name}
+                dangerouslySetInnerHTML={{ __html: this.serialized }}
+              />
+              {ele}
+            </React.Fragment>
+          )
+        }
+        return ele
+      }
+
+      componentDidMount() {
+        hydration.shouldHydrate = false
+      }
+      render() {
+        return consumer(this, this.renderChild)
+      }
     }
 
     return Styled

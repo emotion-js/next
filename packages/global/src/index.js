@@ -17,47 +17,44 @@ class Global extends React.Component<GlobalProps> {
   shouldHydrate: boolean
   renderChild: CSSContextType => React.Node
   static __emotion_component = true
-
-  constructor(props: GlobalProps) {
-    super(props)
-    this.shouldHydrate = hydration.shouldHydrate
-    this.renderChild = (context: CSSContextType) => {
-      const serialized = serializeStyles([this.props.css])
-      if (this.oldName !== serialized.name) {
-        if (isBrowser) {
-          this.sheet = new StyleSheet({ key: 'global' })
-          this.sheet.inject()
-        }
-        this.oldName = serialized.name
-        let rules = context.stylis(``, serialized.styles)
-        let needsToSerializeValues =
-          this.serialized === undefined && this.shouldHydrate
-        if (needsToSerializeValues) {
-          this.serialized = rules.join('')
-        }
-
-        if (isBrowser && !needsToSerializeValues) {
-          this.sheet.flush()
-          this.sheet.inject()
-          rules.forEach(rule => {
-            this.sheet.insert(rule)
-          })
-        }
-        if (this.shouldHydrate && !needsToSerializeValues) {
-          this.serialized = ''
-        }
+  shouldHydrate = hydration.shouldHydrate
+  renderChild = (context: CSSContextType) => {
+    const serialized = serializeStyles([this.props.css])
+    if (this.oldName !== serialized.name) {
+      if (isBrowser) {
+        this.sheet = new StyleSheet({ key: 'global' })
+        this.sheet.inject()
       }
-      if (this.serialized !== undefined) {
-        return (
-          <style
-            data-more=""
-            dangerouslySetInnerHTML={{ __html: this.serialized }}
-          />
-        )
+      this.oldName = serialized.name
+      let rules = context.stylis(``, serialized.styles)
+      let needsToSerializeValues =
+        this.serialized === undefined && this.shouldHydrate
+      if (needsToSerializeValues) {
+        this.serialized = rules.join('')
       }
-      return null
+
+      if (isBrowser && !needsToSerializeValues) {
+        this.sheet.flush()
+        this.sheet.inject()
+        rules.forEach(rule => {
+          this.sheet.insert(rule)
+        })
+      }
+      if (this.shouldHydrate && !needsToSerializeValues) {
+        this.serialized = ''
+      }
     }
+    if (this.serialized !== undefined) {
+      return (
+        <style
+          data-more=""
+          dangerouslySetInnerHTML={{ __html: this.serialized }}
+        />
+      )
+    }
+    return null
   }
+
   componentWillUnmount() {
     this.sheet.flush()
   }

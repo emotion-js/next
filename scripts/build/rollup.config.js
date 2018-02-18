@@ -1,6 +1,5 @@
 // const resolve = require('rollup-plugin-node-resolve')
 // const uglify = require('rollup-plugin-uglify')
-const replace = require('rollup-plugin-replace')
 const babel = require('rollup-plugin-babel')
 // const alias = require('rollup-plugin-alias')
 const cjs = require('rollup-plugin-commonjs')
@@ -35,14 +34,19 @@ module.exports = data => {
               exclude: ['transform-typeof-symbol']
             }
           ],
-          '@babel/stage-3',
           '@babel/react',
           '@babel/flow'
         ],
-        plugins: ['codegen', 'closure-elimination'],
+        plugins: [
+          '@babel/plugin-transform-flow-strip-types',
+          require('./add-basic-constructor-to-react-component'),
+          'codegen',
+          'closure-elimination',
+          ['@babel/proposal-class-properties', { loose: true }],
+          '@babel/plugin-proposal-object-rest-spread'
+        ],
         babelrc: false
-      }),
-      replace({ __TEST__: "process.env.NODE_ENV === 'test'" })
+      })
     ]
   }
 

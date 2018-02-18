@@ -1,1 +1,1 @@
-global.__TEST__ = false
+process.env.NODE_ENV = 'development'
