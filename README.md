@@ -19,6 +19,7 @@
 * You want a flexible css-in-js library.
 * It works with string styles.
 * It works with object styles.
+* It has great composition.
 * There's no babel plugin, just babel macros.(i.e. style minification, labels and etc. will work in react-scripts@2)
 
 ## Why shouldn't I use this?
