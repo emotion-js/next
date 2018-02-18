@@ -1,6 +1,8 @@
 # emotion next
 
-**THIS IS NOT PRODUCTION READY AT ALL. DO NOT USE IT.**
+> An experimental css-in-js library built for React
+
+**This is pretty experimental and there will be breaking changes often. Don't use it for anything really important yet.**
 
 ### Todo
 
@@ -9,6 +11,26 @@
 * babel macro (labels, source maps, hoisting(we can even do it from the css prop since we control the jsx function), precompiling css calls to serialized styles and a hash)
 * consider making `withComponent` an export instead of a static on components, maybe accept components to styled and use their styles? or something else?
 * make the jest serializer a package and remove hashes from snapshots
+
+## Why should I use this?
+
+* Server side rendering just works. (just call `react-dom`'s `renderToString` or `renderToNodeStream`)
+* You like the css prop.
+* You want a flexible css-in-js library.
+* It works with string styles.
+* It works with object styles.
+* There's no babel plugin, just babel macros.(i.e. style minification, labels and etc. will work in react-scripts@2)
+
+## Why shouldn't I use this?
+
+* It only works with react@>=16.3.0.
+* Don't use it if you're totally fine with the styling solution you're already using
+* Styles won't be cached if two elements have the same style and they have no common ancestor with styles from emotion or a Provider
+* It requires every style to be rendered in the react tree so it's pretty inconvenient for keyframes
+* It assumes that styles rendered on the server will be the same as the styles on the first render on the client
+* It doesn't support component selectors and might never or it might, idk
+
+#### Getting Started
 
 ```bash
 yarn add @emotion/core @emotion/jsx
@@ -51,6 +73,39 @@ render(
 )
 ```
 
+#### Global
+
+> Note: Global styles are removed on unmount
+
+```
+yarn add @emotion/global
+```
+
+```jsx
+import * as React from 'react'
+import Global from '@emotion/global'
+import css from '@emotion/css'
+import { render } from 'react-dom'
+
+render(
+  <Global
+    css={[
+      css`
+        body {
+          color: hotpink;
+        }
+      `,
+      {
+        html: {
+          backgroundColor: 'darkgreen'
+        }
+      }
+    ]}
+  />,
+  document.getElementById('root')
+)
+```
+
 #### Keyframes
 
 ```
@@ -89,41 +144,9 @@ render(
 )
 ```
 
-#### Global
-
-> Note: Global styles are removed on unmount
-
-```
-yarn add @emotion/global
-```
-
-```jsx
-/** @jsx jsx */
-import jsx from '@emotion/jsx'
-import Global from '@emotion/global'
-import css from '@emotion/css'
-import { render } from 'react-dom'
-
-render(
-  <Global
-    css={[
-      css`
-        body {
-          color: hotpink;
-        }
-      `,
-      {
-        html: {
-          backgroundColor: 'darkgreen'
-        }
-      }
-    ]}
-  />,
-  document.getElementById('root')
-)
-```
-
 #### Dynamic
+
+> **This isn't totally ready yet, it's API will definitely change, you probably shouldn't use it yet.**
 
 The `Dynamic` component does not cache styles, use it for animations and other things that change very quickly.
 
@@ -154,8 +177,7 @@ yarn add @emotion/styled
 ```
 
 ```jsx
-/** @jsx jsx */
-import jsx from '@emotion/jsx'
+import * as React from 'react'
 import styled from '@emotion/styled'
 // must be react@>=16.3.0
 import { render } from 'react-dom'
@@ -197,8 +219,7 @@ render(
 #### With styled
 
 ```jsx
-/** @jsx jsx */
-import jsx from '@emotion/jsx'
+import * as React from 'react'
 import Provider from '@emotion/provider'
 import css from '@emotion/css'
 import { render } from 'react-dom'
@@ -211,6 +232,31 @@ render(
   <Provider theme={{ primary: 'hotpink' }}>
     <SomeComponent />
   </Provider>,
+  document.getElementById('root')
+)
+```
+
+#### Getting a class name outside of render
+
+> **Note:**
+>
+> Only do this when you absolutely **need** a class name outside of render
+
+```jsx
+import * as React from 'react'
+import css from '@emotion/css'
+import Style from '@emotion/style'
+
+const className = css`
+  color: hotpink;
+`
+
+render(
+  <div>
+    {/* The class name has to be rendered with `Style` */}
+    <Style styles={className} />
+    <div className={className} />
+  </div>,
   document.getElementById('root')
 )
 ```
