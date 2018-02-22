@@ -1,6 +1,6 @@
 {
   "name": "@emotion/jest",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Testing utils for emotion and jest",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -12,5 +12,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": ["src", "dist"]
+  "files": [
+    "src",
+    "dist"
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "@emotion/style",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "React component to render component for emotion",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
