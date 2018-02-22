@@ -3,19 +3,19 @@
 exports[`styled basic render 1`] = `
 Array [
   <style>
-    .css-1gv3b0m {
-  color: blue;
-  font-size: 20px;
-}
-
-@media (min-width:420px) {
-  .css-1gv3b0m {
-    color: blue;
-  }
-}
+    .emotion-0 {
+      color: blue;
+      font-size: 20px;
+    }
+    
+    @media (min-width:420px) {
+      .emotion-0 {
+        color: blue;
+      }
+    }
   </style>,
   <h1
-    className="css-1gv3b0m"
+    className="emotion-0"
   >
     hello world
   </h1>,
@@ -25,12 +25,12 @@ Array [
 exports[`styled basic render with object as style 1`] = `
 Array [
   <style>
-    .css-bk9fzy {
-  font-size: 20px;
-}
+    .emotion-0 {
+      font-size: 20px;
+    }
   </style>,
   <h1
-    className="css-bk9fzy"
+    className="emotion-0"
   >
     hello world
   </h1>,
@@ -40,12 +40,12 @@ Array [
 exports[`styled call expression 1`] = `
 Array [
   <style>
-    .css-mdajr1 {
-  font-size: 20px;
-}
+    .emotion-0 {
+      font-size: 20px;
+    }
   </style>,
   <div
-    className="css-mdajr1"
+    className="emotion-0"
   >
     hello world
   </div>,
@@ -55,21 +55,21 @@ Array [
 exports[`styled composing components 1`] = `
 Array [
   <style>
-    .css-1b7ydu3 {
-  color: green;
-  display: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
+    .emotion-0 {
+      color: green;
+      display: none;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+    }
   </style>,
   <button
-    className="css-1b7ydu3"
+    className="emotion-0"
   >
     hello world
   </button>,
@@ -79,13 +79,13 @@ Array [
 exports[`styled composition 1`] = `
 Array [
   <style>
-    .css-16g7lb6 {
-  font-size: 20px;
-  font-size: 13.333333333333334px;
-}
+    .emotion-0 {
+      font-size: 20px;
+      font-size: 13.333333333333334px;
+    }
   </style>,
   <h1
-    className="legacy__class css-16g7lb6"
+    className="legacy__class emotion-0"
   >
     hello world
   </h1>,
@@ -95,16 +95,16 @@ Array [
 exports[`styled composition 2`] = `
 Array [
   <style>
-    .css-nkwayg {
-  color: blue;
-  color: red;
-  color: blue;
-  font-size: 20px;
-  font-size: 32px;
-}
+    .emotion-0 {
+      color: blue;
+      color: red;
+      color: blue;
+      font-size: 20px;
+      font-size: 32px;
+    }
   </style>,
   <h1
-    className="legacy__class css-nkwayg"
+    className="legacy__class emotion-0"
     scale={2}
   >
     hello world
@@ -115,12 +115,12 @@ Array [
 exports[`styled composition based on props 1`] = `
 Array [
   <style>
-    .css-gtv7mb {
-  color: blue;
-}
+    .emotion-0 {
+      color: blue;
+    }
   </style>,
   <h1
-    className="css-gtv7mb"
+    className="emotion-0"
   >
     hello world
   </h1>,
@@ -130,12 +130,12 @@ Array [
 exports[`styled composition based on props 2`] = `
 Array [
   <style>
-    .css-yzbqh3 {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>,
   <h1
-    className="css-yzbqh3"
+    className="emotion-0"
   >
     hello world
   </h1>,
@@ -145,21 +145,21 @@ Array [
 exports[`styled composition of nested pseudo selectors 1`] = `
 Array [
   <style>
-    .css-wsfuun {
-  font-size: 2rem;
-  padding: 16px;
-}
-
-.css-wsfuun:hover {
-  color: blue;
-}
-
-.css-wsfuun:hover:active {
-  color: red;
-}
+    .emotion-0 {
+      font-size: 2rem;
+      padding: 16px;
+    }
+    
+    .emotion-0:hover {
+      color: blue;
+    }
+    
+    .emotion-0:hover:active {
+      color: red;
+    }
   </style>,
   <button
-    className="css-wsfuun"
+    className="emotion-0"
   >
     Should be purple
   </button>,
@@ -169,13 +169,13 @@ Array [
 exports[`styled function in expression 1`] = `
 Array [
   <style>
-    .css-oc8k80-H1 {
-  font-size: 20px;
-  font-size: 40px;
-}
+    .emotion-0 {
+      font-size: 20px;
+      font-size: 40px;
+    }
   </style>,
   <h1
-    className="legacy__class css-oc8k80-H1"
+    className="legacy__class emotion-0"
     scale={2}
   >
     hello world
@@ -186,19 +186,19 @@ Array [
 exports[`styled glamorous style api & composition 1`] = `
 Array [
   <style>
-    .css-1yodimz {
-  font-size: 20px;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
+    .emotion-0 {
+      font-size: 20px;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
   </style>,
   <h1
-    className="css-1yodimz"
+    className="emotion-0"
     fontSize={20}
   >
     hello world
@@ -209,22 +209,22 @@ Array [
 exports[`styled handles more than 10 dynamic properties 1`] = `
 Array [
   <style>
-    .css-cl3qzr {
-  text-decoration: underline;
-  border-right: solid blue 54px;
-  background: white;
-  color: black;
-  display: block;
-  border-radius: 3px;
-  padding: 25px;
-  width: 500px;
-  z-index: 100;
-  font-size: 18px;
-  text-align: center;
-}
+    .emotion-0 {
+      text-decoration: underline;
+      border-right: solid blue 54px;
+      background: white;
+      color: black;
+      display: block;
+      border-radius: 3px;
+      padding: 25px;
+      width: 500px;
+      z-index: 100;
+      font-size: 18px;
+      text-align: center;
+    }
   </style>,
   <h1
-    className="legacy__class css-cl3qzr"
+    className="legacy__class emotion-0"
   >
     hello world
   </h1>,
@@ -234,17 +234,17 @@ Array [
 exports[`styled higher order component 1`] = `
 Array [
   <style>
-    .css-1dwlhgs {
-  font-size: 20px;
-  background-color: #7fc8d6;
-  background-color: '#343a40';
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
+    .emotion-0 {
+      font-size: 20px;
+      background-color: #7fc8d6;
+      background-color: '#343a40';
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+    }
   </style>,
   <div
-    className="css-1dwlhgs"
+    className="emotion-0"
   />,
 ]
 `;
@@ -252,12 +252,12 @@ Array [
 exports[`styled inline function return value is a function 1`] = `
 Array [
   <style>
-    .css-mdajr1 {
-  font-size: 20px;
-}
+    .emotion-0 {
+      font-size: 20px;
+    }
   </style>,
   <h1
-    className="css-mdajr1"
+    className="emotion-0"
   >
     hello world
   </h1>,
@@ -267,12 +267,12 @@ Array [
 exports[`styled innerRef 1`] = `
 Array [
   <style>
-    .css-dae0kw {
-  font-size: 12px;
-}
+    .emotion-0 {
+      font-size: 12px;
+    }
   </style>,
   <h1
-    className="css-dae0kw"
+    className="emotion-0"
   >
     hello world
   </h1>,
@@ -282,24 +282,24 @@ Array [
 exports[`styled input placeholder 1`] = `
 Array [
   <style>
-    .css-1uekv1x::-webkit-input-placeholder {
-  background-color: green;
-}
-
-.css-1uekv1x::-moz-placeholder {
-  background-color: green;
-}
-
-.css-1uekv1x:-ms-input-placeholder {
-  background-color: green;
-}
-
-.css-1uekv1x::placeholder {
-  background-color: green;
-}
+    .emotion-0::-webkit-input-placeholder {
+      background-color: green;
+    }
+    
+    .emotion-0::-moz-placeholder {
+      background-color: green;
+    }
+    
+    .emotion-0:-ms-input-placeholder {
+      background-color: green;
+    }
+    
+    .emotion-0::placeholder {
+      background-color: green;
+    }
   </style>,
   <input
-    className="css-1uekv1x"
+    className="emotion-0"
   >
     hello world
   </input>,
@@ -309,24 +309,24 @@ Array [
 exports[`styled input placeholder object 1`] = `
 Array [
   <style>
-    .css-135lywr::-webkit-input-placeholder {
-  background-color: green;
-}
-
-.css-135lywr::-moz-placeholder {
-  background-color: green;
-}
-
-.css-135lywr:-ms-input-placeholder {
-  background-color: green;
-}
-
-.css-135lywr::placeholder {
-  background-color: green;
-}
+    .emotion-0::-webkit-input-placeholder {
+      background-color: green;
+    }
+    
+    .emotion-0::-moz-placeholder {
+      background-color: green;
+    }
+    
+    .emotion-0:-ms-input-placeholder {
+      background-color: green;
+    }
+    
+    .emotion-0::placeholder {
+      background-color: green;
+    }
   </style>,
   <input
-    className="css-135lywr"
+    className="emotion-0"
   >
     hello world
   </input>,
@@ -336,32 +336,32 @@ Array [
 exports[`styled nested 1`] = `
 Array [
   <style>
-    .css-fdlhxa {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.css-fdlhxa div {
-  color: green;
-}
-
-.css-fdlhxa div span {
-  color: red;
-}
+    .emotion-0 {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
+    
+    .emotion-0 div {
+      color: green;
+    }
+    
+    .emotion-0 div span {
+      color: red;
+    }
   </style>,
   <div
-    className="css-fdlhxa"
+    className="emotion-0"
   >
     hello 
     <style>
-      .css-mdajr1 {
-  font-size: 20px;
-}
+      .emotion-1 {
+        font-size: 20px;
+      }
     </style>
     <h1
-      className="css-mdajr1"
+      className="emotion-1"
     >
       This will be green
     </h1>
@@ -373,12 +373,12 @@ Array [
 exports[`styled no dynamic 1`] = `
 Array [
   <style>
-    .css-1f7s68s {
-  float: left;
-}
+    .emotion-0 {
+      float: left;
+    }
   </style>,
   <h1
-    className="css-1f7s68s"
+    className="emotion-0"
   >
     hello world
   </h1>,
@@ -388,15 +388,15 @@ Array [
 exports[`styled no prop filtering on non string tags 1`] = `
 Array [
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>,
   <a
     a={true}
     aria-label="some label"
     b={true}
-    className="css-7o6h5j"
+    className="emotion-0"
     cool={true}
     data-wow="value"
     filtering={true}
@@ -413,15 +413,15 @@ Array [
 exports[`styled no prop filtering on string tags started with upper case 1`] = `
 Array [
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>,
   <SomeCustomLink
     a={true}
     aria-label="some label"
     b={true}
-    className="css-7o6h5j"
+    className="emotion-0"
     cool={true}
     data-wow="value"
     filtering={true}
@@ -438,19 +438,19 @@ Array [
 exports[`styled object as style 1`] = `
 Array [
   <style>
-    .css-1yodimz {
-  font-size: 20px;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
+    .emotion-0 {
+      font-size: 20px;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
   </style>,
   <h1
-    className="css-1yodimz"
+    className="emotion-0"
     fontSize={20}
   >
     hello world
@@ -461,26 +461,26 @@ Array [
 exports[`styled object composition 1`] = `
 Array [
   <style>
-    .css-1k5i427 {
-  border-radius: 50%;
-  -webkit-transition: -webkit-transform 400ms ease-in-out;
-  -webkit-transition: transform 400ms ease-in-out;
-  transition: transform 400ms ease-in-out;
-  border: 3px solid currentColor;
-  width: 96px;
-  height: 96px;
-  color: red;
-  color: blue;
-}
-
-.css-1k5i427:hover {
-  -webkit-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  transform: scale(1.2);
-}
+    .emotion-0 {
+      border-radius: 50%;
+      -webkit-transition: -webkit-transform 400ms ease-in-out;
+      -webkit-transition: transform 400ms ease-in-out;
+      transition: transform 400ms ease-in-out;
+      border: 3px solid currentColor;
+      width: 96px;
+      height: 96px;
+      color: red;
+      color: blue;
+    }
+    
+    .emotion-0:hover {
+      -webkit-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+      transform: scale(1.2);
+    }
   </style>,
   <img
-    className="css-1k5i427"
+    className="emotion-0"
   />,
 ]
 `;
@@ -488,16 +488,16 @@ Array [
 exports[`styled objects 1`] = `
 Array [
   <style>
-    .css-1b8zhb0 {
-  padding: 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
+    .emotion-0 {
+      padding: 10px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
   </style>,
   <h1
-    className="css-1b8zhb0"
+    className="emotion-0"
     display="flex"
   >
     hello world
@@ -508,12 +508,12 @@ Array [
 exports[`styled objects with spread properties 1`] = `
 Array [
   <style>
-    .css-bk9fzy {
-  font-size: 20px;
-}
+    .emotion-0 {
+      font-size: 20px;
+    }
   </style>,
   <figure
-    className="css-bk9fzy"
+    className="emotion-0"
   >
     hello world
   </figure>,
@@ -523,13 +523,13 @@ Array [
 exports[`styled prop filtering 1`] = `
 Array [
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>,
   <a
     aria-label="some label"
-    className="css-7o6h5j"
+    className="emotion-0"
     data-wow="value"
     href="link"
     is={true}
@@ -542,14 +542,14 @@ Array [
 exports[`styled prop filtering on composed styled components that are string tags 1`] = `
 Array [
   <style>
-    .css-1dxilk9 {
-  background-color: hotpink;
-  color: green;
-}
+    .emotion-0 {
+      background-color: hotpink;
+      color: green;
+    }
   </style>,
   <a
     aria-label="some label"
-    className="css-1dxilk9"
+    className="emotion-0"
     data-wow="value"
     href="link"
     is={true}
@@ -562,12 +562,12 @@ Array [
 exports[`styled random expressions undefined return 1`] = `
 Array [
   <style>
-    .css-6pg9ex {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>,
   <h1
-    className="legacy__class css-6pg9ex"
+    className="legacy__class emotion-0"
   >
     hello world
   </h1>,
@@ -577,18 +577,18 @@ Array [
 exports[`styled random object expression 1`] = `
 Array [
   <style>
-    .css-14bb7d4 {
-  background-color: hotpink;
-  font-size: 1rem;
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: 0;
-  margin-left: auto;
-  color: green;
-}
+    .emotion-0 {
+      background-color: hotpink;
+      font-size: 1rem;
+      margin-top: 0;
+      margin-right: auto;
+      margin-bottom: 0;
+      margin-left: auto;
+      color: green;
+    }
   </style>,
   <h1
-    className="legacy__class css-14bb7d4"
+    className="legacy__class emotion-0"
   >
     hello world
   </h1>,
@@ -598,12 +598,12 @@ Array [
 exports[`styled same component rendered multiple times 1`] = `
 Array [
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>,
   <div
-    className="css-7o6h5j"
+    className="emotion-0"
   />,
 ]
 `;
@@ -611,18 +611,18 @@ Array [
 exports[`styled same component rendered multiple times 2`] = `
 Array [
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>,
   <div
-    className="css-7o6h5j"
+    className="emotion-0"
   >
     <div
-      className="css-7o6h5j"
+      className="emotion-0"
     />
     <div
-      className="css-7o6h5j"
+      className="emotion-0"
     />
   </div>,
 ]
@@ -631,12 +631,12 @@ Array [
 exports[`styled theming 1`] = `
 Array [
   <style>
-    .css-4ecmgi {
-  color: hotpink;
-}
+    .emotion-0 {
+      color: hotpink;
+    }
   </style>,
   <div
-    className="css-4ecmgi"
+    className="emotion-0"
   >
     this should be hotpink
   </div>,
@@ -651,22 +651,22 @@ You may have forgotten to import it."
 exports[`styled with higher order component that hoists statics 1`] = `
 Array [
   <style>
-    .css-18m13of {
-  padding: 8px;
-}
+    .emotion-0 {
+      padding: 8px;
+    }
   </style>,
   <style>
-    .css-5jivaz {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  color: hotpink;
-  padding: 8px;
-}
+    .emotion-1 {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      color: hotpink;
+      padding: 8px;
+    }
   </style>,
   <div
-    className="css-5jivaz"
+    className="emotion-1"
   />,
 ]
 `;
@@ -674,12 +674,12 @@ Array [
 exports[`styled withComponent does not carry styles from flattened component 1`] = `
 Array [
   <style>
-    .css-4ecmgi {
-  color: hotpink;
-}
+    .emotion-0 {
+      color: hotpink;
+    }
   </style>,
   <p
-    className="css-4ecmgi"
+    className="emotion-0"
   />,
 ]
 `;
@@ -687,22 +687,22 @@ Array [
 exports[`styled withComponent will replace tags but keep styling classes 1`] = `
 <article>
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>
   <h1
-    className="css-7o6h5j"
+    className="emotion-0"
   >
     My Title
   </h1>
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>
   <h2
-    className="css-7o6h5j"
+    className="emotion-0"
   >
     My Subtitle
   </h2>
@@ -712,22 +712,22 @@ exports[`styled withComponent will replace tags but keep styling classes 1`] = `
 exports[`styled withComponent with function interpolation 1`] = `
 <article>
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>
   <h1
-    className="css-7o6h5j"
+    className="emotion-0"
   >
     My Title
   </h1>
   <style>
-    .css-7o6h5j {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>
   <h2
-    className="css-7o6h5j"
+    className="emotion-0"
   >
     My Subtitle
   </h2>

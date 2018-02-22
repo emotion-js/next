@@ -1,0 +1,16 @@
+{
+  "name": "@emotion/jest",
+  "version": "0.2.3",
+  "description": "Testing utils for emotion and jest",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "license": "MIT",
+  "repository": "https://github.com/emotion-js/next/tree/master/packages/jest",
+  "dependencies": {
+    "css": "^2.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": ["src", "dist"]
+}

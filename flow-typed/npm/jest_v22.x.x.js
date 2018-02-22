@@ -67,14 +67,14 @@ type JestMockFn<TArguments: $ReadOnlyArray<*>, TReturn> = {
    * Sugar for only returning a value once inside your mock
    */
   mockReturnValueOnce(value: TReturn): JestMockFn<TArguments, TReturn>
-};
+}
 
 type JestAsymmetricEqualityType = {
   /**
    * A custom Jasmine equality tester
    */
   asymmetricMatch(value: mixed): boolean
-};
+}
 
 type JestCallsType = {
   allArgs(): mixed,
@@ -84,21 +84,21 @@ type JestCallsType = {
   first(): mixed,
   mostRecent(): mixed,
   reset(): void
-};
+}
 
 type JestClockType = {
   install(): void,
   mockDate(date: Date): void,
   tick(milliseconds?: number): void,
   uninstall(): void
-};
+}
 
 type JestMatcherResult = {
   message?: string | (() => string),
   pass: boolean
-};
+}
 
-type JestMatcher = (actual: any, expected: any) => JestMatcherResult;
+type JestMatcher = (actual: any, expected: any) => JestMatcherResult
 
 type JestPromiseType = {
   /**
@@ -111,7 +111,7 @@ type JestPromiseType = {
    * matcher can be chained. If the promise is rejected the assertion fails.
    */
   resolves: JestExpectType
-};
+}
 
 /**
  *  Plugin: jest-enzyme
@@ -134,7 +134,7 @@ type EnzymeMatchersType = {
   toHaveValue(value: any): void,
   toMatchElement(element: React$Element<any>): void,
   toMatchSelector(selector: string): void
-};
+}
 
 type JestExpectType = {
   not: JestExpectType & EnzymeMatchersType,
@@ -278,7 +278,7 @@ type JestExpectType = {
    * matching the most recent snapshot when it is called.
    */
   toThrowErrorMatchingSnapshot(): void
-};
+}
 
 type JestObjectType = {
   /**
@@ -430,32 +430,32 @@ type JestObjectType = {
    * Note: The default timeout interval is 5 seconds if this method is not called.
    */
   setTimeout(timeout: number): JestObjectType
-};
+}
 
 type JestSpyType = {
   calls: JestCallsType
-};
+}
 
 /** Runs this function after every test inside this context */
 declare function afterEach(
   fn: (done: () => void) => ?Promise<mixed>,
   timeout?: number
-): void;
+): void
 /** Runs this function before every test inside this context */
 declare function beforeEach(
   fn: (done: () => void) => ?Promise<mixed>,
   timeout?: number
-): void;
+): void
 /** Runs this function after all tests have finished inside this context */
 declare function afterAll(
   fn: (done: () => void) => ?Promise<mixed>,
   timeout?: number
-): void;
+): void
 /** Runs this function before any tests have started inside this context */
 declare function beforeAll(
   fn: (done: () => void) => ?Promise<mixed>,
   timeout?: number
-): void;
+): void
 
 /** A context for grouping tests together */
 declare var describe: {
@@ -473,7 +473,7 @@ declare var describe: {
    * Skip running this describe block
    */
   skip(name: string, fn: () => void): void
-};
+}
 
 /** An individual test unit */
 declare var it: {
@@ -525,22 +525,22 @@ declare var it: {
     fn?: (done: () => void) => ?Promise<mixed>,
     timeout?: number
   ): void
-};
+}
 declare function fit(
   name: string,
   fn: (done: () => void) => ?Promise<mixed>,
   timeout?: number
-): void;
+): void
 /** An individual test unit */
-declare var test: typeof it;
+declare var test: typeof it
 /** A disabled group of tests */
-declare var xdescribe: typeof describe;
+declare var xdescribe: typeof describe
 /** A focused group of tests */
-declare var fdescribe: typeof describe;
+declare var fdescribe: typeof describe
 /** A disabled individual test */
-declare var xit: typeof it;
+declare var xit: typeof it
 /** A disabled individual test */
-declare var xtest: typeof it;
+declare var xtest: typeof it
 
 /** The expect function is used every time you want to test a value */
 declare var expect: {
@@ -549,7 +549,10 @@ declare var expect: {
   /** Add additional Jasmine matchers to Jest's roster */
   extend(matchers: { [name: string]: JestMatcher }): void,
   /** Add a module that formats application-specific data structures. */
-  addSnapshotSerializer(serializer: (input: Object) => string): void,
+  addSnapshotSerializer(serializer: {
+    test: any => boolean,
+    print: (val: any, printer: Function) => any
+  }): void,
   assertions(expectedAssertions: number): void,
   hasAssertions(): void,
   any(value: mixed): JestAsymmetricEqualityType,
@@ -559,14 +562,14 @@ declare var expect: {
   /** Matches any received string that contains the exact expected string. */
   stringContaining(value: string): void,
   stringMatching(value: string | RegExp): void
-};
+}
 
 // TODO handle return type
 // http://jasmine.github.io/2.4/introduction.html#section-Spies
-declare function spyOn(value: mixed, method: string): Object;
+declare function spyOn(value: mixed, method: string): Object
 
 /** Holds all functions related to manipulating test runner */
-declare var jest: JestObjectType;
+declare var jest: JestObjectType
 
 /**
  * The global Jasmine object, this is generally not exposed as the public API,
@@ -585,4 +588,4 @@ declare var jasmine: {
   ): { [methodName: string]: JestSpyType },
   objectContaining(value: Object): void,
   stringMatching(value: string): void
-};
+}

@@ -5,14 +5,14 @@ exports[`allow passing a cache 1`] = `null`;
 exports[`nested provider 1`] = `
 Array [
   <style>
-    .css-63unuz {
-  color: white;
-  padding: 4px;
-  background-color: darkgreen;
-}
+    .emotion-0 {
+      color: white;
+      padding: 4px;
+      background-color: darkgreen;
+    }
   </style>,
   <div
-    className="css-63unuz"
+    className="emotion-0"
   />,
 ]
 `;
@@ -20,14 +20,14 @@ Array [
 exports[`nested provider with function 1`] = `
 Array [
   <style>
-    .css-m6dau6 {
-  color: hotpink;
-  padding: 8px;
-  background-color: darkgreen;
-}
+    .emotion-0 {
+      color: hotpink;
+      padding: 8px;
+      background-color: darkgreen;
+    }
   </style>,
   <div
-    className="css-m6dau6"
+    className="emotion-0"
   />,
 ]
 `;

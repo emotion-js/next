@@ -2,7 +2,10 @@
   "private": true,
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -56,8 +59,8 @@
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
     "flow-bin": "^0.64.0",
-    "jest": "^22.3.0",
-    "jest-environment-jsdom": "^22.3.0",
+    "jest": "^22.4.0",
+    "jest-environment-jsdom": "^22.4.0",
     "jest-in-case": "^1.0.2",
     "jest-serializer-html": "^5.0.0",
     "lerna": "^2.1.0",
@@ -76,5 +79,9 @@
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^3.0.0"
   },
-  "workspaces": ["packages/*", "examples/*", "scripts/*"]
+  "workspaces": [
+    "packages/*",
+    "examples/*",
+    "scripts/*"
+  ]
 }

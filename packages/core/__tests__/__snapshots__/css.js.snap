@@ -4,8 +4,8 @@ exports[`@font-face in global 1`] = `
 <div>
   <style>
     @font-face {
-  font-family: some-name;
-}
+      font-family: some-name;
+    }
   </style>
 </div>
 `;
@@ -24,12 +24,12 @@ Object {
 exports[`css call to render 1`] = `
 <div>
   <style>
-    .css-ulmpz9 {
-  color: green;
-}
+    .emotion-0 {
+      color: green;
+    }
   </style>
   <div
-    className="css-ulmpz9"
+    className="emotion-0"
   >
     something
   </div>
@@ -39,29 +39,29 @@ exports[`css call to render 1`] = `
 exports[`css call to render with array as styles 1`] = `
 Array [
   <style>
-    .css-fsfbn2 {
-  color: yellow;
-}
+    .emotion-0 {
+      color: yellow;
+    }
   </style>,
   <div
-    className="css-fsfbn2"
+    className="emotion-0"
   >
     <style>
-      .css-ulmpz9 {
-  color: green;
-}
-
-.css-1ndtvd6 {
-  color: hotpink;
-}
+      .emotion-1 {
+        color: green;
+      }
+      
+      .emotion-2 {
+        color: hotpink;
+      }
     </style>
     <div
-      className="css-ulmpz9"
+      className="emotion-1"
     >
       something
     </div>
     <div
-      className="css-1ndtvd6"
+      className="emotion-2"
     >
       anothor thing
     </div>
@@ -72,12 +72,12 @@ Array [
 exports[`dynamic 1`] = `
 <div>
   <style>
-    .css-181qz4b {
-  color: hotpink;
-}
+    .emotion-0 {
+      color: hotpink;
+    }
   </style>
   <div
-    className="css-181qz4b"
+    className="emotion-0"
   />
 </div>
 `;
@@ -97,8 +97,8 @@ exports[`global 1`] = `
 <div>
   <style>
     body {
-  color: hotpink;
-}
+      color: hotpink;
+    }
   </style>
 </div>
 `;
@@ -107,33 +107,33 @@ exports[`keyframes 1`] = `
 <div>
   <style>
     @-webkit-keyframes animation-1ozfi5a {
-  from {
-    color: green;
-  }
-
-  to {
-    color: hotpink;
-  }
-}
-
-@keyframes animation-1ozfi5a {
-  from {
-    color: green;
-  }
-
-  to {
-    color: hotpink;
-  }
-}
+      from {
+        color: green;
+      }
+    
+      to {
+        color: hotpink;
+      }
+    }
+    
+    @keyframes animation-1ozfi5a {
+      from {
+        color: green;
+      }
+    
+      to {
+        color: hotpink;
+      }
+    }
   </style>
   <style>
-    .css-rwyxac {
-  -webkit-animation: animation-1ozfi5a;
-  animation: animation-1ozfi5a;
-}
+    .emotion-0 {
+      -webkit-animation: animation-1ozfi5a;
+      animation: animation-1ozfi5a;
+    }
   </style>
   <div
-    className="css-rwyxac"
+    className="emotion-0"
   >
     animation-1ozfi5a
   </div>
@@ -143,12 +143,12 @@ exports[`keyframes 1`] = `
 exports[`label in css call 1`] = `
 <div>
   <style>
-    .css-1qs3104 {
-  color: hotpink;
-}
+    .emotion-0 {
+      color: hotpink;
+    }
   </style>
   <div
-    className="css-1qs3104"
+    className="emotion-0"
   >
     something
   </div>
@@ -158,12 +158,12 @@ exports[`label in css call 1`] = `
 exports[`object with false 1`] = `
 <div>
   <style>
-    .css-954372 {
-  color: hotpink;
-}
+    .emotion-0 {
+      color: hotpink;
+    }
   </style>
   <div
-    className="css-954372"
+    className="emotion-0"
   >
     something
   </div>
@@ -179,12 +179,12 @@ exports[`string as css prop throws 1`] = `
 exports[`theming with the css prop 1`] = `
 Array [
   <style>
-    .css-1lrxbo5 {
-  color: hotpink;
-}
+    .emotion-0 {
+      color: hotpink;
+    }
   </style>,
   <div
-    className="css-1lrxbo5"
+    className="emotion-0"
   />,
 ]
 `;
@@ -192,15 +192,15 @@ Array [
 exports[`thing 1`] = `
 <div>
   <style>
-    .css-k008qs {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
+    .emotion-0 {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
   </style>
   <div
-    className="css-k008qs"
+    className="emotion-0"
   >
     something
   </div>

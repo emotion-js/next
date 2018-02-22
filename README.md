@@ -10,7 +10,6 @@
 * Provider (nonce, ~~theme~~(done), container element?)
 * babel macro (labels, source maps, hoisting(we can even do it from the css prop since we control the jsx function), precompiling css calls to serialized styles and a hash)
 * consider making `withComponent` an export instead of a static on components, maybe accept components to styled and use their styles? or something else?
-* make the jest serializer a package and remove hashes from snapshots
 
 ## Why should I use this?
 
