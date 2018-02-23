@@ -23,7 +23,7 @@ export function getRegisteredStyles(
 export const insertStyles = (
   context: CSSContextType,
   insertable: InsertableStyles,
-  shouldHydrate: boolean
+  hydrationRender: boolean
 ) => {
   if (
     insertable.type === 1 &&
@@ -37,7 +37,7 @@ export const insertStyles = (
       insertable.styles
     )
     context.inserted[insertable.name] = rules.join('')
-    if (isBrowser) {
+    if (isBrowser && hydrationRender === false) {
       rules.forEach(rule => {
         context.sheet.insert(rule)
       })

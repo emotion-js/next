@@ -38,7 +38,11 @@ class Style extends React.Component<Props> {
         : actualProps.css
     )
     const serialized = serializeStyles(registeredStyles)
-    const rules = insertStyles(context, serialized)
+    const rules = insertStyles(
+      context,
+      serialized,
+      this.serialized === undefined && this.shouldHydrate
+    )
     className += serialized.cls
     if (this.serialized === undefined && this.shouldHydrate) {
       this.serialized = rules

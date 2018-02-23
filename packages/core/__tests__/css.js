@@ -78,6 +78,31 @@ test('keyframes', () => {
   expect(tree.toJSON()).toMatchSnapshot()
 })
 
+test('keyframes insert in css call', () => {
+  const animation = keyframes(css`
+    from {
+      color: green;
+    }
+    to {
+      color: hotpink;
+    }
+  `)
+  const tree = renderer.create(
+    <div>
+      <div
+        css={css`
+          animation: ${animation.name};
+          ${animation.styles};
+        `}
+      >
+        {animation.toString()}
+      </div>
+    </div>
+  )
+
+  expect(tree.toJSON()).toMatchSnapshot()
+})
+
 test('global', () => {
   const tree = renderer.create(
     <div>

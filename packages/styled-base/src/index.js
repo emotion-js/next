@@ -89,7 +89,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         let className = ''
         let classInterpolations = []
         this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
-          theme: context.theme || this.props.theme || {}
+          theme: this.props.theme || context.theme
         })
         if (typeof this.props.className === 'string') {
           className += getRegisteredStyles(
@@ -102,7 +102,11 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
           this,
           styles.concat(classInterpolations)
         )
-        const rules = insertStyles(context, serialized)
+        const rules = insertStyles(
+          context,
+          serialized,
+          this.serialized === undefined && this.shouldHydrate
+        )
         className += serialized.cls
 
         if (this.serialized === undefined && this.shouldHydrate) {

@@ -25,7 +25,7 @@
 * It only works with react@>=16.3.0.
 * Don't use it if you're totally fine with the styling solution you're already using
 * Styles won't be cached if two elements have the same style and they have no common ancestor with styles from emotion or a Provider
-* It requires every style to be rendered in the react tree so it's pretty inconvenient for keyframes
+* It requires every style to be rendered in the react tree
 * It assumes that styles rendered on the server will be the same as the styles on the first render on the client
 * It doesn't support component selectors and might never or it might, idk
 
@@ -108,13 +108,12 @@ render(
 #### Keyframes
 
 ```
-yarn add @emotion/keyframes @emotion/style
+yarn add @emotion/keyframes
 ```
 
 ```jsx
 /** @jsx jsx */
 import jsx from '@emotion/jsx'
-import Style from '@emotion/style'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import { render } from 'react-dom'
@@ -130,10 +129,10 @@ const animation = keyframes(css`
 
 render(
   <div>
-    <Style styles={animation} />
     <div
       css={css`
-        animation: ${animation} infinite 20s linear;
+        animation: ${animation.name} infinite 20s linear;
+        ${animation.styles};
       `}
     >
       This is getting rotated

@@ -16,14 +16,22 @@ export default class Style extends React.Component<Props> {
     let rules = ''
     if (Array.isArray(styles)) {
       styles.forEach(style => {
-        let renderedStyle = insertStyles(context, style)
+        let renderedStyle = insertStyles(
+          context,
+          style,
+          this.serialized === undefined && this.shouldHydrate
+        )
         if (renderedStyle !== undefined) {
           // $FlowFixMe
           rules += renderedStyle
         }
       })
     } else {
-      let renderedStyle = insertStyles(context, styles)
+      let renderedStyle = insertStyles(
+        context,
+        styles,
+        this.serialized === undefined && this.shouldHydrate
+      )
       if (renderedStyle !== undefined) {
         rules = renderedStyle
       }

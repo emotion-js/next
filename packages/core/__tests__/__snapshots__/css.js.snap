@@ -140,6 +140,42 @@ exports[`keyframes 1`] = `
 </div>
 `;
 
+exports[`keyframes insert in css call 1`] = `
+<div>
+  <style>
+    .emotion-0 {
+      -webkit-animation: animation-1ozfi5a;
+      animation: animation-1ozfi5a;
+    }
+    
+    @-webkit-keyframes animation-1ozfi5a {
+      from {
+        color: green;
+      }
+    
+      to {
+        color: hotpink;
+      }
+    }
+    
+    @keyframes animation-1ozfi5a {
+      from {
+        color: green;
+      }
+    
+      to {
+        color: hotpink;
+      }
+    }
+  </style>
+  <div
+    className="emotion-0"
+  >
+    animation-1ozfi5a
+  </div>
+</div>
+`;
+
 exports[`label in css call 1`] = `
 <div>
   <style>
