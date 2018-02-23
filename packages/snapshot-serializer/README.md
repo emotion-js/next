@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-yarn add --dev @emotion/jest
+yarn add --dev @emotion/snapshot-serializer
 ```
 
 ## Getting started
