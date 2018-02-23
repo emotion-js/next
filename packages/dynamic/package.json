@@ -1,6 +1,6 @@
 {
   "name": "@emotion/dynamic",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "React component to render highly dynamic styles for emotion",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -10,7 +10,7 @@
     "@emotion/serialize": "^0.2.1",
     "@emotion/sheet": "^0.2.0",
     "@emotion/types": "^0.2.3",
-    "@emotion/utils": "^0.2.0"
+    "@emotion/utils": "^0.4.0"
   },
   "peerDependencies": {
     "@emotion/core": "0.x.x",

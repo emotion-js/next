@@ -1,6 +1,6 @@
 {
   "name": "@emotion/cache",
-  "version": "0.2.3",
+  "version": "0.4.0",
   "description": "emotion's cache",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -9,7 +9,7 @@
   "dependencies": {
     "@emotion/sheet": "^0.2.0",
     "@emotion/types": "^0.2.3",
-    "@emotion/utils": "^0.2.0",
+    "@emotion/utils": "^0.4.0",
     "emotion-utils": "^9.0.1"
   },
   "publishConfig": {
