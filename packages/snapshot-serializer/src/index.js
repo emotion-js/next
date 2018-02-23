@@ -22,7 +22,7 @@ function markNodes(nodes) {
 
 const clsPattern = /css-([a-zA-Z0-9-]+)/gi
 
-export const serializer = {
+const serializer = {
   test: (val: any) => {
     if (!val) {
       return false
@@ -85,3 +85,5 @@ export const serializer = {
     return printer(val)
   }
 }
+
+export default serializer

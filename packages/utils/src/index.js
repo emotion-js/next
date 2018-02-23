@@ -22,7 +22,8 @@ export function getRegisteredStyles(
 
 export const insertStyles = (
   context: CSSContextType,
-  insertable: InsertableStyles
+  insertable: InsertableStyles,
+  shouldHydrate: boolean
 ) => {
   if (
     insertable.type === 1 &&

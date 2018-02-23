@@ -4,6 +4,6 @@
 // import Adapter from 'enzyme-adapter-react-16'
 
 // configure({ adapter: new Adapter() })
-import { serializer } from '@emotion/jest'
+import serializer from '@emotion/snapshot-serializer'
 
 expect.addSnapshotSerializer(serializer)
