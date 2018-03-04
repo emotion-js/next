@@ -62,6 +62,4 @@ class Dynamic extends React.Component<Props> {
   }
 }
 
-Dynamic.__emotion_component = true
-
 export default Dynamic
