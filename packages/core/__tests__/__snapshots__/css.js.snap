@@ -12,6 +12,7 @@ exports[`@font-face in global 1`] = `
 
 exports[`css call composition 1`] = `
 Object {
+  "cls": "css-d4uv9l",
   "name": "d4uv9l",
   "styles": ":hover{
     color: hotpink;
@@ -84,6 +85,7 @@ exports[`dynamic 1`] = `
 
 exports[`functions get toStringed in css calls 1`] = `
 Object {
+  "cls": "css-5s8nl0",
   "name": "5s8nl0",
   "styles": "
       function _ref() {};
