@@ -22,7 +22,7 @@
     "emotion-utils": "^9.0.1"
   },
   "peerDependencies": {
-    "react": ">=16.3.0 || 16.3.0-alpha.x"
+    "react": ">=16.3.0 || >=16.3.0-alpha.0"
   },
   "devDependencies": {
     "html-tag-names": "^1.1.2",
