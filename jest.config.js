@@ -6,5 +6,8 @@ module.exports = {
     '<rootDir>/scripts/**/*/__tests__/*.{js,jsx,mjs}'
   ],
   moduleNameMapper: require('lerna-alias').jest(),
-  setupTestFrameworkScriptFile: '<rootDir>/test/setup.js'
+  setupTestFrameworkScriptFile: '<rootDir>/test/setup.js',
+  transform: {
+    '^.+\\.js?$': 'babel-jest'
+  }
 }

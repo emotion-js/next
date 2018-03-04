@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@emotion/css.macro actual-expected-usage 1`] = `
+"/** @jsx jsx */
+import jsx from '@emotion/jsx'
+import css from '@emotion/css.macro'
+
+const SomeComponent = () => (
+  <div
+    css={css\`
+      color: hotpink;
+    \`}
+  />
+)
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+/** @jsx jsx */
+import jsx from '@emotion/jsx';
+
+var _ref = _css\`
+      color: hotpink;
+    \`;
+
+const SomeComponent = () => <div css={_ref} />;"
+`;
+
+exports[`@emotion/css.macro basic 1`] = `
+"import css from '@emotion/css.macro'
+
+function doThing() {
+  return css\`
+    display: flex;
+  \`
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+var _ref = _css\`
+    display: flex;
+  \`;
+
+function doThing() {
+  return _ref;
+}"
+`;
+
+exports[`@emotion/css.macro call-expression 1`] = `
+"import css from '@emotion/css.macro'
+
+function doThing() {
+  return css({ color: 'hotpink' })
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+var _ref = _css({
+  color: 'hotpink'
+});
+
+function doThing() {
+  return _ref;
+}"
+`;
+
+exports[`@emotion/css.macro impure 1`] = `
+"import css from '@emotion/css.macro'
+
+function doThing() {
+  return css\`
+    display: \${thing()};
+  \`
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+function doThing() {
+  return _css\`
+    display: \${thing()};
+  \`;
+}"
+`;

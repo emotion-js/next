@@ -1,0 +1,9 @@
+{
+  "name": "macro-tester",
+  "main": "src/index.js",
+  "version": "0.3.0",
+  "private": true,
+  "dependencies": {
+    "path-exists": "^3.0.0"
+  }
+}

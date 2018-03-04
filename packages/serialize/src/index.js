@@ -85,6 +85,14 @@ export const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
 export const serializeStyles = function(
   args: Array<Interpolation>
 ): ScopedInsertableStyles {
+  if (
+    args.length === 1 &&
+    typeof args[0] === 'object' &&
+    args[0] !== null &&
+    args[0].cls !== undefined
+  ) {
+    return args[0]
+  }
   let styles = ''
   let identifierName = ''
   args.forEach(function(interpolation, i) {

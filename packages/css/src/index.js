@@ -32,6 +32,11 @@ function css(
   const ret: Object = {
     styles,
     type: 1,
+    get cls() {
+      delete this.cls
+      this.cls = `css-${this.name}`
+      return this.cls
+    },
     get name() {
       delete this.name
       this.name = hashString(styles) + identifierName
