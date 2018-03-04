@@ -9,7 +9,6 @@ const writeFile = promisify(fs.writeFile)
 async function doBuild() {
   await cleanDist()
   const packages = await getPackages()
-  // await changePackages(packages)
   await Promise.all(
     packages.map(async pkg => {
       const bundle = await rollup.rollup(pkg.config)
@@ -52,22 +51,5 @@ export * from '../src/index.js'${
     })
   )
 }
-
-// async function changePackages(packages) {
-//   await Promise.all(
-//     packages.map(async pkg => {
-//       if (
-//         pkg.pkg.peerDependencies &&
-//         pkg.pkg.peerDependencies['@emotion/core']
-//       ) {
-//         pkg.pkg.peerDependencies['@emotion/core'] = '0.x.x'
-//       }
-//       await writeFile(
-//         path.resolve(pkg.path, 'package.json'),
-//         JSON.stringify(pkg.pkg, null, 2)
-//       )
-//     })
-//   )
-// }
 
 doBuild()
