@@ -76,6 +76,21 @@ Array [
 ]
 `;
 
+exports[`styled composite labels 1`] = `
+Array [
+  <style>
+    .emotion-0 {
+      color: darkorchid;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  >
+    hello world
+  </div>,
+]
+`;
+
 exports[`styled composition 1`] = `
 Array [
   <style>
@@ -331,6 +346,36 @@ Array [
   >
     hello world
   </input>,
+]
+`;
+
+exports[`styled label in options 1`] = `
+Array [
+  <style>
+    .emotion-0 {
+      color: darkorchid;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  >
+    hello world
+  </div>,
+]
+`;
+
+exports[`styled label in style body 1`] = `
+Array [
+  <style>
+    .emotion-0 {
+      color: darkorchid;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  >
+    hello world
+  </div>,
 ]
 `;
 

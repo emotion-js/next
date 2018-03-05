@@ -298,6 +298,38 @@ describe('styled', () => {
     expect(tree).toMatchSnapshot()
   })
 
+  test('label in options', () => {
+    const Div = styled('div', { label: 'OptionsLabel' })`
+      color: darkorchid;
+    `
+
+    const tree = renderer.create(<Div>hello world</Div>).toJSON()
+
+    expect(tree).toMatchSnapshot()
+  })
+
+  test('label in style body', () => {
+    const Div = styled('div')`
+      color: darkorchid;
+      label: BodyLabel;
+    `
+
+    const tree = renderer.create(<Div>hello world</Div>).toJSON()
+
+    expect(tree).toMatchSnapshot()
+  })
+
+  test('composite labels', () => {
+    const Div = styled('div', { label: 'OptionsLabel' })`
+      color: darkorchid;
+      label: BodyLabel;
+    `
+
+    const tree = renderer.create(<Div>hello world</Div>).toJSON()
+
+    expect(tree).toMatchSnapshot()
+  })
+
   test('composition', () => {
     const fontSize = '20px'
 

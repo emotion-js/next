@@ -38,6 +38,9 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
 
   return function() {
     let args = arguments
+    // args[0] = strings = { raw: [string], cooked: ?[string] | interpolation
+    // args[1..n] interpolation | any
+
     let styles =
       isReal && tag[STYLES_KEY] !== undefined ? tag[STYLES_KEY].slice(0) : []
     if (identifierName !== undefined) {

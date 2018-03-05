@@ -80,7 +80,7 @@ function createStringFromObject(obj: { [key: string]: Interpolation }): string {
   return string
 }
 
-export const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
+export const labelPattern = /(?:label:\s*([^\s;\n{]+)\s*;)/gi
 
 export const serializeStyles = function(
   args: Array<Interpolation>
