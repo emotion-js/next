@@ -330,6 +330,24 @@ describe('styled', () => {
     expect(tree).toMatchSnapshot()
   })
 
+  test.skip('composite labels and components as selectors', () => {
+    const Div = styled('div', { label: 'OptionsLabel' })`
+      color: darkorchid;
+      label: BodyLabel;
+    `
+
+    const Div2 = styled('div')`
+      color: blue;
+      ${Div} {
+        background: green;
+      }
+    `
+
+    const tree = renderer.create(<Div2>hello world</Div2>).toJSON()
+
+    expect(tree).toMatchSnapshot()
+  })
+
   test('composition', () => {
     const fontSize = '20px'
 

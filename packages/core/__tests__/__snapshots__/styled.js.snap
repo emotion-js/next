@@ -91,6 +91,21 @@ Array [
 ]
 `;
 
+exports[`styled composite labels and components as selectors 1`] = `
+Array [
+  <style>
+    .emotion-0 {
+      color: darkorchid;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  >
+    hello world
+  </div>,
+]
+`;
+
 exports[`styled composition 1`] = `
 Array [
   <style>
