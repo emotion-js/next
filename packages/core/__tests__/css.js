@@ -203,6 +203,30 @@ test('label in css call', () => {
   expect(tree.toJSON()).toMatchSnapshot()
 })
 
+test('label custom scope selectors', () => {
+  const outer = css`
+    color: red;
+    :this-is-hotpink(b) {
+      color: blue;
+    }
+  `
+
+  const inner = css`
+    label: this-is-hotpink;
+    color: hotpink;
+  `
+
+  const tree = renderer.create(
+    <div className={outer}>
+      <div className={inner}>
+        <b>something</b>
+      </div>
+    </div>
+  )
+
+  expect(tree.toJSON()).toMatchSnapshot()
+})
+
 test('string as css prop throws', () => {
   expect(() => {
     renderer.create(

@@ -394,6 +394,34 @@ Array [
 ]
 `;
 
+exports[`styled label in style body 2`] = `
+Array [
+  <style>
+    .emotion-0 {
+      color: blue;
+    }
+    
+    .emotion-0:BodyLabel(.div) {
+      background: green;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  >
+    <style>
+      .emotion-1 {
+        color: darkorchid;
+      }
+    </style>
+    <div
+      className="emotion-1"
+    >
+      hello world
+    </div>
+  </div>,
+]
+`;
+
 exports[`styled nested 1`] = `
 Array [
   <style>

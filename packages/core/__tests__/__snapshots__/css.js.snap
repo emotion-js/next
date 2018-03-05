@@ -178,6 +178,21 @@ exports[`keyframes insert in css call 1`] = `
 </div>
 `;
 
+exports[`label custom scope selectors 1`] = `
+<div>
+  <style>
+    .emotion-0 {
+      color: hotpink;
+    }
+  </style>
+  <div
+    className="emotion-0"
+  >
+    something
+  </div>
+</div>
+`;
+
 exports[`label in css call 1`] = `
 <div>
   <style>

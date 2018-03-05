@@ -348,6 +348,31 @@ describe('styled', () => {
     expect(tree).toMatchSnapshot()
   })
 
+  test('label in style body', () => {
+    const Div = styled('div')`
+      color: darkorchid;
+      label: BodyLabel;
+    `
+
+    // casing can't matter
+    const Div2 = styled('div')`
+      color: blue;
+      attr(name, 50, px) {
+        background: green;
+      }
+    `
+
+    const tree = renderer
+      .create(
+        <Div2>
+          <Div>hello world</Div>
+        </Div2>
+      )
+      .toJSON()
+
+    expect(tree).toMatchSnapshot()
+  })
+
   test('composition', () => {
     const fontSize = '20px'
 
