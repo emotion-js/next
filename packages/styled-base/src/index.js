@@ -12,7 +12,7 @@ import {
 } from './utils'
 import type { CSSContextType } from '@emotion/types'
 import { hydration, consumer } from '@emotion/core'
-import { getRegisteredStyles, insertStyles } from '@emotion/utils'
+import { getRegisteredStyles, insertStyles, isBrowser } from '@emotion/utils'
 import { serializeStyles } from '@emotion/serialize'
 
 let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
@@ -83,8 +83,6 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
       shouldHydrate: boolean
       serialized: string
 
-      shouldHydrate = hydration.shouldHydrate
-
       renderChild = (context: CSSContextType) => {
         let className = ''
         let classInterpolations = []
@@ -105,11 +103,11 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         const rules = insertStyles(
           context,
           serialized,
-          this.serialized === undefined && this.shouldHydrate
+          this.serialized === undefined && hydration.shouldHydrate
         )
         className += serialized.cls
 
-        if (this.serialized === undefined && this.shouldHydrate) {
+        if (this.serialized === undefined && hydration.shouldHydrate) {
           this.serialized = rules
         }
 
@@ -120,7 +118,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
             ref: this.props.innerRef
           })
         )
-        if (this.shouldHydrate && this.serialized !== undefined) {
+        if (this.serialized !== undefined) {
           return (
             <React.Fragment>
               <style

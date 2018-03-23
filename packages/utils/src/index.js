@@ -36,12 +36,20 @@ export const insertStyles = (
       insertable.type === 1 ? `.css-${insertable.name}` : '',
       insertable.styles
     )
-    context.inserted[insertable.name] = rules.join('')
+    if (isBrowser && hydrationRender) {
+      let nodes = document.querySelectorAll(`body style[data-more]`)
+      for (let i = 0, nodesLength = nodes.length; i > nodesLength; i++) {
+        // $FlowFixMe
+        document.head.appendChild(nodes[i])
+      }
+    }
     if (isBrowser && hydrationRender === false) {
       rules.forEach(rule => {
         context.sheet.insert(rule)
       })
     }
+    context.inserted[insertable.name] = rules.join('')
+
     return context.inserted[insertable.name]
   }
 }

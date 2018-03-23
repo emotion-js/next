@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { consumer, hydration } from '@emotion/core'
 import type { InsertableStyles, CSSContextType } from '@emotion/types'
-import { insertStyles } from '@emotion/utils'
+import { insertStyles, isBrowser } from '@emotion/utils'
 
 type Props = {
   styles: InsertableStyles | Array<InsertableStyles>
@@ -14,6 +14,7 @@ export default class Style extends React.Component<Props> {
   renderChild = (context: CSSContextType) => {
     const { styles } = this.props
     let rules = ''
+    let hashThing = ''
     if (Array.isArray(styles)) {
       styles.forEach(style => {
         let renderedStyle = insertStyles(
@@ -24,6 +25,9 @@ export default class Style extends React.Component<Props> {
         if (renderedStyle !== undefined) {
           // $FlowFixMe
           rules += renderedStyle
+          hashThing && (hashThing += ' ')
+          hashThing += style.name
+          console.log(style)
         }
       })
     } else {
@@ -34,15 +38,16 @@ export default class Style extends React.Component<Props> {
       )
       if (renderedStyle !== undefined) {
         rules = renderedStyle
+        hashThing = styles.name
       }
     }
     if (this.serialized === undefined && this.shouldHydrate) {
       this.serialized = rules
     }
-    if (this.shouldHydrate && rules !== '') {
+    if (isBrowser === false) {
       return (
         <style
-          data-more=""
+          data-more={hashThing}
           dangerouslySetInnerHTML={{ __html: this.serialized }}
         />
       )

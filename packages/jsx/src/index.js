@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import { hydration, consumer } from '@emotion/core'
-import { getRegisteredStyles, insertStyles } from '@emotion/utils'
+import { getRegisteredStyles, insertStyles, isBrowser } from '@emotion/utils'
 import type { CSSContextType } from '@emotion/types'
 import { serializeStyles } from '@emotion/serialize'
 
@@ -54,11 +54,11 @@ class Style extends React.Component<Props> {
     }
     delete newProps.css
     const ele = React.createElement(type, newProps, ...children)
-    if (this.serialized !== undefined) {
+    if (isBrowser === false) {
       return (
         <React.Fragment>
           <style
-            data-more=""
+            data-more={serialized.name}
             dangerouslySetInnerHTML={{ __html: this.serialized }}
           />
           {ele}
