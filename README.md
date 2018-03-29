@@ -26,7 +26,6 @@
 * Don't use it if you're totally fine with the styling solution you're already using
 * Styles won't be cached in SSR if two elements have the same style and they have no common ancestor with styles from emotion or a Provider
 * It requires every style to be rendered in the react tree
-* It assumes that styles rendered on the server will be the same as the styles on the first render on the client
 * It doesn't support component selectors and might never or it might, idk
 
 #### Getting Started
