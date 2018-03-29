@@ -2,7 +2,7 @@
 
 exports[`ssr basic 1`] = `
 
-<style data-more>
+<style data-more="1lrxbo5">
   .css-1lrxbo5{color:hotpink;}
 </style>
 <div class="css-1lrxbo5">
@@ -46,7 +46,7 @@ exports[`ssr keyframes 1`] = `
 <style data-more>
   @-webkit-keyframes animation-1kyaq4y{from{color:green;}to{color:blue;}}@keyframes animation-1kyaq4y{from{color:green;}to{color:blue;}}
 </style>
-<style data-more>
+<style data-more="q9uc0r">
   .css-q9uc0r{-webkit-animation:1s animation-1kyaq4y;animation:1s animation-1kyaq4y;}
 </style>
 <div class="css-q9uc0r">
@@ -56,7 +56,7 @@ exports[`ssr keyframes 1`] = `
 
 exports[`ssr only render a style once with Style 1`] = `
 
-<style data-more>
+<style data-more="bjcoli">
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
@@ -71,7 +71,7 @@ exports[`ssr only render a style once with Style 1`] = `
 
 exports[`ssr only render a style once with styled 1`] = `
 
-<style data-more>
+<style data-more="bjcoli">
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
@@ -88,11 +88,11 @@ exports[`ssr only render a style once with styled 1`] = `
 
 exports[`ssr only render a style once with the css prop 1`] = `
 
-<style data-more>
+<style data-more="bjcoli">
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
-  <style data-more>
+  <style data-more="1lrxbo5">
     .css-1lrxbo5{color:hotpink;}
   </style>
   <div class="css-1lrxbo5">

@@ -58,7 +58,7 @@ class Style extends React.Component<Props> {
       return (
         <React.Fragment>
           <style
-            data-more=""
+            data-more={serialized.name}
             dangerouslySetInnerHTML={{ __html: this.serialized }}
           />
           {ele}

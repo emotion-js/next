@@ -44,6 +44,8 @@ if (process.env.NODE_ENV === 'test' || !isBrowser) {
 // $FlowFixMe
 export const CSSContext: Context<CSSContextType> = React.createContext(null)
 
+let defaultCache
+
 export function consumer(
   instance: { emotionCache?: CSSContextType },
   func: CSSContextType => React.Node
@@ -52,6 +54,12 @@ export function consumer(
     <CSSContext.Consumer>
       {context => {
         if (context === null) {
+          if (isBrowser && process.env.NODE_ENV !== 'test') {
+            if (defaultCache === undefined) {
+              defaultCache = createCache()
+            }
+            return func(defaultCache)
+          }
           if (instance.emotionCache === undefined) {
             instance.emotionCache = createCache()
           }

@@ -3,7 +3,7 @@
   "version": "0.4.1",
   "private": true,
   "dependencies": {
-    "chalk": "^2.3.0",
+    "chalk": "^2.3.2",
     "del": "^3.0.0",
     "globby": "^7.1.1",
     "is-plain-object": "^2.0.4",
