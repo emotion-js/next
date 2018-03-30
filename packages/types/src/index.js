@@ -1,5 +1,7 @@
 // @flow
-export type CSSCache = { [string]: string | true }
+export type CSSCache = { [string]: string }
+
+export type InsertedCache = { [string]: string | true }
 
 interface StyleSheet {
   insert(rule: string): void;
@@ -9,7 +11,7 @@ interface StyleSheet {
 
 export type CSSContextType = {
   stylis: (string, string) => Array<string>,
-  inserted: CSSCache,
+  inserted: InsertedCache,
   registered: CSSCache,
   sheet: StyleSheet,
   theme: Object
