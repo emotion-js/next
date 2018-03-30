@@ -16,11 +16,7 @@ export default class Style extends React.Component<Props> {
     let hash = ''
     if (Array.isArray(styles)) {
       styles.forEach(style => {
-        let renderedStyle = insertStyles(
-          context,
-          style,
-          this.serialized === undefined && this.shouldHydrate
-        )
+        let renderedStyle = insertStyles(context, style)
         if (renderedStyle !== undefined) {
           // $FlowFixMe
           rules += renderedStyle
@@ -28,11 +24,7 @@ export default class Style extends React.Component<Props> {
         }
       })
     } else {
-      let renderedStyle = insertStyles(
-        context,
-        styles,
-        this.serialized === undefined && this.shouldHydrate
-      )
+      let renderedStyle = insertStyles(context, styles)
       if (renderedStyle !== undefined) {
         rules = renderedStyle
         hash += ` ${styles.name}`

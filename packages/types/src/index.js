@@ -1,5 +1,5 @@
 // @flow
-export type CSSCache = { [string]: string }
+export type CSSCache = { [string]: string | true }
 
 interface StyleSheet {
   insert(rule: string): void;
