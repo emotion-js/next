@@ -47,7 +47,7 @@ class Home extends Component<{}, *> {
           text-align: center;
         `}
       >
-        {/* <Header>
+        <Header>
           <Style styles={animation} />
           <img
             src={logo}
@@ -59,8 +59,8 @@ class Home extends Component<{}, *> {
           />
 
           <h2>Welcome to Razzle</h2>
-        </Header> */}
-        {/* <p css={{ fontSize: 'large' }}>
+        </Header>
+        <p css={{ fontSize: 'large' }}>
           To get started, edit <code>src/App.js</code> or{' '}
           <code>src/Home.js</code> and save to reload.
         </p>
@@ -83,7 +83,7 @@ class Home extends Component<{}, *> {
           <li>
             <a href="https://palmer.chat">Community Slack</a>
           </li>
-        </ul> */}
+        </ul>
         {this.state.showFirstThing && <Thing />}
         <Thing />
       </div>
