@@ -11,8 +11,12 @@ import {
   type CreateStyled
 } from './utils'
 import type { CSSContextType } from '@emotion/types'
-import { hydration, consumer } from '@emotion/core'
-import { getRegisteredStyles, insertStyles } from '@emotion/utils'
+import { consumer } from '@emotion/core'
+import {
+  getRegisteredStyles,
+  insertStyles,
+  shouldSerializeToReactTree
+} from '@emotion/utils'
 import { serializeStyles } from '@emotion/serialize'
 
 let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
@@ -80,10 +84,6 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
       }
 
       mergedProps: Object
-      shouldHydrate: boolean
-      serialized: string
-
-      shouldHydrate = hydration.shouldHydrate
 
       renderChild = (context: CSSContextType) => {
         let className = ''
@@ -102,16 +102,8 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
           this,
           styles.concat(classInterpolations)
         )
-        const rules = insertStyles(
-          context,
-          serialized,
-          this.serialized === undefined && this.shouldHydrate
-        )
+        const rules = insertStyles(context, serialized)
         className += serialized.cls
-
-        if (this.serialized === undefined && this.shouldHydrate) {
-          this.serialized = rules
-        }
 
         const ele = React.createElement(
           baseTag,
@@ -120,22 +112,18 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
             ref: this.props.innerRef
           })
         )
-        if (this.shouldHydrate && this.serialized !== undefined) {
+        if (shouldSerializeToReactTree && rules !== undefined) {
           return (
             <React.Fragment>
               <style
-                data-more={serialized.name}
-                dangerouslySetInnerHTML={{ __html: this.serialized }}
+                data-emotion-ssr={serialized.name}
+                dangerouslySetInnerHTML={{ __html: rules }}
               />
               {ele}
             </React.Fragment>
           )
         }
         return ele
-      }
-
-      componentDidMount() {
-        hydration.shouldHydrate = false
       }
       render() {
         return consumer(this, this.renderChild)

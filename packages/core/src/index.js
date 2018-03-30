@@ -6,45 +6,31 @@ import createCache from '@emotion/cache'
 
 type RenderFn<T> = (value: T) => React.Node
 
-export type ProviderProps<T> = {
+type ProviderProps<T> = {
   value: T,
   children?: React.Node
 }
 
-export type ConsumerProps<T> = {
+type ConsumerProps<T> = {
   children: RenderFn<T> | [RenderFn<T>]
 }
 
-export type ConsumerState<T> = {
+type ConsumerState<T> = {
   value: T
 }
 
-export type Provider<T> = React.Component<ProviderProps<T>>
-export type Consumer<T> = React.Component<ConsumerProps<T>, ConsumerState<T>>
+type Provider<T> = React.Component<ProviderProps<T>>
+type Consumer<T> = React.Component<ConsumerProps<T>, ConsumerState<T>>
 
-export type Context<T> = {
+type Context<T> = {
   Provider: Class<Provider<T>>,
   Consumer: Class<Consumer<T>>
-}
-
-export let hydration = { shouldHydrate: false }
-
-if (isBrowser) {
-  hydration.shouldHydrate = !!document.querySelector('[data-more]')
-}
-
-if (process.env.NODE_ENV === 'test' || !isBrowser) {
-  // $FlowFixMe
-  Object.defineProperty(hydration, 'shouldHydrate', {
-    set: () => {},
-    get: () => true
-  })
 }
 
 // $FlowFixMe
 export const CSSContext: Context<CSSContextType> = React.createContext(null)
 
-let defaultCache
+let defaultCache = createCache()
 
 export function consumer(
   instance: { emotionCache?: CSSContextType },
@@ -55,9 +41,6 @@ export function consumer(
       {context => {
         if (context === null) {
           if (isBrowser && process.env.NODE_ENV !== 'test') {
-            if (defaultCache === undefined) {
-              defaultCache = createCache()
-            }
             return func(defaultCache)
           }
           if (instance.emotionCache === undefined) {

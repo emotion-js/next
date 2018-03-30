@@ -2,7 +2,7 @@
 
 exports[`ssr basic 1`] = `
 
-<style data-more="1lrxbo5">
+<style data-emotion-ssr="1lrxbo5">
   .css-1lrxbo5{color:hotpink;}
 </style>
 <div class="css-1lrxbo5">
@@ -14,7 +14,7 @@ exports[`ssr basic 1`] = `
 exports[`ssr className 1`] = `
 
 <div data-reactroot>
-  <style data-more>
+  <style data-emotion-ssr="181qz4b">
     .css-181qz4b{color:hotpink;}
   </style>
   <div class="css-181qz4b">
@@ -25,7 +25,7 @@ exports[`ssr className 1`] = `
 
 exports[`ssr dynamic 1`] = `
 
-<style data-more>
+<style data-emotion-ssr="1lrxbo5">
   .css-1lrxbo5{color:hotpink;}
 </style>
 <div class="css-1lrxbo5">
@@ -35,7 +35,7 @@ exports[`ssr dynamic 1`] = `
 
 exports[`ssr global 1`] = `
 
-<style data-more>
+<style data-emotion-ssr="6l7sk3">
   html{background-color:hotpink;}
 </style>
 
@@ -43,10 +43,10 @@ exports[`ssr global 1`] = `
 
 exports[`ssr keyframes 1`] = `
 
-<style data-more>
+<style data-emotion-ssr="animation-1kyaq4y">
   @-webkit-keyframes animation-1kyaq4y{from{color:green;}to{color:blue;}}@keyframes animation-1kyaq4y{from{color:green;}to{color:blue;}}
 </style>
-<style data-more="q9uc0r">
+<style data-emotion-ssr="q9uc0r">
   .css-q9uc0r{-webkit-animation:1s animation-1kyaq4y;animation:1s animation-1kyaq4y;}
 </style>
 <div class="css-q9uc0r">
@@ -56,11 +56,11 @@ exports[`ssr keyframes 1`] = `
 
 exports[`ssr only render a style once with Style 1`] = `
 
-<style data-more="bjcoli">
+<style data-emotion-ssr="bjcoli">
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
-  <style data-more>
+  <style data-emotion-ssr="181qz4b">
     .css-181qz4b{color:hotpink;}
   </style>
   <div class="css-181qz4b">
@@ -71,11 +71,11 @@ exports[`ssr only render a style once with Style 1`] = `
 
 exports[`ssr only render a style once with styled 1`] = `
 
-<style data-more="bjcoli">
+<style data-emotion-ssr="bjcoli">
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
-  <style data-more="181qz4b">
+  <style data-emotion-ssr="181qz4b">
     .css-181qz4b{color:hotpink;}
   </style>
   <div class="css-181qz4b">
@@ -88,11 +88,11 @@ exports[`ssr only render a style once with styled 1`] = `
 
 exports[`ssr only render a style once with the css prop 1`] = `
 
-<style data-more="bjcoli">
+<style data-emotion-ssr="bjcoli">
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
-  <style data-more="1lrxbo5">
+  <style data-emotion-ssr="1lrxbo5">
     .css-1lrxbo5{color:hotpink;}
   </style>
   <div class="css-1lrxbo5">

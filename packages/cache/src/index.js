@@ -18,7 +18,7 @@ const createCache = () => {
       })
       if (node.parentNode !== document.head) {
         // $FlowFixMe
-        document.head.appendChild(node.parentNode)
+        document.head.appendChild(node)
       }
     })
   }

@@ -46,7 +46,7 @@ const serializer = {
     const classMap = {}
 
     nodes.forEach(node => {
-      if (typeof node.props['data-more'] === 'string') {
+      if (typeof node.props['data-emotion-ssr'] === 'string') {
         try {
           const replaced = node.props.dangerouslySetInnerHTML.__html.replace(
             clsPattern,
@@ -65,7 +65,7 @@ const serializer = {
           )
         }
 
-        delete node.props['data-more']
+        delete node.props['data-emotion-ssr']
         delete node.props.dangerouslySetInnerHTML
       }
     })

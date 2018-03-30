@@ -2,6 +2,8 @@
 import type { CSSCache, CSSContextType, InsertableStyles } from '@emotion/types'
 
 export const isBrowser = typeof document !== 'undefined'
+export const shouldSerializeToReactTree =
+  !isBrowser || process.env.NODE_ENV === 'test'
 
 export function getRegisteredStyles(
   registered: CSSCache,
@@ -22,8 +24,7 @@ export function getRegisteredStyles(
 
 export const insertStyles = (
   context: CSSContextType,
-  insertable: InsertableStyles,
-  hydrationRender: boolean
+  insertable: InsertableStyles
 ) => {
   if (
     insertable.type === 1 &&
@@ -36,11 +37,14 @@ export const insertStyles = (
       insertable.type === 1 ? `.css-${insertable.name}` : '',
       insertable.styles
     )
-    context.inserted[insertable.name] = rules.join('')
-    if (isBrowser && hydrationRender === false) {
+
+    if (shouldSerializeToReactTree) {
+      context.inserted[insertable.name] = rules.join('')
+    } else {
       rules.forEach(rule => {
         context.sheet.insert(rule)
       })
+      context.inserted[insertable.name] = true
     }
     return context.inserted[insertable.name]
   }

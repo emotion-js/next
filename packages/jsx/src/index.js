@@ -1,7 +1,11 @@
 // @flow
 import * as React from 'react'
-import { hydration, consumer } from '@emotion/core'
-import { getRegisteredStyles, insertStyles } from '@emotion/utils'
+import { consumer } from '@emotion/core'
+import {
+  getRegisteredStyles,
+  insertStyles,
+  shouldSerializeToReactTree
+} from '@emotion/utils'
 import type { CSSContextType } from '@emotion/types'
 import { serializeStyles } from '@emotion/serialize'
 
@@ -12,12 +16,6 @@ type Props = {
 }
 
 class Style extends React.Component<Props> {
-  serialized: string
-  shouldHydrate = hydration.shouldHydrate
-
-  componentDidMount() {
-    hydration.shouldHydrate = false
-  }
   renderChild = (context: CSSContextType) => {
     const { props, type, children } = this.props
     let actualProps = props || {}
@@ -38,15 +36,8 @@ class Style extends React.Component<Props> {
         : actualProps.css
     )
     const serialized = serializeStyles(registeredStyles)
-    const rules = insertStyles(
-      context,
-      serialized,
-      this.serialized === undefined && this.shouldHydrate
-    )
+    const rules = insertStyles(context, serialized)
     className += serialized.cls
-    if (this.serialized === undefined && this.shouldHydrate) {
-      this.serialized = rules
-    }
 
     const newProps = {
       ...actualProps,
@@ -54,12 +45,12 @@ class Style extends React.Component<Props> {
     }
     delete newProps.css
     const ele = React.createElement(type, newProps, ...children)
-    if (this.serialized !== undefined) {
+    if (shouldSerializeToReactTree && rules !== undefined) {
       return (
         <React.Fragment>
           <style
-            data-more={serialized.name}
-            dangerouslySetInnerHTML={{ __html: this.serialized }}
+            data-emotion-ssr={serialized.name}
+            dangerouslySetInnerHTML={{ __html: rules }}
           />
           {ele}
         </React.Fragment>
