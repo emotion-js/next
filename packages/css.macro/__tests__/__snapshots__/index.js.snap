@@ -21,9 +21,7 @@ import _css from \\"@emotion/css\\";
 /** @jsx jsx */
 import jsx from '@emotion/jsx';
 
-var _ref = _css\`
-      color: hotpink;
-    \`;
+var _ref = _css(\\"color:hotpink;\\", \\"label:SomeComponent;\\");
 
 const SomeComponent = () => <div css={_ref} />;"
 `;
@@ -42,9 +40,7 @@ function doThing() {
 
 import _css from \\"@emotion/css\\";
 
-var _ref = _css\`
-    display: flex;
-  \`;
+var _ref = _css(\\"display:flex;\\");
 
 function doThing() {
   return _ref;
@@ -87,8 +83,58 @@ function doThing() {
 import _css from \\"@emotion/css\\";
 
 function doThing() {
-  return _css\`
-    display: \${thing()};
-  \`;
+  return _css(\\"display:\\", thing(), \\";\\");
 }"
+`;
+
+exports[`@emotion/css.macro inside-class 1`] = `
+"/** @jsx jsx */
+import { Component } from 'react'
+import jsx from '@emotion/jsx'
+import css from '@emotion/css.macro'
+
+class SomeComponent extends Component {
+  render() {
+    return (
+      <div
+        css={css\`
+          color: hotpink;
+        \`}
+      />
+    )
+  }
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+/** @jsx jsx */
+import { Component } from 'react';
+import jsx from '@emotion/jsx';
+
+var _ref = _css(\\"color:hotpink;\\", \\"label:SomeComponent;\\");
+
+class SomeComponent extends Component {
+  render() {
+    return <div css={_ref} />;
+  }
+
+}"
+`;
+
+exports[`@emotion/css.macro label-1 1`] = `
+"import css from '@emotion/css.macro'
+
+const thing = css\`
+  color: hotpink;
+\`
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+const thing = _css(\\"color:hotpink;\\", \\"label:thing;\\");"
 `;
