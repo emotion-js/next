@@ -80,7 +80,10 @@ export class DynamicStyleSheet {
   }
   insert(rule: string) {
     try {
-      this.sheet.insertRule(rule, this.ctr)
+      this.sheet.insertRule(
+        rule,
+        rule.charCodeAt(1) === 105 && rule.charCodeAt(0) === 64 ? 0 : this.ctr
+      )
       this.ctr++
     } catch (e) {
       if (process.env.NODE_ENV !== 'production') {
@@ -141,7 +144,12 @@ export class StyleSheet {
       const tag = this.tags[this.tags.length - 1]
       const sheet = sheetForTag(tag)
       try {
-        sheet.insertRule(rule, sheet.cssRules.length)
+        sheet.insertRule(
+          rule,
+          rule.charCodeAt(1) === 105 && rule.charCodeAt(0) === 64
+            ? 0
+            : sheet.cssRules.length
+        )
       } catch (e) {
         if (process.env.NODE_ENV !== 'production') {
           console.warn('illegal rule', rule) // eslint-disable-line no-console

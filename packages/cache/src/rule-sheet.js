@@ -24,22 +24,34 @@ export default function createRuleSheetPlugin(insertRule) {
     depth
   ) {
     switch (context) {
-      case 2:
-        if (at === 0) return content + delimiter
+      // property
+      case 1: {
+        // @import
+        if (depth === 0 && content.charCodeAt(0) === 64) {
+          insertRule(content + ';')
+          return ''
+        }
         break
+      }
+      // selector
+      case 2: {
+        if (ns === 0) {
+          return content + delimiter
+        }
+        break
+      }
       // at-rule
-      case 3:
-        switch (at) {
+      case 3: {
+        switch (ns) {
           // @font-face, @page
           case 102:
-          case 112: {
+          case 112:
             insertRule(selectors[0] + content)
             return ''
-          }
-          default: {
-            return content + delimiter
-          }
+          default:
+            return content + (at === 0 ? delimiter : '')
         }
+      }
       case -2: {
         content.split(needle).forEach(toSheet)
       }
