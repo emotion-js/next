@@ -266,21 +266,6 @@ Array [
 ]
 `;
 
-exports[`styled innerRef 1`] = `
-Array [
-  <style>
-    .emotion-0 {
-      font-size: 12px;
-    }
-  </style>,
-  <h1
-    className="emotion-0"
-  >
-    hello world
-  </h1>,
-]
-`;
-
 exports[`styled input placeholder 1`] = `
 Array [
   <style>
@@ -673,10 +658,11 @@ Array [
 ]
 `;
 
-exports[`styled withComponent does not carry styles from flattened component 1`] = `
+exports[`styled withComponent does carry styles from flattened component 1`] = `
 Array [
   <style>
     .emotion-0 {
+      color: green;
       color: hotpink;
     }
   </style>,

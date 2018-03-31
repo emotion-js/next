@@ -59,9 +59,6 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     }
 
     class Styled extends React.Component<*> {
-      static __emotion_real = Styled
-      static __emotion_base = baseTag
-      static __emotion_styles = styles
       static displayName = identifierName !== undefined
         ? identifierName
         : `Styled(${
@@ -69,20 +66,6 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
               ? baseTag
               : baseTag.displayName || baseTag.name || 'Component'
           })`
-
-      static withComponent = (
-        nextTag: ElementType,
-        nextOptions?: StyledOptions
-      ) => {
-        return createStyled(
-          nextTag,
-          nextOptions !== undefined
-            ? // $FlowFixMe
-              omitAssign(testAlwaysTrue, {}, options, nextOptions)
-            : options
-        )(...args)
-      }
-
       mergedProps: Object
 
       renderChild = (context: CSSContextType) => {
@@ -129,8 +112,32 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         return consumer(this, this.renderChild)
       }
     }
+    // $FlowFixMe
+    const FinalStyled = React.forwardRef((props, ref) => {
+      if (ref === null) {
+        // this avoids creating a new object if there's no ref
+        return <Styled {...props} />
+      }
+      return <Styled {...props} innerRef={ref} />
+    })
 
-    return Styled
+    FinalStyled.__emotion_real = FinalStyled
+    FinalStyled.__emotion_base = baseTag
+    FinalStyled.__emotion_styles = styles
+
+    FinalStyled.withComponent = (
+      nextTag: ElementType,
+      nextOptions?: StyledOptions
+    ) => {
+      return createStyled(
+        nextTag,
+        nextOptions !== undefined
+          ? // $FlowFixMe
+            omitAssign(testAlwaysTrue, {}, options, nextOptions)
+          : options
+      )(...styles)
+    }
+    return FinalStyled
   }
 }
 
