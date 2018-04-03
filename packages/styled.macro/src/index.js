@@ -9,22 +9,21 @@ import {
 module.exports = createMacro(({ references, state, babel }) => {
   const t = babel.types
   if (references.default.length) {
+    let styledIdentifier
     references.default.forEach(reference => {
-      if (t.isMemberExpression(reference.parent)) {
-        const styledIdentifier = addDefault(reference, '@emotion/styled-base', {
+      if (!styledIdentifier) {
+        styledIdentifier = addDefault(reference, '@emotion/styled-base', {
           nameHint: 'styled'
         })
+      }
+      if (t.isMemberExpression(reference.parent)) {
         reference.parentPath.replaceWith(
-          t.callExpression(styledIdentifier, [
+          t.callExpression(t.cloneDeep(styledIdentifier), [
             t.stringLiteral(reference.parent.property.name)
           ])
         )
       } else {
-        reference.replaceWith(
-          addDefault(reference, '@emotion/styled-base', {
-            nameHint: 'styled'
-          })
-        )
+        reference.replaceWith(t.cloneDeep(styledIdentifier))
       }
       if (reference.parentPath && reference.parentPath.parentPath) {
         const styledCallPath = reference.parentPath.parentPath

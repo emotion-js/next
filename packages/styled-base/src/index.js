@@ -131,10 +131,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     ) => {
       return createStyled(
         nextTag,
-        nextOptions !== undefined
-          ? // $FlowFixMe
-            omitAssign(testAlwaysTrue, {}, options, nextOptions)
-          : options
+        nextOptions !== undefined ? { ...options, ...nextOptions } : options
       )(...styles)
     }
     return FinalStyled

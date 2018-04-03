@@ -68,6 +68,26 @@ function doThing() {
 }"
 `;
 
+exports[`@emotion/css.macro call-inside-call 1`] = `
+"import css from '@emotion/css.macro'
+
+const thing = css\`
+  display: flex;
+  &:hover {
+    \${css\`
+      color: hotpink;
+    \`};
+  }
+\`
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+const thing = _css(\\"display:flex;&:hover{\\", _css(\\"color:hotpink;\\", \\"label:thing;\\"), \\";}\\", \\"label:thing;\\");"
+`;
+
 exports[`@emotion/css.macro impure 1`] = `
 "import css from '@emotion/css.macro'
 
@@ -137,4 +157,25 @@ const thing = css\`
 import _css from \\"@emotion/css\\";
 
 const thing = _css(\\"color:hotpink;\\", \\"label:thing;\\");"
+`;
+
+exports[`@emotion/css.macro multiple-calls 1`] = `
+"import css from '@emotion/css.macro'
+
+const thing = css\`
+  color: hotpink;
+\`
+
+const otherThing = css\`
+  color: green;
+\`
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+const thing = _css(\\"color:hotpink;\\", \\"label:thing;\\");
+
+const otherThing = _css(\\"color:green;\\", \\"label:otherThing;\\");"
 `;

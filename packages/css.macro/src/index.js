@@ -9,12 +9,14 @@ import {
 module.exports = createMacro(({ references, state, babel }) => {
   const t = babel.types
   if (references.default.length) {
-    references.default.forEach(reference => {
-      reference.replaceWith(
-        addDefault(reference, '@emotion/css', {
+    let cssIdentifier
+    references.default.reverse().forEach(reference => {
+      if (!cssIdentifier) {
+        cssIdentifier = addDefault(reference, '@emotion/css', {
           nameHint: 'css'
         })
-      )
+      }
+      reference.replaceWith(t.cloneDeep(cssIdentifier))
 
       if (t.isTaggedTemplateExpression(reference.parent)) {
         const expressions = getExpressionsFromTemplateLiteral(
