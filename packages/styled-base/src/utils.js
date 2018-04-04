@@ -1,13 +1,11 @@
 // @flow
 import { memoize } from 'emotion-utils'
+import isPropValid from '@emotion/is-prop-valid'
 
 export type Interpolations = Array<any>
 
-declare var codegen: { $call: Function, require: string => RegExp }
-
-const reactPropsRegex = codegen.require('./props')
-export const testOmitPropsOnStringTag: (key: string) => boolean = memoize(key =>
-  reactPropsRegex.test(key)
+export const testOmitPropsOnStringTag: (key: string) => boolean = memoize(
+  isPropValid
 )
 export const testOmitPropsOnComponent = (key: string) =>
   key !== 'theme' && key !== 'innerRef'

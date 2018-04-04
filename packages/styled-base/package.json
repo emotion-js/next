@@ -5,12 +5,14 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "license": "MIT",
-  "repository": "https://github.com/emotion-js/next/tree/master/packages/styled-base",
+  "repository":
+    "https://github.com/emotion-js/next/tree/master/packages/styled-base",
   "dependencies": {
     "@emotion/serialize": "^0.5.0",
     "@emotion/types": "^0.5.0",
     "@emotion/utils": "^0.5.0",
-    "emotion-utils": "9.1.0"
+    "emotion-utils": "9.1.0",
+    "@emotion/is-prop-valid": "^0.5.1"
   },
   "peerDependencies": {
     "@emotion/core": "0.x.x",
@@ -19,8 +21,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "src",
-    "dist"
-  ]
+  "files": ["src", "dist"]
 }
