@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": true,
   "dependencies": {
     "@emotion/core": "^0.5.1",
@@ -9,7 +9,7 @@
     "@emotion/jsx": "^0.5.0",
     "@emotion/keyframes": "^0.5.0",
     "@emotion/style": "^0.5.0",
-    "@emotion/styled.macro": "^0.5.1",
+    "@emotion/styled.macro": "^0.5.2",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-scripts": "2.0.0-next.9754a231"
