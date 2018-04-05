@@ -49,7 +49,6 @@ export type Options = {
 }
 
 export class StyleSheet {
-  injected: boolean
   isSpeedy: boolean
   ctr: number
   tags: HTMLStyleElement[]
@@ -118,6 +117,5 @@ export class StyleSheet {
     this.tags.forEach(tag => tag.parentNode.removeChild(tag))
     this.tags = []
     this.ctr = 0
-    this.injected = false
   }
 }
