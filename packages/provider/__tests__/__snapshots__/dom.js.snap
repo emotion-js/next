@@ -5,7 +5,6 @@ exports[`provider with theme value that changes 1`] = `
   <head>
     <style
       data-emotion=""
-      type="text/css"
     >
       
       .css-15hlgje{color:hotpink;padding:4px;}
@@ -29,14 +28,12 @@ exports[`provider with theme value that changes 2`] = `
   <head>
     <style
       data-emotion=""
-      type="text/css"
     >
       
       .css-15hlgje{color:hotpink;padding:4px;}
     </style>
     <style
       data-emotion=""
-      type="text/css"
     >
       
       .css-1yc1k0h{color:hotpink;padding:8px;}

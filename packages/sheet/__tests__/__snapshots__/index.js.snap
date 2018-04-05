@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StyleSheet inject method throws if the sheet is already injected 1`] = `"This stylesheet has already been injected"`;
-
 exports[`StyleSheet should insert a rule into the DOM when not in speedy 1`] = `
 <html>
   <head>
@@ -9,12 +7,7 @@ exports[`StyleSheet should insert a rule into the DOM when not in speedy 1`] = `
       data-emotion=""
     >
       
-      html { color:hotpink; }
-    </style>
-    <style
-      data-emotion=""
-    >
-      
+      html { color: hotpink; }
     </style>
   </head>
   <body />
@@ -37,7 +30,7 @@ exports[`StyleSheet should insert a rule with insertRule when in speedy 1`] = `
 exports[`StyleSheet should insert a rule with insertRule when in speedy 2`] = `
 Array [
   CSSStyleRule {
-    "__ends": 23,
+    "__ends": 24,
     "__starts": 0,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
@@ -59,20 +52,21 @@ Array [
 ]
 `;
 
-exports[`StyleSheet should insert a style element in the head when injected and should be able to flush them 1`] = `
+exports[`StyleSheet should remove its style elements from the document when flushed 1`] = `
 <html>
   <head>
     <style
       data-emotion=""
     >
       
+      html { color: hotpink; }
     </style>
   </head>
   <body />
 </html>
 `;
 
-exports[`StyleSheet should insert a style element in the head when injected and should be able to flush them 2`] = `
+exports[`StyleSheet should remove its style elements from the document when flushed 2`] = `
 <html>
   <head />
   <body />
@@ -86,6 +80,7 @@ exports[`StyleSheet should set the data-emotion attribute to the key option 1`] 
       data-emotion="some-key"
     >
       
+      html { color: hotpink; }
     </style>
   </head>
   <body />
@@ -101,6 +96,7 @@ exports[`StyleSheet should use the container option instead of document.head to 
         data-emotion=""
       >
         
+        html { color: hotpink; }
       </style>
     </div>
   </body>

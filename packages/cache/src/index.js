@@ -29,9 +29,6 @@ const createCache = () => {
     registered: {},
     theme: {}
   }
-  if (isBrowser) {
-    context.sheet.inject()
-  }
   return context
 }
 

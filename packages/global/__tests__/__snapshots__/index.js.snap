@@ -4,7 +4,6 @@ exports[`basic 1`] = `
 <head>
   <style
     data-emotion="global"
-    type="text/css"
   >
     
     html{background-color:hotpink;}

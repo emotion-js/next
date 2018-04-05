@@ -11,8 +11,6 @@ import { StyleSheet } from '@emotion/sheet'
 
 const sheet = new StyleSheet()
 
-sheet.inject()
-
 sheet.insert('html { color: hotpink; }')
 ```
 
@@ -55,10 +53,6 @@ This defines the number of rules that are inserted into each style tag. This gen
 
 ### Methods
 
-#### inject
-
-This method injects the first style tag into the document. It must be called before insert is called for the first time.
-
 #### insert
 
 This method inserts a single rule into the document. It **must** be a single rule otherwise an error will be thrown in speedy mode which is enabled by default in production.
@@ -82,8 +76,6 @@ const sheet = new StyleSheet({
   container,
   maxLength: 20
 })
-
-sheet.inject()
 
 sheet.insert('html { color: hotpink; }')
 

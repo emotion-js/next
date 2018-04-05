@@ -20,7 +20,6 @@ class Global extends React.Component<GlobalProps> {
     if (this.oldName !== serialized.name) {
       if (isBrowser) {
         this.sheet = new StyleSheet({ key: 'global' })
-        this.sheet.inject()
       }
       this.oldName = serialized.name
       let rules = context.stylis(``, serialized.styles)
@@ -30,7 +29,6 @@ class Global extends React.Component<GlobalProps> {
 
       if (isBrowser) {
         this.sheet.flush()
-        this.sheet.inject()
         rules.forEach(rule => {
           this.sheet.insert(rule)
         })

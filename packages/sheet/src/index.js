@@ -78,15 +78,10 @@ export class StyleSheet {
       options.container ||
       (typeof document !== 'undefined' ? document.head : null)
   }
-  inject() {
-    if (this.injected && process.env.NODE_ENV !== 'production') {
-      throw new Error('This stylesheet has already been injected')
-    }
-    this._insertStyleTag()
-
-    this.injected = true
-  }
   insert(rule: string) {
+    if (this.ctr % this.maxLength === 0) {
+      this._insertStyleTag()
+    }
     const tag = this.tags[this.tags.length - 1]
 
     if (this.isSpeedy) {
@@ -107,9 +102,6 @@ export class StyleSheet {
       tag.appendChild(document.createTextNode(rule))
     }
     this.ctr++
-    if (this.ctr % this.maxLength === 0) {
-      this._insertStyleTag()
-    }
   }
   _insertStyleTag() {
     let tag = document.createElement('style')

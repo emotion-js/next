@@ -5,7 +5,6 @@ export type InsertedCache = { [string]: string | true }
 
 interface StyleSheet {
   insert(rule: string): void;
-  inject(): void;
   flush(): void;
 }
 

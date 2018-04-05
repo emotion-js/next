@@ -1,6 +1,8 @@
 // @flow
 import { StyleSheet } from '@emotion/sheet'
 
+const rule = 'html { color: hotpink; }'
+
 describe('StyleSheet', () => {
   it('should be speedy by default in production', () => {
     process.env.NODE_ENV = 'production'
@@ -14,9 +16,9 @@ describe('StyleSheet', () => {
     expect(sheet.isSpeedy).toBe(false)
   })
 
-  it('should insert a style element in the head when injected and should be able to flush them', () => {
+  it('should remove its style elements from the document when flushed', () => {
     const sheet = new StyleSheet()
-    sheet.inject()
+    sheet.insert(rule)
     expect(document.querySelector('html')).toMatchSnapshot()
     sheet.flush()
     expect(document.querySelector('html')).toMatchSnapshot()
@@ -25,7 +27,7 @@ describe('StyleSheet', () => {
   it('should set the data-emotion attribute to the key option', () => {
     const key = 'some-key'
     const sheet = new StyleSheet({ key })
-    sheet.inject()
+    sheet.insert(rule)
     expect(document.querySelector('html')).toMatchSnapshot()
     expect(
       // $FlowFixMe
@@ -36,16 +38,14 @@ describe('StyleSheet', () => {
 
   it('should insert a rule into the DOM when not in speedy', () => {
     const sheet = new StyleSheet({})
-    sheet.inject()
-    sheet.insert('html { color:hotpink; }')
+    sheet.insert(rule)
     expect(document.querySelector('html')).toMatchSnapshot()
     sheet.flush()
   })
 
   it('should insert a rule with insertRule when in speedy', () => {
     const sheet = new StyleSheet({ speedy: true })
-    sheet.inject()
-    sheet.insert('html { color:hotpink; }')
+    sheet.insert(rule)
     expect(document.querySelector('html')).toMatchSnapshot()
     expect(sheet.tags).toHaveLength(1)
     // $FlowFixMe
@@ -55,7 +55,6 @@ describe('StyleSheet', () => {
 
   it('should throw when inserting a bad rule in speedy mode', () => {
     const sheet = new StyleSheet({ speedy: true })
-    sheet.inject()
     const oldConsoleWarn = console.warn
     // $FlowFixMe
     console.warn = jest.fn()
@@ -72,29 +71,20 @@ describe('StyleSheet', () => {
   it('should set the nonce option as an attribute to style elements', () => {
     let nonce = 'some-nonce'
     const sheet = new StyleSheet({ nonce })
-    sheet.inject()
+    sheet.insert(rule)
     expect(sheet.tags[0]).toBe(document.querySelector('[data-emotion]'))
     expect(sheet.tags).toHaveLength(1)
     expect(sheet.tags[0].getAttribute('nonce')).toBe(nonce)
     sheet.flush()
   })
 
-  test('inject method throws if the sheet is already injected', () => {
-    const sheet = new StyleSheet({})
-    sheet.inject()
-
-    expect(() => {
-      sheet.inject()
-    }).toThrowErrorMatchingSnapshot()
-    sheet.flush()
-  })
   it("should use the container option instead of document.head to insert style elements into if it's passed", () => {
     const container = document.createElement('div')
     // $FlowFixMe
     document.body.appendChild(container)
     const sheet = new StyleSheet({ container })
     expect(sheet.container).toBe(container)
-    sheet.inject()
+    sheet.insert(rule)
     expect(document.querySelector('html')).toMatchSnapshot()
     expect(sheet.tags).toHaveLength(1)
     expect(sheet.tags[0].parentNode).toBe(container)
