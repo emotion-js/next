@@ -57,7 +57,7 @@ export class StyleSheet {
   maxLength: number
   key: string | void
   nonce: string | void
-  constructor(options: Options) {
+  constructor(options: Options | void) {
     if (options === undefined) options = {}
     this.isSpeedy =
       options.speedy === undefined

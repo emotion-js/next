@@ -4,18 +4,18 @@ import { StyleSheet } from '@emotion/sheet'
 describe('StyleSheet', () => {
   it('should be speedy by default in production', () => {
     process.env.NODE_ENV = 'production'
-    const sheet = new StyleSheet({})
+    const sheet = new StyleSheet()
     expect(sheet.isSpeedy).toBe(true)
     process.env.NODE_ENV = 'test'
   })
 
   it('should not be speedy in a non-production environment by default', () => {
-    const sheet = new StyleSheet({})
+    const sheet = new StyleSheet()
     expect(sheet.isSpeedy).toBe(false)
   })
 
   it('should insert a style element in the head when injected and should be able to flush them', () => {
-    const sheet = new StyleSheet({})
+    const sheet = new StyleSheet()
     sheet.inject()
     expect(document.querySelector('html')).toMatchSnapshot()
     sheet.flush()
