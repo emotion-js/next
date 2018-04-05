@@ -23,16 +23,6 @@ exports[`ssr className 1`] = `
 
 `;
 
-exports[`ssr dynamic 1`] = `
-
-<style data-emotion-ssr="1lrxbo5">
-  .css-1lrxbo5{color:hotpink;}
-</style>
-<div class="css-1lrxbo5">
-</div>
-
-`;
-
 exports[`ssr global 1`] = `
 
 <style data-emotion-ssr="6l7sk3">

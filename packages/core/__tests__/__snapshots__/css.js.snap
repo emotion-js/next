@@ -70,19 +70,6 @@ Array [
 ]
 `;
 
-exports[`dynamic 1`] = `
-<div>
-  <style>
-    .emotion-0 {
-      color: hotpink;
-    }
-  </style>
-  <div
-    className="emotion-0"
-  />
-</div>
-`;
-
 exports[`functions get toStringed in css calls 1`] = `
 Object {
   "cls": "css-5s8nl0",

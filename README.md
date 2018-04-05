@@ -141,32 +141,6 @@ render(
 )
 ```
 
-#### Dynamic
-
-> **This isn't totally ready yet, it's API will definitely change, you probably shouldn't use it yet.**
-
-The `Dynamic` component does not cache styles, use it for animations and other things that change very quickly.
-
-```
-yarn add @emotion/dynamic
-```
-
-```jsx
-/** @jsx jsx */
-import jsx from '@emotion/jsx'
-import Dynamic from '@emotion/dynamic'
-import css from '@emotion/css'
-import { render } from 'react-dom'
-
-render(
-  <Dynamic
-    css={{ color: 'hotpink' }}
-    render={className => <div className={className} />}
-  />,
-  document.getElementById('root')
-)
-```
-
 #### styled
 
 ```

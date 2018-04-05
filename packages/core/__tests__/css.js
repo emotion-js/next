@@ -4,7 +4,6 @@ import jsx from '@emotion/jsx'
 import Style from '@emotion/style'
 import Global from '@emotion/global'
 import Provider from '@emotion/provider'
-import Dynamic from '@emotion/dynamic'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import renderer from 'react-test-renderer'
@@ -128,21 +127,6 @@ test('@font-face in global', () => {
             fontFamily: 'some-name'
           }
         }}
-      />
-    </div>
-  )
-
-  expect(tree.toJSON()).toMatchSnapshot()
-})
-
-test('dynamic', () => {
-  const tree = renderer.create(
-    <div>
-      <Dynamic
-        css={css`
-          color: hotpink;
-        `}
-        render={className => <div className={className} />}
       />
     </div>
   )

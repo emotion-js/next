@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StyleSheet inject method throws if the sheet is already injected 1`] = `"This stylesheet has already been injected"`;
+
+exports[`StyleSheet should insert a rule into the DOM when not in speedy 1`] = `
+<html>
+  <head>
+    <style
+      data-emotion=""
+    >
+      
+      html { color:hotpink; }
+    </style>
+    <style
+      data-emotion=""
+    >
+      
+    </style>
+  </head>
+  <body />
+</html>
+`;
+
+exports[`StyleSheet should insert a rule with insertRule when in speedy 1`] = `
+<html>
+  <head>
+    <style
+      data-emotion=""
+    >
+      
+    </style>
+  </head>
+  <body />
+</html>
+`;
+
+exports[`StyleSheet should insert a rule with insertRule when in speedy 2`] = `
+Array [
+  CSSStyleRule {
+    "__ends": 23,
+    "__starts": 0,
+    "parentRule": null,
+    "parentStyleSheet": CSSStyleSheet {
+      "cssRules": [Circular],
+      "parentStyleSheet": null,
+    },
+    "selectorText": "html",
+    "style": CSSStyleDeclaration {
+      "0": "color",
+      "__starts": 5,
+      "_importants": Object {
+        "color": "",
+      },
+      "color": "hotpink",
+      "length": 1,
+      "parentRule": [Circular],
+    },
+  },
+]
+`;
+
+exports[`StyleSheet should insert a style element in the head when injected and should be able to flush them 1`] = `
+<html>
+  <head>
+    <style
+      data-emotion=""
+    >
+      
+    </style>
+  </head>
+  <body />
+</html>
+`;
+
+exports[`StyleSheet should insert a style element in the head when injected and should be able to flush them 2`] = `
+<html>
+  <head />
+  <body />
+</html>
+`;
+
+exports[`StyleSheet should set the data-emotion attribute to the key option 1`] = `
+<html>
+  <head>
+    <style
+      data-emotion="some-key"
+    >
+      
+    </style>
+  </head>
+  <body />
+</html>
+`;
+
+exports[`StyleSheet should use the container option instead of document.head to insert style elements into if it's passed 1`] = `
+<html>
+  <head />
+  <body>
+    <div>
+      <style
+        data-emotion=""
+      >
+        
+      </style>
+    </div>
+  </body>
+</html>
+`;

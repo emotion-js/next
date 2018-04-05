@@ -31,6 +31,7 @@ function sheetForTag(tag: HTMLStyleElement): CSSStyleSheet {
   }
 
   // this weirdness brought to you by firefox
+  /* istanbul ignore next */
   for (let i = 0; i < document.styleSheets.length; i++) {
     if (document.styleSheets[i].ownerNode === tag) {
       // $FlowFixMe
@@ -39,72 +40,12 @@ function sheetForTag(tag: HTMLStyleElement): CSSStyleSheet {
   }
 }
 
-type Options = { nonce?: string, key?: string, container?: HTMLElement }
-
-function makeStyleTag(opts: Options): HTMLStyleElement {
-  let tag = document.createElement('style')
-  tag.type = 'text/css'
-  tag.setAttribute('data-emotion', opts.key || '')
-  if (opts.nonce !== undefined) {
-    tag.setAttribute('nonce', opts.nonce)
-  }
-  tag.appendChild(document.createTextNode(''))
-  // $FlowFixMe
-  ;(opts.container !== undefined ? opts.container : document.head).appendChild(
-    tag
-  )
-  return tag
-}
-
-export class DynamicStyleSheet {
-  injected: boolean
-  opts: Options
-  ctr: number
-  injected: boolean
-  tag: HTMLStyleElement
-  sheet: CSSStyleSheet
-  constructor(options: Options) {
-    this.ctr = 0
-    this.opts = options
-  }
-  inject() {
-    if (process.env.NODE_ENV !== 'production' && this.tag !== undefined) {
-      throw new Error('This stylesheet has already been injected')
-    }
-    this.tag = makeStyleTag(this.opts)
-    this.sheet = sheetForTag(this.tag)
-  }
-  insertRules(rules: Array<string>) {
-    this.removeRules()
-    rules.forEach(this.insert, this)
-  }
-  insert(rule: string) {
-    try {
-      this.sheet.insertRule(rule, this.ctr)
-      this.ctr++
-    } catch (e) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.warn(`Invalid Rule: "${rule}"`, e)
-      }
-    }
-  }
-  removeRules() {
-    if (this.ctr !== 0) {
-      while (this.ctr--) {
-        this.sheet.deleteRule(this.ctr)
-      }
-      this.ctr = 0
-    }
-  }
-  flush() {
-    // $FlowFixMe
-    this.tag.parentNode.removeChild(this.tag)
-    this.ctr = 0
-    // $FlowFixMe
-    this.tag = undefined
-    // $FlowFixMe
-    this.sheet = undefined
-  }
+export type Options = {
+  nonce?: string,
+  key?: string,
+  container?: HTMLElement,
+  speedy?: boolean,
+  maxLength?: number
 }
 
 export class StyleSheet {
@@ -112,57 +53,79 @@ export class StyleSheet {
   isSpeedy: boolean
   ctr: number
   tags: HTMLStyleElement[]
-  opts: Options
+  container: HTMLElement
+  maxLength: number
+  key: string | void
+  nonce: string | void
   constructor(options: Options) {
-    this.isSpeedy = process.env.NODE_ENV === 'production' // the big drawback here is that the css won't be editable in devtools
+    if (options === undefined) options = {}
+    this.isSpeedy =
+      options.speedy === undefined
+        ? process.env.NODE_ENV === 'production'
+        : options.speedy
+    // maxLength is how many rules we have per style tag, it's 65000 in speedy mode
+    // because that's the upper limit in IE 10 TODO: make sure that is actually correct
+    // it's 1 in dev because we insert source maps that map a single rule to a location
+    // and you can only have one source map per style tag
+    this.maxLength = options.maxLength || this.isSpeedy ? 65000 : 1
     this.tags = []
     this.ctr = 0
-    this.opts = options
+    this.nonce = options.nonce
+    // key is the value of the data-emotion attribute, it's used to identify different sheets
+    this.key = options.key
+    // $FlowFixMe
+    this.container =
+      options.container ||
+      (typeof document !== 'undefined' ? document.head : null)
   }
   inject() {
-    if (this.injected) {
-      throw new Error('already injected!')
+    if (this.injected && process.env.NODE_ENV !== 'production') {
+      throw new Error('This stylesheet has already been injected')
     }
-    if (this.isSpeedy) {
-      this.tags[0] = makeStyleTag(this.opts)
-    }
+    this._insertStyleTag()
+
     this.injected = true
   }
-  speedy(bool: boolean) {
-    if (this.ctr !== 0) {
-      // cannot change speedy mode after inserting any rule to sheet. Either call speedy(${bool}) earlier in your app, or call flush() before speedy(${bool})
-      throw new Error(`cannot change speedy now`)
-    }
-    this.isSpeedy = !!bool
-  }
-  insert(rule: string, sourceMap?: string) {
-    // this is the ultrafast version, works across browsers
+  insert(rule: string) {
+    const tag = this.tags[this.tags.length - 1]
+
     if (this.isSpeedy) {
-      const tag = this.tags[this.tags.length - 1]
       const sheet = sheetForTag(tag)
       try {
+        // this is the ultrafast version, works across browsers
+        // the big drawback is that the css won't be editable in devtools
         sheet.insertRule(rule, sheet.cssRules.length)
       } catch (e) {
         if (process.env.NODE_ENV !== 'production') {
-          console.warn('illegal rule', rule) // eslint-disable-line no-console
+          console.warn(
+            `There was a problem inserting the following rule: "${rule}"`,
+            e
+          )
         }
       }
     } else {
-      const tag = makeStyleTag(this.opts)
-      this.tags.push(tag)
-      tag.appendChild(document.createTextNode(rule + (sourceMap || '')))
+      tag.appendChild(document.createTextNode(rule))
     }
     this.ctr++
-    if (this.ctr % 65000 === 0) {
-      this.tags.push(makeStyleTag(this.opts))
+    if (this.ctr % this.maxLength === 0) {
+      this._insertStyleTag()
     }
+  }
+  _insertStyleTag() {
+    let tag = document.createElement('style')
+    tag.setAttribute('data-emotion', this.key || '')
+    if (this.nonce !== undefined) {
+      tag.setAttribute('nonce', this.nonce)
+    }
+    tag.appendChild(document.createTextNode(''))
+    this.container.appendChild(tag)
+    this.tags.push(tag)
   }
   flush() {
     // $FlowFixMe
     this.tags.forEach(tag => tag.parentNode.removeChild(tag))
     this.tags = []
     this.ctr = 0
-    // todo - look for remnants in document.styleSheets
     this.injected = false
   }
 }

@@ -4,7 +4,6 @@ import * as React from 'react'
 import jsx from '@emotion/jsx'
 import Style from '@emotion/style'
 import Global from '@emotion/global'
-import Dynamic from '@emotion/dynamic'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import styled from '@emotion/styled.macro'
@@ -39,45 +38,6 @@ const Logo = styled.img`
   height: 80px;
 `
 
-const val = () => Math.floor(Math.random() * 255)
-
-class DynamicBackground extends React.Component<
-  { children: React.Node },
-  { val: string }
-> {
-  state = {
-    val: 'rgb(0,0,0)'
-  }
-  raf: ?AnimationFrameID
-  componentDidMount() {
-    this.changeStyle()
-  }
-  changeStyle() {
-    this.raf = requestAnimationFrame(() => {
-      this.setState({ val: `rgb(${val()}, ${val()}, ${val()})` })
-      this.changeStyle()
-    })
-  }
-  componentWillUnmount() {
-    if (this.raf != null) {
-      cancelAnimationFrame(this.raf)
-    }
-  }
-  render() {
-    return (
-      <Dynamic
-        css={css([
-          headerStyle,
-          { backgroundColor: this.state.val, transition: 'all 300ms' }
-        ])}
-        render={className => {
-          return <header className={className}>{this.props.children}</header>
-        }}
-      />
-    )
-  }
-}
-
 class App extends React.Component<{}> {
   render() {
     return (
@@ -97,7 +57,7 @@ class App extends React.Component<{}> {
           `}
         />
         <Style styles={[animation, headerStyle]} />
-        <DynamicBackground>
+        <div css={headerStyle}>
           <Logo
             animation={animation}
             css={{ height: 80 }}
@@ -106,7 +66,7 @@ class App extends React.Component<{}> {
           />
 
           <h2>Welcome to React</h2>
-        </DynamicBackground>
+        </div>
         <p css={{ fontSize: 'large' }}>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
