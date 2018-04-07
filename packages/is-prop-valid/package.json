@@ -9,6 +9,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "@emotion/memoize": "^0.5.2"
+  },
   "files": [
     "src",
     "dist"
