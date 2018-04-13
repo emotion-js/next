@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import { consumer } from '@emotion/core'
+import { withCSSContext } from '@emotion/core'
 import type { InsertableStyles, CSSContextType } from '@emotion/types'
 import { insertStyles, shouldSerializeToReactTree } from '@emotion/utils'
 
@@ -8,40 +8,35 @@ type Props = {
   styles: InsertableStyles | Array<InsertableStyles>
 }
 
-export default class Style extends React.Component<Props> {
-  serialized: string
-  renderChild = (context: CSSContextType) => {
-    const { styles } = this.props
-    let rules = ''
-    let hash = ''
-    if (Array.isArray(styles)) {
-      styles.forEach(style => {
-        let renderedStyle = insertStyles(context, style)
-        if (renderedStyle !== undefined) {
-          // $FlowFixMe
-          rules += renderedStyle
-          hash += ` ${style.name}`
-        }
-      })
-    } else {
-      let renderedStyle = insertStyles(context, styles)
+const Style = withCSSContext((props: Props, context: CSSContextType) => {
+  let rules = ''
+  let hash = ''
+  if (Array.isArray(props.styles)) {
+    props.styles.forEach(style => {
+      let renderedStyle = insertStyles(context, style)
       if (renderedStyle !== undefined) {
-        rules = renderedStyle
-        hash += ` ${styles.name}`
+        // $FlowFixMe
+        rules += renderedStyle
+        hash += ` ${style.name}`
       }
+    })
+  } else {
+    let renderedStyle = insertStyles(context, props.styles)
+    if (renderedStyle !== undefined) {
+      rules = renderedStyle
+      // $FlowFixMe
+      hash += ` ${props.styles.name}`
     }
-    if (shouldSerializeToReactTree && rules !== '') {
-      return (
-        <style
-          data-emotion-ssr={hash.substring(1)}
-          dangerouslySetInnerHTML={{ __html: rules }}
-        />
-      )
-    }
-    return null
   }
+  if (shouldSerializeToReactTree && rules !== '') {
+    return (
+      <style
+        data-emotion-ssr={hash.substring(1)}
+        dangerouslySetInnerHTML={{ __html: rules }}
+      />
+    )
+  }
+  return null
+})
 
-  render() {
-    return consumer(this, this.renderChild)
-  }
-}
+export default Style

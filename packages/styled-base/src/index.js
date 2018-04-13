@@ -10,8 +10,7 @@ import {
   type StyledOptions,
   type CreateStyled
 } from './utils'
-import type { CSSContextType } from '@emotion/types'
-import { consumer } from '@emotion/core'
+import { withCSSContext } from '@emotion/core'
 import {
   getRegisteredStyles,
   insertStyles,
@@ -58,60 +57,56 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
       }
     }
 
-    class Styled extends React.Component<*> {
-      static displayName = identifierName !== undefined
+    const Styled = withCSSContext((props, context) => {
+      let className = ''
+      let classInterpolations = []
+      let mergedProps = omitAssign(testAlwaysTrue, {}, props, {
+        theme: props.theme || context.theme
+      })
+      if (typeof props.className === 'string') {
+        className += getRegisteredStyles(
+          context.registered,
+          classInterpolations,
+          props.className
+        )
+      }
+      const serialized = serializeStyles.call(
+        mergedProps,
+        styles.concat(classInterpolations)
+      )
+      const rules = insertStyles(context, serialized)
+      className += serialized.cls
+
+      const ele = React.createElement(
+        baseTag,
+        omitAssign(omitFn, {}, props, {
+          className,
+          ref: props.innerRef
+        })
+      )
+      if (shouldSerializeToReactTree && rules !== undefined) {
+        return (
+          <React.Fragment>
+            <style
+              data-emotion-ssr={serialized.name}
+              dangerouslySetInnerHTML={{ __html: rules }}
+            />
+            {ele}
+          </React.Fragment>
+        )
+      }
+      return ele
+    })
+
+    Styled.displayName =
+      identifierName !== undefined
         ? identifierName
         : `Styled(${
             typeof baseTag === 'string'
               ? baseTag
               : baseTag.displayName || baseTag.name || 'Component'
           })`
-      mergedProps: Object
 
-      renderChild = (context: CSSContextType) => {
-        let className = ''
-        let classInterpolations = []
-        this.mergedProps = omitAssign(testAlwaysTrue, {}, this.props, {
-          theme: this.props.theme || context.theme
-        })
-        if (typeof this.props.className === 'string') {
-          className += getRegisteredStyles(
-            context.registered,
-            classInterpolations,
-            this.props.className
-          )
-        }
-        const serialized = serializeStyles.call(
-          this,
-          styles.concat(classInterpolations)
-        )
-        const rules = insertStyles(context, serialized)
-        className += serialized.cls
-
-        const ele = React.createElement(
-          baseTag,
-          omitAssign(omitFn, {}, this.props, {
-            className,
-            ref: this.props.innerRef
-          })
-        )
-        if (shouldSerializeToReactTree && rules !== undefined) {
-          return (
-            <React.Fragment>
-              <style
-                data-emotion-ssr={serialized.name}
-                dangerouslySetInnerHTML={{ __html: rules }}
-              />
-              {ele}
-            </React.Fragment>
-          )
-        }
-        return ele
-      }
-      render() {
-        return consumer(this, this.renderChild)
-      }
-    }
     // $FlowFixMe
     const FinalStyled = React.forwardRef((props, ref) => {
       if (ref === null) {

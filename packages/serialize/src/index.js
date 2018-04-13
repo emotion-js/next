@@ -41,7 +41,7 @@ export function handleInterpolation(
       return handleInterpolation.call(
         this,
         // $FlowFixMe
-        interpolation(this.mergedProps, this.context)
+        interpolation(this)
       )
     case 'object':
       if (interpolation.type === 2) {

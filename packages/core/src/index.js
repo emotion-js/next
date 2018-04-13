@@ -27,29 +27,59 @@ type Context<T> = {
   Consumer: Class<Consumer<T>>
 }
 
+type BasicProviderProps = {
+  children: CSSContextType => React.Node
+}
+
+class BasicProvider extends React.Component<BasicProviderProps> {
+  emotionCache = createCache()
+  render() {
+    return (
+      <CSSContext.Provider value={this.emotionCache}>
+        {this.props.children(this.emotionCache)}
+      </CSSContext.Provider>
+    )
+  }
+}
+
 // $FlowFixMe
-export const CSSContext: Context<CSSContextType> = React.createContext(null)
+export const CSSContext: Context<CSSContextType> = React.createContext(
+  isBrowser && process.env.NODE_ENV !== 'test' ? createCache() : null
+)
 
-let defaultCache = createCache()
+export function withCSSContext<Props>(
+  func: (props: Props, context: CSSContextType) => React.Node
+): React.StatelessFunctionalComponent<Props> {
+  return (props: Props) => (
+    <CSSContext.Consumer>
+      {context => {
+        if (context === null) {
+          return (
+            <BasicProvider>
+              {newContext => {
+                return func(props, newContext)
+              }}
+            </BasicProvider>
+          )
+        } else {
+          return func(props, context)
+        }
+      }}
+    </CSSContext.Consumer>
+  )
+}
 
-export function consumer(
-  instance: { emotionCache?: CSSContextType },
-  func: CSSContextType => React.Node
-) {
+export function consume(func: CSSContextType => React.Node) {
   return (
     <CSSContext.Consumer>
       {context => {
         if (context === null) {
-          if (isBrowser && process.env.NODE_ENV !== 'test') {
-            return func(defaultCache)
-          }
-          if (instance.emotionCache === undefined) {
-            instance.emotionCache = createCache()
-          }
           return (
-            <CSSContext.Provider value={instance.emotionCache}>
-              {func(instance.emotionCache)}
-            </CSSContext.Provider>
+            <BasicProvider>
+              {newContext => {
+                return func(newContext)
+              }}
+            </BasicProvider>
           )
         } else {
           return func(context)

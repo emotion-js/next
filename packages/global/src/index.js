@@ -1,13 +1,13 @@
 // @flow
 import * as React from 'react'
-import { consumer } from '@emotion/core'
+import { consume } from '@emotion/core'
 import type { CSSContextType } from '@emotion/types'
 import { StyleSheet } from '@emotion/sheet'
 import { isBrowser, shouldSerializeToReactTree } from '@emotion/utils'
 import { serializeStyles } from '@emotion/serialize'
 
 type GlobalProps = {
-  css: Object
+  css: Object | Array<Object>
 }
 
 class Global extends React.Component<GlobalProps> {
@@ -49,7 +49,7 @@ class Global extends React.Component<GlobalProps> {
     this.sheet.flush()
   }
   render() {
-    return consumer(this, this.renderChild)
+    return consume(this.renderChild)
   }
 }
 
