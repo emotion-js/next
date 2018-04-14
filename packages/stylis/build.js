@@ -66,6 +66,13 @@ async function doThing() {
       'cascade + quote + bracket + atrule === 0 && id !== KEYFRAME && code !== SEMICOLON',
       'true === false'
     )
+    .replace(
+      'comment + quote + parentheses + bracket + semicolon === 0',
+      'true === false'
+    )
+    .replace('(insert === 1)', '(true === false)')
+    .replace('input.charCodeAt(9)*keyed', '0')
+    .replace('switch (cascade + level) {', 'switch (2) {')
   const result = setOptions(removeOptions(stylisSrc))
 
   // await writeFile('./src/stylis.js', result)
