@@ -1,6 +1,6 @@
 {
   "name": "@emotion/styled.macro",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "babel macro for emotion's styled",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -9,7 +9,7 @@
   "dependencies": {
     "@babel/helper-module-imports": "7.0.0-beta.42",
     "@emotion/babel-utils": "^0.5.1",
-    "@emotion/styled-base": "^0.6.1",
+    "@emotion/styled-base": "^0.6.2",
     "babel-plugin-macros": "^2.2.0"
   },
   "publishConfig": {

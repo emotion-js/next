@@ -1,9 +1,12 @@
 {
   "name": "@emotion/core",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -12,7 +15,7 @@
     "rollup": "rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "@emotion/cache": "^0.6.0",
+    "@emotion/cache": "^0.6.2",
     "@emotion/types": "^0.6.0",
     "@emotion/utils": "^0.5.0"
   },
