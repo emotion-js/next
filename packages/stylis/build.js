@@ -60,10 +60,15 @@ const removeUMDWrapper = src =>
     .toSource()
 
 async function doThing() {
-  const stylisSrc = (await readFile(stylisPath)).toString()
+  const stylisSrc = (await readFile(stylisPath))
+    .toString()
+    .replace(
+      'cascade + quote + bracket + atrule === 0 && id !== KEYFRAME && code !== SEMICOLON',
+      'true === false'
+    )
   const result = setOptions(removeOptions(stylisSrc))
 
-  await writeFile('./src/stylis.js', result)
+  // await writeFile('./src/stylis.js', result)
   console.log('start request')
   const data = (await request('https://closure-compiler.appspot.com/compile', {
     method: 'POST',
