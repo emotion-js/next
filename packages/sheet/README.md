@@ -81,3 +81,7 @@ sheet.insert('html { color: hotpink; }')
 
 sheet.flush()
 ```
+
+# Thanks
+
+This StyleSheet is based on [glamor's StyleSheet](https://github.com/threepointone/glamor) written by [Sunil Pai](https://github.com/threepointone). ❤️

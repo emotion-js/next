@@ -31,6 +31,7 @@ const serializer = {
       return true
     } else if (
       Array.isArray(val) &&
+      val[0] &&
       !val[0].withNewStyles &&
       val[0].$$typeof === Symbol.for('react.test.json')
     ) {

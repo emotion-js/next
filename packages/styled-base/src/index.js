@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react'
-import { STYLES_KEY } from 'emotion-utils'
 import type { ElementType } from 'react'
 import {
   testOmitPropsOnComponent,
@@ -42,7 +41,9 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
   return function() {
     let args = arguments
     let styles =
-      isReal && tag[STYLES_KEY] !== undefined ? tag[STYLES_KEY].slice(0) : []
+      isReal && tag.__emotion_styles !== undefined
+        ? tag.__emotion_styles.slice(0)
+        : []
     if (identifierName !== undefined) {
       styles.push(`label:${identifierName};`)
     }

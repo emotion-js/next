@@ -10,13 +10,10 @@
     "@emotion/sheet": "^0.6.0",
     "@emotion/types": "^0.6.0",
     "@emotion/utils": "^0.5.0",
-    "emotion-utils": "^9.1.0"
+    "@emotion/stylis": "^0.6.1"
   },
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "src",
-    "dist"
-  ]
+  "files": ["src", "dist"]
 }

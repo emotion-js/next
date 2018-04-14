@@ -1,12 +1,8 @@
 // @flow
-import { Stylis } from 'emotion-utils'
+import Stylis from '@emotion/stylis'
 import stylisRuleSheet from './rule-sheet'
 
-const stylis = new Stylis({
-  keyframe: false,
-  global: false,
-  semicolon: true
-})
+const stylis = new Stylis()
 
 let current
 

@@ -1,6 +1,8 @@
 // @flow
 import type { Interpolation, ScopedInsertableStyles } from '@emotion/types'
-import { hashString, memoize, unitless } from 'emotion-utils'
+import hashString from '@emotion/hash'
+import unitless from '@emotion/unitless'
+import memoize from '@emotion/memoize'
 
 const hyphenateRegex = /[A-Z]|^ms/g
 

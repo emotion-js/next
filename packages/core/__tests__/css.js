@@ -66,7 +66,7 @@ test('keyframes', () => {
       <Style styles={animation} />
       <div
         css={css`
-          animation: ${animation}${true};
+          animation: ${animation} ${true};
         `}
       >
         {animation.toString()}
