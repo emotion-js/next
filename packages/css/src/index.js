@@ -1,6 +1,6 @@
 // @flow
 import type { Interpolation, ScopedInsertableStyles } from '@emotion/types'
-import { hashString } from 'emotion-utils'
+import hashString from '@emotion/hash'
 import { handleInterpolation, labelPattern } from '@emotion/serialize'
 
 function css(
