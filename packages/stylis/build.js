@@ -23,6 +23,7 @@ const removeOptions = src =>
           case 'cascade':
           case 'preserve':
           case 'semicolon':
+          case 'compress':
           case 'global': {
             return false
           }
@@ -60,10 +61,24 @@ const removeUMDWrapper = src =>
     .toSource()
 
 async function doThing() {
-  const stylisSrc = (await readFile(stylisPath)).toString()
+  const stylisSrc = (await readFile(stylisPath))
+    .toString()
+    .replace(
+      'cascade + quote + bracket + atrule === 0 && id !== KEYFRAME && code !== SEMICOLON',
+      'true === false'
+    )
+    .replace(
+      'comment + quote + parentheses + bracket + semicolon === 0',
+      'true === false'
+    )
+    .replace('(insert === 1)', '(true === false)')
+    .replace('input.charCodeAt(9)*keyed', '0')
+    .replace('switch (cascade + level) {', 'switch (2) {')
+    .replace('compress*code === 0', 'true')
+    .replace(`typeof(output = result) !== 'string'`, 'output = result')
   const result = setOptions(removeOptions(stylisSrc))
 
-  await writeFile('./src/stylis.js', result)
+  // await writeFile('./src/stylis.js', result)
   console.log('start request')
   const data = (await request('https://closure-compiler.appspot.com/compile', {
     method: 'POST',
