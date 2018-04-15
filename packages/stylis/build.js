@@ -23,6 +23,7 @@ const removeOptions = src =>
           case 'cascade':
           case 'preserve':
           case 'semicolon':
+          case 'compress':
           case 'global': {
             return false
           }
@@ -73,6 +74,8 @@ async function doThing() {
     .replace('(insert === 1)', '(true === false)')
     .replace('input.charCodeAt(9)*keyed', '0')
     .replace('switch (cascade + level) {', 'switch (2) {')
+    .replace('compress*code === 0', 'true')
+    .replace(`typeof(output = result) !== 'string'`, 'output = result')
   const result = setOptions(removeOptions(stylisSrc))
 
   // await writeFile('./src/stylis.js', result)

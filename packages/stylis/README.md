@@ -2,7 +2,7 @@
 
 > A custom build of Stylis
 
-`@emotion/stylis` is a version of [Stylis](https://github.com/thysultan/stylis.js) that has been modified slightly to make it smaller. The only Stylis options that can be changed are `prefix` and `compress`, the rest of the options are already set to the values shown below and cannot be changed. This package also only exports the constructer, so you have to do `new Stylis()` and use the result from that rather than directly calling `Stylis`.
+`@emotion/stylis` is a version of [Stylis](https://github.com/thysultan/stylis.js) that has been modified slightly to make it smaller. The only Stylis option that can be changed is `prefix`, the rest of the options are already set to the values shown below and cannot be changed. This package also only exports the constructer, so you have to do `new Stylis()` and use the result from that rather than directly calling `Stylis`.
 
 ```js
 type Options = {
@@ -11,8 +11,8 @@ type Options = {
   keyframe: false,
   semicolon: true,
   cascade: true,
-  prefix: boolean | ((key: string, value: string, context: number) => boolean),
-  compress: boolean
+  compress: false,
+  prefix: boolean | ((key: string, value: string, context: number) => boolean)
 }
 ```
 
