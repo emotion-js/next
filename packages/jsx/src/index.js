@@ -50,6 +50,7 @@ const jsx: typeof React.createElement = function(
       }
     }
     newProps.className = className
+
     let childrenLength = arguments.length
 
     let createElementArgArray = Array(childrenLength)
@@ -57,8 +58,9 @@ const jsx: typeof React.createElement = function(
     createElementArgArray[1] = newProps
 
     for (let i = 2; i < childrenLength; i++) {
-      createElementArgArray[i] = arguments[i + 2]
+      createElementArgArray[i] = arguments[i]
     }
+
     // $FlowFixMe
     const ele = React.createElement.apply(undefined, createElementArgArray)
     if (shouldSerializeToReactTree && rules !== undefined) {
