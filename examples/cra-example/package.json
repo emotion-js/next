@@ -1,9 +1,9 @@
 {
   "name": "example",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^0.6.4",
+    "@emotion/core": "^0.6.5",
     "@emotion/css": "^0.6.2",
     "@emotion/global": "^0.6.2",
     "@emotion/jsx": "^0.6.2",
