@@ -22,5 +22,6 @@
   "files": [
     "src",
     "dist"
-  ]
+  ],
+  "umd:main": "./dist/index.min.js"
 }
