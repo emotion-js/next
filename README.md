@@ -6,9 +6,8 @@
 
 ### Todo
 
-* actually hydrate scoped rules
 * Provider (nonce, ~~theme~~(done), container element?)
-* babel macro (labels, source maps, hoisting(we can even do it from the css prop since we control the jsx function), precompiling css calls to serialized styles and a hash)
+* add source maps
 
 ## Why should I use this?
 
@@ -27,6 +26,7 @@
 * Styles won't be cached in SSR if two elements have the same style and they have no common ancestor with styles from emotion or a Provider
 * It requires every style to be rendered in the react tree
 * It doesn't support component selectors and might never or it might, idk
+* It renders style elements next to the elements that are being styled in SSR so using pseudo-classes like `:first-child` and `:nth-child` is unsafe and pseudo-classes like `:first-of-type` and `:nth-of-type` should be used instead
 
 #### Getting Started
 
