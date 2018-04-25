@@ -75,9 +75,8 @@ async function doThing() {
     .replace('input.charCodeAt(9)*keyed', '0')
     .replace('switch (cascade + level) {', 'switch (2) {')
     .replace('compress*code === 0', 'true')
-    .replace(`typeof(output = result) !== 'string'`, 'output = result')
+    .replace(`typeof(output = result) !== 'string'`, '(output = result)')
   const result = setOptions(removeOptions(stylisSrc))
-
   // await writeFile('./src/stylis.js', result)
   console.log('start request')
   const data = (await request('https://closure-compiler.appspot.com/compile', {

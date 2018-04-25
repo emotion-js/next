@@ -10,13 +10,11 @@ async function changePackages() {
 
   await Promise.all(
     packages.map(async pkg => {
-      if (pkg.pkg.peerDependencies && pkg.pkg.peerDependencies['react']) {
-        pkg.pkg.peerDependencies['react'] = '>=16.3.0'
-        await writeFile(
-          path.resolve(pkg.path, 'package.json'),
-          JSON.stringify(pkg.pkg, null, 2)
-        )
-      }
+      pkg.pkg['umd:main'] = './dist/index.min.js'
+      await writeFile(
+        path.resolve(pkg.path, 'package.json'),
+        JSON.stringify(pkg.pkg, null, 2)
+      )
     })
   )
 }

@@ -18,5 +18,6 @@
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5",
     "stylis": "^3.5.0"
-  }
+  },
+  "umd:main": "./dist/index.min.js"
 }

@@ -2,8 +2,11 @@ const path = require('path')
 const globby = require('globby')
 const del = require('del')
 const makeRollupConfig = require('./rollup.config')
+const camelize = require('fbjs/lib/camelize')
 
 const rootPath = path.resolve(__dirname, '..', '..')
+
+exports.rootPath = rootPath
 
 exports.cleanDist = async function cleanDist() {
   await del(`${rootPath}/packages/*/dist`, { force: true, cwd: rootPath })
@@ -23,6 +26,10 @@ exports.getPackages = async function getPackages() {
     }
     ret.config = makeRollupConfig(ret)
     ret.outputConfigs = getOutputConfigs(ret)
+    if (ret.pkg['umd:main']) {
+      ret.UMDConfig = makeRollupConfig(ret, true)
+      ret.UMDOutputConfig = getUMDOutputConfig(ret)
+    }
     return ret
   })
   return packages
@@ -43,4 +50,16 @@ function getOutputConfigs(pkg) {
       file: cjsPath
     }
   ]
+}
+
+function getUMDOutputConfig(pkg) {
+  const UMDPath = path.resolve(pkg.path, pkg.pkg['umd:main'])
+  let name = camelize(pkg.pkg.name.replace('@', '').replace('/', '-'))
+  return {
+    format: 'umd',
+    sourcemap: true,
+    file: UMDPath,
+    name,
+    globals: { react: 'React', '@emotion/core': 'emotionCore' }
+  }
 }

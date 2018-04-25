@@ -29,5 +29,6 @@
   "repository": "https://github.com/emotion/next/tree/master/packages/core",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "umd:main": "./dist/index.min.js"
 }
