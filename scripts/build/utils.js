@@ -6,6 +6,8 @@ const camelize = require('fbjs/lib/camelize')
 
 const rootPath = path.resolve(__dirname, '..', '..')
 
+exports.rootPath = rootPath
+
 exports.cleanDist = async function cleanDist() {
   await del(`${rootPath}/packages/*/dist`, { force: true, cwd: rootPath })
 }
@@ -57,6 +59,7 @@ function getUMDOutputConfig(pkg) {
     format: 'umd',
     sourcemap: true,
     file: UMDPath,
-    name
+    name,
+    globals: { react: 'React', '@emotion/core': 'emotionCore' }
   }
 }

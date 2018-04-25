@@ -6,6 +6,24 @@ const cjs = require('rollup-plugin-commonjs')
 const replace = require('rollup-plugin-replace')
 const path = require('path')
 const lernaAliases = require('lerna-alias').rollup
+const utils = require('./utils')
+
+function getChildPeerDeps(finalPeerDeps, depKeys) {
+  depKeys.forEach(key => {
+    if (key.startsWith('@emotion/')) {
+      const pkgJson = require(path.join(
+        utils.rootPath,
+        'packages',
+        key.replace('@emotion/', ''),
+        'package.json'
+      ))
+      if (pkgJson.peerDependencies) {
+        finalPeerDeps.push(...Object.keys(pkgJson.peerDependencies))
+        getChildPeerDeps(finalPeerDeps, Object.keys(pkgJson.peerDependencies))
+      }
+    }
+  })
+}
 
 module.exports = (data, isUMD = false) => {
   const { pkg } = data
@@ -16,10 +34,14 @@ module.exports = (data, isUMD = false) => {
   if (pkg.dependencies && !isUMD) {
     external.push(...Object.keys(pkg.dependencies))
   }
+  getChildPeerDeps(external, [
+    ...new Set(
+      external.concat((pkg.dependencies && Object.keys(pkg.dependencies)) || [])
+    )
+  ])
 
   const config = {
     input: path.resolve(data.path, 'src', 'index.js'),
-    global: { react: 'React', '@emotion/core': 'emotionCore' },
     external,
     plugins: [
       cjs({
@@ -52,7 +74,7 @@ module.exports = (data, isUMD = false) => {
       isUMD &&
         pkg.dependencies &&
         resolve({ only: Object.keys(pkg.dependencies) }),
-      isUMD && replace({ 'process.env.NODE_ENV': 'production' }),
+      isUMD && replace({ 'process.env.NODE_ENV': '"production"' }),
       isUMD && uglify()
     ].filter(Boolean)
   }

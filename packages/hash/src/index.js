@@ -2,13 +2,9 @@
 /* eslint-disable */
 // murmurhash2 via https://github.com/garycourt/murmurhash-js/blob/master/murmurhash2_gc.js
 
-export default function hash(str: string) {
-  return murmurhash2_32_gc(str, str.length).toString(36)
-}
-
-function murmurhash2_32_gc(str: string, seed: number) {
+export default function murmurhash2_32_gc(str: string) {
   var l = str.length,
-    h = seed ^ l,
+    h = l ^ l,
     i = 0,
     k
 
@@ -47,5 +43,5 @@ function murmurhash2_32_gc(str: string, seed: number) {
   h = (h & 0xffff) * 0x5bd1e995 + ((((h >>> 16) * 0x5bd1e995) & 0xffff) << 16)
   h ^= h >>> 15
 
-  return h >>> 0
+  return (h >>> 0).toString(36)
 }
