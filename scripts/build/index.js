@@ -25,6 +25,17 @@ async function doBuild() {
           })
         })
       )
+      if (pkg.UMDConfig) {
+        const UMDBundle = await rollup.rollup(pkg.UMDConfig)
+        await UMDBundle.write(pkg.UMDOutputConfig).then(() => {
+          console.log(
+            chalk.magenta(
+              `Generated ${pkg.UMDOutputConfig.format} bundle for`,
+              pkg.pkg.name
+            )
+          )
+        })
+      }
       if (!pkg.name.endsWith('.macro')) {
         await writeFlowFiles(
           pkg.outputConfigs.map(({ file }) => file),

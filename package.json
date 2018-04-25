@@ -2,15 +2,13 @@
   "private": true,
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": [
-    "src",
-    "dist"
-  ],
+  "files": ["src", "dist"],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
     "test:watch": "jest --watch --verbose --env=jsdom",
-    "test": "npm run build && npm-run-all -p flow:check lint coverage test:dist",
+    "test":
+      "npm run build && npm-run-all -p flow:check lint coverage test:dist",
     "jest": "jest --coverage",
     "test:size": "npm-run-all build bundlesize",
     "build": "node scripts/build",
@@ -41,7 +39,7 @@
     "babel-plugin-closure-elimination": "^1.3.0",
     "babel-plugin-codegen": "^1.2.1",
     "babel-plugin-macros": "^2.1.0",
-    "bundlesize": "^0.15.3",
+    "bundlesize": "^0.17.0",
     "codecov": "^2.3.0",
     "css": "^2.2.1",
     "enzyme": "^3.3.0",
@@ -80,9 +78,6 @@
     "rollup-plugin-uglify": "^3.0.0",
     "stylis-rule-sheet": "^0.0.10"
   },
-  "workspaces": [
-    "packages/*",
-    "examples/*",
-    "scripts/*"
-  ]
+  "workspaces": ["packages/*", "examples/*", "scripts/*"],
+  "bundlesize": [{ "path": "./packages/*/dist/index.min.js", "maxSize": "5kB" }]
 }
