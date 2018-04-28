@@ -47,7 +47,7 @@ export function handleInterpolation(
       )
     case 'object':
       if (interpolation.type === 2) {
-        return interpolation.toString()
+        return interpolation.name
       }
       if (interpolation.styles !== undefined) {
         return interpolation.styles
@@ -91,7 +91,7 @@ export const serializeStyles = function(
     args.length === 1 &&
     typeof args[0] === 'object' &&
     args[0] !== null &&
-    args[0].cls !== undefined
+    args[0].styles !== undefined
   ) {
     return args[0]
   }
@@ -105,10 +105,10 @@ export const serializeStyles = function(
     return ''
   })
   let name = hashString(styles) + identifierName
+
   return {
-    styles,
-    name,
     type: 1,
-    cls: `css-${name}`
+    name,
+    styles
   }
 }

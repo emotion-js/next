@@ -36,10 +36,10 @@ exports[`ssr keyframes 1`] = `
 <style data-emotion-ssr="animation-1kyaq4y">
   @-webkit-keyframes animation-1kyaq4y{from{color:green;}to{color:blue;}}@keyframes animation-1kyaq4y{from{color:green;}to{color:blue;}}
 </style>
-<style data-emotion-ssr="q9uc0r">
-  .css-q9uc0r{-webkit-animation:1s animation-1kyaq4y;animation:1s animation-1kyaq4y;}
+<style data-emotion-ssr="12xprl7">
+  .css-12xprl7{-webkit-animation:1s [object Object];animation:1s [object Object];}
 </style>
-<div class="css-q9uc0r">
+<div class="css-12xprl7">
 </div>
 
 `;
@@ -50,10 +50,13 @@ exports[`ssr only render a style once with Style 1`] = `
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
-  <style data-emotion-ssr="181qz4b">
-    .css-181qz4b{color:hotpink;}
+  <style data-emotion-ssr="animation-1bi8wtt">
+    @-webkit-keyframes animation-1bi8wtt{from{color:green;}to{color:hotpink;}}@keyframes animation-1bi8wtt{from{color:green;}to{color:hotpink;}}
   </style>
-  <div class="css-181qz4b">
+  <style data-emotion-ssr="1wh2ide">
+    .css-1wh2ide{-webkit-animation:animation-1bi8wtt 1s;animation:animation-1bi8wtt 1s;}
+  </style>
+  <div class="css-1wh2ide">
   </div>
 </div>
 

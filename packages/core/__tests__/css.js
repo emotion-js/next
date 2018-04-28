@@ -18,7 +18,8 @@ test('thing', () => {
   expect(tree.toJSON()).toMatchSnapshot()
 })
 
-test('css call to render', () => {
+// skipping since this API will change
+test.skip('css call to render', () => {
   const cls = css`
     color: green;
   `
@@ -32,7 +33,8 @@ test('css call to render', () => {
   expect(tree.toJSON()).toMatchSnapshot()
 })
 
-test('css call to render with array as styles', () => {
+// skipping since this API will change
+test.skip('css call to render with array as styles', () => {
   const cls = css`
     color: green;
   `
@@ -69,7 +71,7 @@ test('keyframes', () => {
           animation: ${animation} ${true};
         `}
       >
-        {animation.toString()}
+        {animation.name}
       </div>
     </div>
   )
@@ -94,7 +96,7 @@ test('keyframes insert in css call', () => {
           ${animation.styles};
         `}
       >
-        {animation.toString()}
+        {animation.name}
       </div>
     </div>
   )

@@ -76,7 +76,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         styles.concat(classInterpolations)
       )
       const rules = insertStyles(context, serialized)
-      className += serialized.cls
+      className += `css-${serialized.name}`
 
       const ele = React.createElement(
         baseTag,

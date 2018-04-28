@@ -58,6 +58,8 @@ cases(
       }
     },
     className: {
+      // this API is going to change
+      skip: true,
       render: () => {
         const className = css`
           color: hotpink;
@@ -83,16 +85,21 @@ cases(
     },
     'only render a style once with Style': {
       render: () => {
-        const className = css`
-          color: hotpink;
-        `
+        const animation = keyframes(css`
+          from {
+            color: green;
+          }
+          to {
+            color: hotpink;
+          }
+        `)
         return (
           // note that there should be a container element with a style/Provider
           // otherwise the style will render twice
           <div css={{ color: 'green' }}>
-            <Style styles={className} />
-            <Style styles={className} />
-            <div className={className} />
+            <Style styles={animation} />
+            <Style styles={animation} />
+            <div css={{ animation: `${animation.name} 1s` }} />
           </div>
         )
       }

@@ -6,7 +6,7 @@ import { handleInterpolation, labelPattern } from '@emotion/serialize'
 function css(
   strings: Interpolation | string[],
   ...interpolations: Interpolation[]
-): ScopedInsertableStyles & { toString: () => string } {
+): ScopedInsertableStyles {
   let stringMode = true
   let styles: string = ''
   let identifierName = ''
@@ -28,25 +28,13 @@ function css(
     identifierName += `-${p1}`
     return ''
   })
+  let name = hashString(styles) + identifierName
 
-  const ret: Object = {
-    styles,
+  return {
     type: 1,
-    get cls() {
-      delete this.cls
-      this.cls = `css-${this.name}`
-      return this.cls
-    },
-    get name() {
-      delete this.name
-      this.name = hashString(styles) + identifierName
-      return this.name
-    },
-    toString() {
-      return `css-${this.name}`
-    }
+    name,
+    styles
   }
-  return ret
 }
 
 export default css

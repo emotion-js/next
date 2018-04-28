@@ -207,31 +207,6 @@ render(
 )
 ```
 
-#### Getting a class name outside of render
-
-> **Note:**
->
-> Only do this when you absolutely **need** a class name outside of render
-
-```jsx
-import * as React from 'react'
-import css from '@emotion/css'
-import Style from '@emotion/style'
-
-const className = css`
-  color: hotpink;
-`
-
-render(
-  <div>
-    {/* The class name has to be rendered with `Style` */}
-    <Style styles={className} />
-    <div className={className} />
-  </div>,
-  document.getElementById('root')
-)
-```
-
 # Credit
 
 emotion next was heavily inspired by [glam](https://github.com/threepointone/glam).

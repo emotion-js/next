@@ -41,7 +41,7 @@ const jsx: typeof React.createElement = function(
     )
     const serialized = serializeStyles(registeredStyles)
     const rules = insertStyles(context, serialized)
-    className += serialized.cls
+    className += `css-${serialized.name}`
 
     const newProps = {}
     for (let key in props) {
