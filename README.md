@@ -196,7 +196,7 @@ import css from '@emotion/css'
 import { render } from 'react-dom'
 
 const SomeComponent = styled.div`
-  color: ${props.theme.primary};
+  color: ${props => props.theme.primary};
 `
 
 render(
