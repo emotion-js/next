@@ -79,7 +79,14 @@ export class StyleSheet {
   }
   insert(rule: string) {
     if (this.ctr % this.maxLength === 0) {
-      this._insertStyleTag()
+      let tag = document.createElement('style')
+      tag.setAttribute('data-emotion', this.key || '')
+      if (this.nonce !== undefined) {
+        tag.setAttribute('nonce', this.nonce)
+      }
+      tag.appendChild(document.createTextNode(''))
+      this.container.appendChild(tag)
+      this.tags.push(tag)
     }
     const tag = this.tags[this.tags.length - 1]
 
@@ -101,16 +108,6 @@ export class StyleSheet {
       tag.appendChild(document.createTextNode(rule))
     }
     this.ctr++
-  }
-  _insertStyleTag() {
-    let tag = document.createElement('style')
-    tag.setAttribute('data-emotion', this.key || '')
-    if (this.nonce !== undefined) {
-      tag.setAttribute('nonce', this.nonce)
-    }
-    tag.appendChild(document.createTextNode(''))
-    this.container.appendChild(tag)
-    this.tags.push(tag)
   }
   flush() {
     // $FlowFixMe

@@ -1,24 +1,61 @@
 // @flow
 import Stylis from '@emotion/stylis'
-import stylisRuleSheet from './rule-sheet'
 
 const stylis = new Stylis()
 
-let current
+// https://github.com/thysultan/stylis.js/tree/master/plugins/rule-sheet
+// inlined to avoid umd wrapper and peerDep warnings/installing stylis
+// since we use stylis after closure compiler
 
-const insertionPlugin = stylisRuleSheet(function(rule: string) {
-  current.push(rule)
-})
+const delimiter = '/*|*/'
+const needle = delimiter + '}'
 
-const returnFullPlugin = function(context) {
-  if (context === -1) {
-    current = []
-  }
-  if (context === -2) {
-    return current
+function toSheet(block) {
+  if (block) {
+    current.push(block + '}')
   }
 }
 
-stylis.use(insertionPlugin)(returnFullPlugin)
+function ruleSheet(
+  context,
+  content,
+  selectors,
+  parents,
+  line,
+  column,
+  length,
+  at,
+  depth
+) {
+  switch (context) {
+    case -1: {
+      current = []
+    }
+    case 2:
+      if (at === 0) return content + delimiter
+      break
+    // at-rule
+    case 3:
+      switch (at) {
+        // @font-face, @page
+        case 102:
+        case 112: {
+          current.push(selectors[0] + content)
+          return ''
+        }
+        default: {
+          return content + delimiter
+        }
+      }
+    case -2: {
+      content.split(needle).forEach(toSheet)
+      return current
+    }
+  }
+}
+
+let current
+
+stylis.use(ruleSheet)
 
 export default stylis

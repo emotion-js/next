@@ -9,13 +9,13 @@ import {
 import { serializeStyles } from '@emotion/serialize'
 
 // $FlowFixMe
-const jsx: typeof React.createElement = (
+const jsx: typeof React.createElement = function(
   type: React.ElementType,
-  props: Object,
-  ...children: Array<React.Node>
-) => {
+  props: Object
+) {
   if (props == null || props.css == null || type.__emotion_component === true) {
-    return React.createElement(type, props, ...children)
+    // $FlowFixMe
+    return React.createElement.apply(undefined, arguments)
   }
   if (typeof props.css === 'string' && process.env.NODE_ENV !== 'production') {
     throw new Error(
@@ -43,12 +43,26 @@ const jsx: typeof React.createElement = (
     const rules = insertStyles(context, serialized)
     className += serialized.cls
 
-    const newProps = {
-      ...props,
-      className
+    const newProps = {}
+    for (let key in props) {
+      if (Object.prototype.hasOwnProperty.call(props, key) && key !== 'css') {
+        newProps[key] = props[key]
+      }
     }
-    delete newProps.css
-    const ele = React.createElement(type, newProps, ...children)
+    newProps.className = className
+
+    let childrenLength = arguments.length
+
+    let createElementArgArray = Array(childrenLength)
+    createElementArgArray[0] = type
+    createElementArgArray[1] = newProps
+
+    for (let i = 2; i < childrenLength; i++) {
+      createElementArgArray[i] = arguments[i]
+    }
+
+    // $FlowFixMe
+    const ele = React.createElement.apply(undefined, createElementArgArray)
     if (shouldSerializeToReactTree && rules !== undefined) {
       return (
         <React.Fragment>
