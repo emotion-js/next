@@ -16,10 +16,17 @@ class Global extends React.Component<GlobalProps> {
   serialized: string
   static __emotion_component = true
   renderChild = (context: CSSContextType) => {
-    const serialized = serializeStyles([this.props.css])
+    const serialized = serializeStyles(context.registered, [this.props.css])
     if (this.oldName !== serialized.name) {
       if (isBrowser) {
-        this.sheet = new StyleSheet({ key: 'global' })
+        this.sheet = new StyleSheet({
+          // $FlowFixMe
+          key: `${context.sheet.key}-global`,
+          // $FlowFixMe
+          nonce: context.sheet.nonce,
+          // $FlowFixMe
+          container: context.sheet.container
+        })
       }
       this.oldName = serialized.name
       let rules = context.stylis(``, serialized.styles)

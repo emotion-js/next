@@ -17,7 +17,12 @@ const jsx: typeof React.createElement = function(
     // $FlowFixMe
     return React.createElement.apply(undefined, arguments)
   }
-  if (typeof props.css === 'string' && process.env.NODE_ENV !== 'production') {
+  if (
+    typeof props.css === 'string' &&
+    // check if there is a css declaration
+    props.css.indexOf(':') !== -1 &&
+    process.env.NODE_ENV !== 'production'
+  ) {
     throw new Error(
       `Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/css' like this: css\`${
         props.css
@@ -39,7 +44,7 @@ const jsx: typeof React.createElement = function(
     registeredStyles.push(
       typeof props.css === 'function' ? props.css(context.theme) : props.css
     )
-    const serialized = serializeStyles(registeredStyles)
+    const serialized = serializeStyles(context.registered, registeredStyles)
     const rules = insertStyles(context, serialized)
     className += `css-${serialized.name}`
 

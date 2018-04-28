@@ -20,9 +20,19 @@ export type Options = {
 }
 
 const createCache = (options?: Options): CSSContextType => {
-  if (options === undefined) options = {}
+  if (options === undefined) options = { key: 'css' }
   let stylisOptions
-
+  if (process.env.NODE_ENV !== 'production') {
+    // $FlowFixMe
+    if (/[^a-z-]/.test(options.key)) {
+      throw new Error(
+        `Emotion key must only contain lower case alphabetical characters and - but "${
+          // $FlowFixMe
+          options.key
+        }" was passed`
+      )
+    }
+  }
   if (options.prefix !== undefined) {
     stylisOptions = {
       prefix: options.prefix
@@ -36,23 +46,33 @@ const createCache = (options?: Options): CSSContextType => {
   let inserted = {}
 
   if (isBrowser) {
-    const nodes = document.querySelectorAll('style[data-emotion-ssr]')
+    const nodes = document.querySelectorAll(
+      // $FlowFixMe
+      `style[data-emotion-${options.key}]`
+    )
 
     Array.prototype.forEach.call(nodes, (node: HTMLStyleElement) => {
-      const attrib = node.getAttribute('data-emotion-ssr')
+      // $FlowFixMe
+      const attrib = node.getAttribute(`data-emotion-${options.key}`)
       // $FlowFixMe
       attrib.split(' ').forEach(id => {
         inserted[id] = true
       })
-      if (node.parentNode !== document.head) {
+      // $FlowFixMe
+      let parent = options.container || document.head
+      if (node.parentNode !== parent) {
         // $FlowFixMe
-        document.head.appendChild(node)
+        parent.appendChild(node)
       }
     })
   }
   const context: CSSContextType = {
     stylis,
-    sheet: new StyleSheet({ key: '' }),
+    sheet: new StyleSheet({
+      key: options.key,
+      container: options.container,
+      nonce: options.nonce
+    }),
     inserted,
     registered: {},
     theme: {}

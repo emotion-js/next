@@ -76,6 +76,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
       }
       const serialized = serializeStyles.call(
         mergedProps,
+        context.registered,
         styles.concat(classInterpolations)
       )
       const rules = insertStyles(context, serialized)

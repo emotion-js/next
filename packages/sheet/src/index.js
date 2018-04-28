@@ -71,7 +71,7 @@ export class StyleSheet {
     this.ctr = 0
     this.nonce = options.nonce
     // key is the value of the data-emotion attribute, it's used to identify different sheets
-    this.key = options.key
+    this.key = options.key || ''
     // $FlowFixMe
     this.container =
       options.container ||
@@ -80,7 +80,7 @@ export class StyleSheet {
   insert(rule: string) {
     if (this.ctr % this.maxLength === 0) {
       let tag = document.createElement('style')
-      tag.setAttribute('data-emotion', this.key || '')
+      tag.setAttribute('data-emotion', this.key)
       if (this.nonce !== undefined) {
         tag.setAttribute('nonce', this.nonce)
       }

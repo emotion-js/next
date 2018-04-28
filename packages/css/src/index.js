@@ -3,6 +3,8 @@ import type { Interpolation, ScopedInsertableStyles } from '@emotion/types'
 import hashString from '@emotion/hash'
 import { handleInterpolation, labelPattern } from '@emotion/serialize'
 
+let fakeRegisteredCache = {}
+
 function css(
   strings: Interpolation | string[],
   ...interpolations: Interpolation[]
@@ -13,13 +15,13 @@ function css(
 
   if (strings == null || strings.raw === undefined) {
     stringMode = false
-    styles += handleInterpolation.call(this, strings)
+    styles += handleInterpolation(fakeRegisteredCache, strings)
   } else {
     styles += strings[0]
   }
 
   interpolations.forEach(function(interpolation, i) {
-    styles += handleInterpolation.call(this, interpolation)
+    styles += handleInterpolation(fakeRegisteredCache, interpolation)
     if (stringMode === true && strings[i + 1] !== undefined) {
       styles += strings[i + 1]
     }

@@ -1,5 +1,9 @@
 // @flow
-import type { Interpolation, ScopedInsertableStyles } from '@emotion/types'
+import type {
+  Interpolation,
+  ScopedInsertableStyles,
+  CSSCache
+} from '@emotion/types'
 import hashString from '@emotion/hash'
 import unitless from '@emotion/unitless'
 import memoize from '@emotion/memoize'
@@ -60,6 +64,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export function handleInterpolation(
+  registered: CSSCache,
   interpolation: Interpolation
 ): string | number {
   if (interpolation == null) {
@@ -75,6 +80,7 @@ export function handleInterpolation(
       }
       return handleInterpolation.call(
         this,
+        registered,
         // $FlowFixMe
         interpolation(this)
       )
@@ -86,18 +92,22 @@ export function handleInterpolation(
         return interpolation.styles
       }
 
-      return createStringFromObject.call(this, interpolation)
+      return createStringFromObject.call(this, registered, interpolation)
     default:
-      return interpolation
+      const cached = registered[interpolation]
+      return cached !== undefined ? cached : interpolation
   }
 }
 
-function createStringFromObject(obj: { [key: string]: Interpolation }): string {
+function createStringFromObject(
+  registered: CSSCache,
+  obj: { [key: string]: Interpolation }
+): string {
   let string = ''
 
   if (Array.isArray(obj)) {
     obj.forEach(function(interpolation: Interpolation) {
-      string += handleInterpolation.call(this, interpolation)
+      string += handleInterpolation.call(this, registered, interpolation)
     }, this)
   } else {
     Object.keys(obj).forEach(function(key: string) {
@@ -115,7 +125,11 @@ function createStringFromObject(obj: { [key: string]: Interpolation }): string {
             )};`
           })
         } else {
-          string += `${key}{${handleInterpolation.call(this, obj[key])}}`
+          string += `${key}{${handleInterpolation.call(
+            this,
+            registered,
+            obj[key]
+          )}}`
         }
       }
     }, this)
@@ -127,6 +141,7 @@ function createStringFromObject(obj: { [key: string]: Interpolation }): string {
 export const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
 
 export const serializeStyles = function(
+  registered: CSSCache,
   args: Array<Interpolation>
 ): ScopedInsertableStyles {
   if (
@@ -140,7 +155,7 @@ export const serializeStyles = function(
   let styles = ''
   let identifierName = ''
   args.forEach(function(interpolation, i) {
-    styles += handleInterpolation.call(this, interpolation)
+    styles += handleInterpolation.call(this, registered, interpolation)
   }, this)
   styles = styles.replace(labelPattern, (match, p1: string) => {
     identifierName += `-${p1}`

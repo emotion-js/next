@@ -46,6 +46,8 @@ export const insertStyles = (
       })
       context.inserted[insertable.name] = true
     }
-    return context.inserted[insertable.name]
+    if (context.compat === undefined) {
+      return context.inserted[insertable.name]
+    }
   }
 }

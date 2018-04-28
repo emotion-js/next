@@ -15,7 +15,8 @@ module.exports = {
     'standard/computed-property-even-spacing': 0,
     'no-template-curly-in-string': 0,
     'no-undef': 0,
-    camelcase: 0
+    camelcase: 0,
+    'import/no-duplicates': 0
   },
   overrides: [
     {

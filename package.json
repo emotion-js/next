@@ -2,13 +2,15 @@
   "private": true,
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
     "test:watch": "jest --watch --verbose --env=jsdom",
-    "test":
-      "npm run build && npm-run-all -p flow:check lint coverage test:dist",
+    "test": "npm run build && npm-run-all -p flow:check lint coverage test:dist",
     "jest": "jest --coverage",
     "test:size": "npm-run-all build bundlesize",
     "build": "node scripts/build",
@@ -24,6 +26,7 @@
   },
   "dependencies": {
     "babel-plugin-preval": "^1.5.0",
+    "emotion-server": "^9.1.2",
     "stylis": "^3.2.11"
   },
   "devDependencies": {
@@ -78,6 +81,15 @@
     "rollup-plugin-uglify": "^3.0.0",
     "stylis-rule-sheet": "^0.0.10"
   },
-  "workspaces": ["packages/*", "examples/*", "scripts/*"],
-  "bundlesize": [{ "path": "./packages/*/dist/index.min.js", "maxSize": "5kB" }]
+  "workspaces": [
+    "packages/*",
+    "examples/*",
+    "scripts/*"
+  ],
+  "bundlesize": [
+    {
+      "path": "./packages/*/dist/index.min.js",
+      "maxSize": "5kB"
+    }
+  ]
 }

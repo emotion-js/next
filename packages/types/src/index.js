@@ -13,7 +13,8 @@ export type CSSContextType = {
   inserted: InsertedCache,
   registered: CSSCache,
   sheet: StyleSheet,
-  theme: Object
+  theme: Object,
+  compat?: true
 }
 
 export type Interpolation = any
