@@ -5,7 +5,7 @@ import {
   testOmitPropsOnComponent,
   testAlwaysTrue,
   testOmitPropsOnStringTag,
-  omitAssign,
+  pickAssign,
   type StyledOptions,
   type CreateStyled
 } from './utils'
@@ -26,17 +26,20 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     }
   }
   let identifierName
+  let shouldForwardProp
   if (options !== undefined) {
     identifierName = options.label
+    shouldForwardProp = options.shouldForwardProp
   }
   const isReal = tag.__emotion_real === tag
   const baseTag = (isReal && tag.__emotion_base) || tag
-
-  const omitFn =
-    typeof baseTag === 'string' &&
-    baseTag.charAt(0) === baseTag.charAt(0).toLowerCase()
-      ? testOmitPropsOnStringTag
-      : testOmitPropsOnComponent
+  if (typeof shouldForwardProp !== 'function') {
+    shouldForwardProp =
+      typeof baseTag === 'string' &&
+      baseTag.charAt(0) === baseTag.charAt(0).toLowerCase()
+        ? testOmitPropsOnStringTag
+        : testOmitPropsOnComponent
+  }
 
   return function() {
     let args = arguments
@@ -61,7 +64,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     const Styled = withCSSContext((props, context) => {
       let className = ''
       let classInterpolations = []
-      let mergedProps = omitAssign(testAlwaysTrue, {}, props, {
+      let mergedProps = pickAssign(testAlwaysTrue, {}, props, {
         theme: props.theme || context.theme
       })
       if (typeof props.className === 'string') {
@@ -80,7 +83,8 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
 
       const ele = React.createElement(
         baseTag,
-        omitAssign(omitFn, {}, props, {
+        // $FlowFixMe
+        pickAssign(shouldForwardProp, {}, props, {
           className,
           ref: props.innerRef
         })

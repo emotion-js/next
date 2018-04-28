@@ -204,3 +204,19 @@ test('string as css prop throws', () => {
     )
   }).toThrowErrorMatchingSnapshot()
 })
+
+test('array fallback', () => {
+  const tree = renderer.create(
+    <div>
+      <div
+        css={{
+          display: ['green', 'hotpink']
+        }}
+      >
+        something
+      </div>
+    </div>
+  )
+
+  expect(tree.toJSON()).toMatchSnapshot()
+})

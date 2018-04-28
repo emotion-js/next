@@ -10,6 +10,22 @@ exports[`@font-face in global 1`] = `
 </div>
 `;
 
+exports[`array fallback 1`] = `
+<div>
+  <style>
+    .emotion-0 {
+      display: green;
+      display: hotpink;
+    }
+  </style>
+  <div
+    className="emotion-0"
+  >
+    something
+  </div>
+</div>
+`;
+
 exports[`css call composition 1`] = `
 Object {
   "name": "d4uv9l",

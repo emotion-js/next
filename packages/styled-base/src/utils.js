@@ -8,7 +8,7 @@ export const testOmitPropsOnComponent = (key: string) =>
   key !== 'theme' && key !== 'innerRef'
 export const testAlwaysTrue = () => true
 
-export const omitAssign: (
+export const pickAssign: (
   testFn: (key: string) => boolean,
   target: {},
   ...sources: Array<{}>
@@ -27,7 +27,10 @@ export const omitAssign: (
   return target
 }
 
-export type StyledOptions = { label: string }
+export type StyledOptions = {
+  label?: string,
+  shouldForwardProp?: string => boolean
+}
 
 type CreateStyledComponent = (...args: Interpolations) => *
 

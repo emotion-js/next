@@ -1,8 +1,5 @@
 // @flow
-import Stylis from '@emotion/stylis'
-
-const stylis = new Stylis()
-
+/* eslint-disable no-fallthrough */
 // https://github.com/thysultan/stylis.js/tree/master/plugins/rule-sheet
 // inlined to avoid umd wrapper and peerDep warnings/installing stylis
 // since we use stylis after closure compiler
@@ -17,15 +14,15 @@ function toSheet(block) {
 }
 
 function ruleSheet(
-  context,
-  content,
-  selectors,
-  parents,
-  line,
-  column,
-  length,
-  at,
-  depth
+  context: -2 | -1 | 0 | 1 | 2 | 3,
+  content: string,
+  selectors: Array<string>,
+  parents: Array<string>,
+  line: number,
+  column: number,
+  length: number,
+  at: number,
+  depth: number
 ) {
   switch (context) {
     case -1: {
@@ -56,6 +53,4 @@ function ruleSheet(
 
 let current
 
-stylis.use(ruleSheet)
-
-export default stylis
+export default ruleSheet
