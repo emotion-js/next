@@ -56,13 +56,13 @@ const jsx: typeof React.createElement = function(
     }
     newProps.className = className
 
-    let childrenLength = arguments.length
+    let argsLength = arguments.length
 
-    let createElementArgArray = Array(childrenLength)
+    let createElementArgArray = new Array(argsLength)
     createElementArgArray[0] = type
     createElementArgArray[1] = newProps
 
-    for (let i = 2; i < childrenLength; i++) {
+    for (let i = 2; i < argsLength; i++) {
       createElementArgArray[i] = arguments[i]
     }
 
