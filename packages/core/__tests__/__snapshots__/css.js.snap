@@ -84,16 +84,6 @@ Array [
 ]
 `;
 
-exports[`functions get toStringed in css calls 1`] = `
-Object {
-  "name": "5s8nl0",
-  "styles": "
-      function _ref() {};
-    ",
-  "type": 1,
-}
-`;
-
 exports[`global 1`] = `
 <div>
   <style>

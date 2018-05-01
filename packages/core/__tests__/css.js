@@ -136,14 +136,6 @@ test('@font-face in global', () => {
   expect(tree.toJSON()).toMatchSnapshot()
 })
 
-test('functions get toStringed in css calls', () => {
-  expect(
-    css`
-      ${() => {}};
-    `
-  ).toMatchSnapshot()
-})
-
 test('css call composition', () => {
   const first = css`
     color: hotpink;
