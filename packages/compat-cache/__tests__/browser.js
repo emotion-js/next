@@ -1,7 +1,7 @@
 // @flow
 /** @jsx jsx */
 import 'test-utils/no-test-mode'
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 import { render } from 'react-dom'
 import * as emotion from 'emotion'
 import { css } from 'emotion'

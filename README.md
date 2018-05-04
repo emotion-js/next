@@ -31,12 +31,12 @@
 #### Getting Started
 
 ```bash
-yarn add @emotion/core @emotion/jsx
+yarn add @emotion/core
 ```
 
 ```jsx
 /** @jsx jsx */
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 // must be react@>=16.3.0
 import { render } from 'react-dom'
 
@@ -54,7 +54,7 @@ yarn add @emotion/css
 
 ```jsx
 /** @jsx jsx */
-import jsx from '@emotion/jsx'
+import { css } from '@emotion/core'
 import css from '@emotion/css'
 // must be react@>=16.3.0
 import { render } from 'react-dom'
@@ -75,13 +75,9 @@ render(
 
 > Note: Global styles are removed on unmount
 
-```
-yarn add @emotion/global
-```
-
 ```jsx
 import * as React from 'react'
-import Global from '@emotion/global'
+import { Global } from '@emotion/core'
 import css from '@emotion/css'
 import { render } from 'react-dom'
 
@@ -112,7 +108,7 @@ yarn add @emotion/keyframes
 
 ```jsx
 /** @jsx jsx */
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import { render } from 'react-dom'
@@ -170,7 +166,7 @@ yarn add @emotion/provider
 
 ```jsx
 /** @jsx jsx */
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 import Provider from '@emotion/provider'
 import css from '@emotion/css'
 import { render } from 'react-dom'

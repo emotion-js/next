@@ -2,7 +2,7 @@
 import 'test-utils/no-test-mode'
 import * as React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
-import Global from '@emotion/global'
+import { Global } from '@emotion/core'
 
 beforeEach(() => {
   // $FlowFixMe

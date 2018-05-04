@@ -3,7 +3,7 @@
 import 'test-utils/no-test-mode'
 import * as React from 'react'
 import Provider from '@emotion/provider'
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 import { render } from 'react-dom'
 
 test('provider with theme value that changes', () => {

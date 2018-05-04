@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import { consume } from '@emotion/core'
+import { consume } from './context'
 import {
   getRegisteredStyles,
   insertStyles,
@@ -9,7 +9,7 @@ import {
 import { serializeStyles } from '@emotion/serialize'
 
 // $FlowFixMe
-const jsx: typeof React.createElement = function(
+export const jsx: typeof React.createElement = function(
   type: React.ElementType,
   props: Object
 ) {
@@ -82,5 +82,3 @@ const jsx: typeof React.createElement = function(
     return ele
   })
 }
-
-export default jsx

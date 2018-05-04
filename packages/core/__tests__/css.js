@@ -1,8 +1,7 @@
 // @flow
 /** @jsx jsx */
-import jsx from '@emotion/jsx'
+import { jsx, Global } from '@emotion/core'
 import Style from '@emotion/style'
-import Global from '@emotion/global'
 import Provider from '@emotion/provider'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'

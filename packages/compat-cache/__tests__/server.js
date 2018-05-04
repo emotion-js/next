@@ -1,7 +1,8 @@
 /** @jsx jsx
  * @jest-environment node
+ * @flow
  */
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 import * as emotion from 'emotion'
 import { extractCritical } from 'emotion-server'
 import createCompatCache from '@emotion/compat-cache'

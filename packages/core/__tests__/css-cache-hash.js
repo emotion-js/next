@@ -1,6 +1,6 @@
 // @flow
 /** @jsx jsx */
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 import css from '@emotion/css'
 import { serializeStyles } from '@emotion/serialize'
 import * as renderer from 'react-test-renderer'
