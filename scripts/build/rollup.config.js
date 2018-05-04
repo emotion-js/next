@@ -64,7 +64,7 @@ module.exports = (data, isUMD = false) => {
           '@babel/plugin-transform-flow-strip-types',
           require('./add-basic-constructor-to-react-component'),
           'codegen',
-          'closure-elimination',
+          // 'closure-elimination',
           ['@babel/proposal-class-properties', { loose: true }],
           '@babel/plugin-proposal-object-rest-spread'
         ],
