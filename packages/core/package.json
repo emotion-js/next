@@ -1,9 +1,12 @@
 {
   "name": "@emotion/core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -13,10 +16,10 @@
   },
   "dependencies": {
     "@emotion/cache": "^0.7.0",
-    "@emotion/types": "^0.6.1",
-    "@emotion/utils": "^0.6.0",
     "@emotion/serialize": "^0.7.0",
-    "@emotion/sheet": "^0.6.3"
+    "@emotion/sheet": "^0.6.3",
+    "@emotion/types": "^0.6.1",
+    "@emotion/utils": "^0.6.0"
   },
   "peerDependencies": {
     "react": ">=16.3.0"

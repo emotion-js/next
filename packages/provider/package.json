@@ -1,6 +1,6 @@
 {
   "name": "@emotion/provider",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A provider component to provide options to emotion and allow theming",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
