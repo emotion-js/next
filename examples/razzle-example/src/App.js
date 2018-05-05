@@ -1,11 +1,9 @@
 // @flow
-/** @jsx jsx */
 import * as React from 'react'
 import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
 import Home from './Home'
-import Global from '@emotion/global'
-import jsx from '@emotion/jsx'
+import { Global } from '@emotion/core'
 import css from '@emotion/css'
 
 const App = () => (

@@ -2,13 +2,13 @@
 /** @jsx jsx */
 import { Component } from 'react'
 import styled from '@emotion/styled'
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 import Style from '@emotion/style'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import logo from './react.svg'
 
-const Header = styled('header')`
+const Header = styled.header`
   background-color: #222;
   height: 150px;
   padding: 20px;
