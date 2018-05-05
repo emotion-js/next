@@ -8,8 +8,8 @@ const rootPath = path.resolve(__dirname, '..', '..')
 
 exports.rootPath = rootPath
 
-exports.cleanDist = async function cleanDist() {
-  await del(`${rootPath}/packages/*/dist`, { force: true, cwd: rootPath })
+exports.cleanDist = async function cleanDist(pkgPath) {
+  await del(`${pkgPath}/dist`, { force: true, cwd: rootPath })
 }
 
 exports.getPackages = async function getPackages() {
@@ -21,9 +21,9 @@ exports.getPackages = async function getPackages() {
     const fullPackagePath = path.resolve(rootPath, packagePath)
     const ret = {
       path: fullPackagePath,
-      name: packagePath.split(path.sep)[1],
       pkg: require(path.resolve(fullPackagePath, 'package.json'))
     }
+    ret.name = ret.pkg.name
     ret.config = makeRollupConfig(ret)
     ret.outputConfigs = getOutputConfigs(ret)
     if (ret.pkg['umd:main']) {
@@ -37,19 +37,23 @@ exports.getPackages = async function getPackages() {
 
 function getOutputConfigs(pkg) {
   const cjsPath = path.resolve(pkg.path, pkg.pkg.main)
-  const esmPath = path.resolve(pkg.path, pkg.pkg.module)
-  return [
-    {
-      format: 'es',
-      sourcemap: true,
-      file: esmPath
-    },
+  let configs = [
     {
       format: 'cjs',
       sourcemap: true,
       file: cjsPath
     }
   ]
+  if (pkg.pkg.module) {
+    const esmPath = path.resolve(pkg.path, pkg.pkg.module)
+
+    configs.push({
+      format: 'es',
+      sourcemap: true,
+      file: esmPath
+    })
+  }
+  return configs
 }
 
 function getUMDOutputConfig(pkg) {

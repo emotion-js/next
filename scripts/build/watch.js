@@ -9,11 +9,13 @@ function relativePath(id) {
 }
 
 async function watch() {
-  await cleanDist()
   const packages = await getPackages()
-  const configs = packages.map(pkg => {
-    return Object.assign({}, pkg.config, { output: pkg.outputConfigs })
-  })
+  const configs = await Promise.all(
+    packages.map(async pkg => {
+      await cleanDist(pkg.path)
+      return Object.assign({}, pkg.config, { output: pkg.outputConfigs })
+    })
+  )
   const watcher = rollup.watch(configs)
   watcher.on('event', event => {
     // https://github.com/rollup/rollup/blob/aed954e4e6e8beabd47268916ff0955fbb20682d/bin/src/run/watch.ts#L71-L115

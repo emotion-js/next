@@ -8,9 +8,15 @@ const writeFile = promisify(fs.writeFile)
 
 async function doBuild() {
   await cleanDist()
-  const packages = await getPackages()
+  let packages = await getPackages()
+  if (process.argv.length > 2) {
+    packages = packages.filter(pkg => {
+      return process.argv.indexOf(pkg.name) !== -1
+    })
+  }
   await Promise.all(
     packages.map(async pkg => {
+      await cleanDist(pkg.path)
       const bundle = await rollup.rollup(pkg.config)
 
       await Promise.all(
