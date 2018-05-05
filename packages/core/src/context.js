@@ -4,29 +4,6 @@ import * as React from 'react'
 import type { CSSContextType } from '@emotion/types'
 import createCache from '@emotion/cache'
 
-type RenderFn<T> = (value: T) => React.Node
-
-type ProviderProps<T> = {
-  value: T,
-  children?: React.Node
-}
-
-type ConsumerProps<T> = {
-  children: RenderFn<T> | [RenderFn<T>]
-}
-
-type ConsumerState<T> = {
-  value: T
-}
-
-type Provider<T> = React.Component<ProviderProps<T>>
-type Consumer<T> = React.Component<ConsumerProps<T>, ConsumerState<T>>
-
-type Context<T> = {
-  Provider: Class<Provider<T>>,
-  Consumer: Class<Consumer<T>>
-}
-
 type BasicProviderProps = {
   children: CSSContextType => React.Node
 }
@@ -49,8 +26,7 @@ class BasicProvider extends React.Component<
   }
 }
 
-// $FlowFixMe
-export const CSSContext: Context<CSSContextType> = React.createContext(
+export const CSSContext = React.createContext(
   isBrowser && process.env.NODE_ENV !== 'test' ? createCache() : null
 )
 

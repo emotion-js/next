@@ -72,9 +72,9 @@ export class StyleSheet {
     this.nonce = options.nonce
     // key is the value of the data-emotion attribute, it's used to identify different sheets
     this.key = options.key || ''
-    // $FlowFixMe
     this.container =
       options.container ||
+      // $FlowFixMe
       (typeof document !== 'undefined' ? document.head : null)
   }
   insert(rule: string) {

@@ -5,8 +5,6 @@
   "dependencies": {
     "@emotion/core": "^0.8.0",
     "@emotion/css": "^0.7.0",
-    "@emotion/global": "^0.7.0",
-    "@emotion/jsx": "^0.7.0",
     "@emotion/keyframes": "^0.7.0",
     "@emotion/style": "^0.7.0",
     "@emotion/styled.macro": "^0.7.0",
@@ -26,11 +24,6 @@
       "last 2 firefox versions",
       "last 2 edge versions"
     ],
-    "production": [
-      ">1%",
-      "last 4 versions",
-      "Firefox ESR",
-      "not ie < 11"
-    ]
+    "production": [">1%", "last 4 versions", "Firefox ESR", "not ie < 11"]
   }
 }

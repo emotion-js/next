@@ -2,7 +2,12 @@
 import Stylis from '@emotion/stylis'
 import stylisRuleSheet from 'stylis-rule-sheet'
 
-const specs = [
+const specs: Array<{
+  name: string,
+  sample: string,
+  skip?: boolean,
+  only?: boolean
+}> = [
   {
     name: 'calc rules',
     sample: 'height:calc( 100vh - 1px );height:calc(100vh -1px);'
