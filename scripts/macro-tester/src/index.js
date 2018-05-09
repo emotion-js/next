@@ -42,7 +42,21 @@ export default (
 ) => {
   if (typeof cases === 'string') {
     cases = doThing(cases).reduce((accum, filename) => {
-      accum[path.parse(filename).name] = { filename }
+      let skip = false
+      let only = false
+      let testTitle = filename
+      if (filename.indexOf('.skip.js') !== -1) {
+        testTitle = filename.replace('.skip', '')
+        skip = true
+      } else if (filename.indexOf('.only.js') !== -1) {
+        testTitle = filename.replace('.only', '')
+        only = true
+      }
+      accum[path.parse(testTitle).name] = {
+        filename,
+        only,
+        skip
+      }
       return accum
     }, {})
   }

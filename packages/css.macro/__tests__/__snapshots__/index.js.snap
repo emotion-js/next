@@ -88,6 +88,39 @@ import _css from \\"@emotion/css\\";
 const thing = _css(\\"display:flex;&:hover{\\", _css(\\"color:hotpink;\\", \\"label:thing;\\"), \\";}\\", \\"label:thing;\\");"
 `;
 
+exports[`@emotion/css.macro comment-with-interpolation 1`] = `
+"import css from '@emotion/css.macro'
+
+css\`
+  // color: \${'green'};
+  /* 
+  
+  something: \${'something'};
+  
+  */
+  color: hotpink;
+\`
+
+css\`
+  // color: \${'green'};
+  /* 
+  
+  something: \${'something'};
+  
+  */
+  color: \${'hotpink'};
+\`
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+_css(\\"color:hotpink;\\");
+
+_css(\\"color:\\", 'hotpink', \\";\\");"
+`;
+
 exports[`@emotion/css.macro impure 1`] = `
 "import css from '@emotion/css.macro'
 
@@ -178,4 +211,38 @@ import _css from \\"@emotion/css\\";
 const thing = _css(\\"color:hotpink;\\", \\"label:thing;\\");
 
 const otherThing = _css(\\"color:green;\\", \\"label:otherThing;\\");"
+`;
+
+exports[`@emotion/css.macro remove-block-comments 1`] = `
+"import css from '@emotion/css.macro'
+
+css\`
+  /* color:green;
+ddjfwjkng
+  */
+  color: hotpink;
+\`
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+_css(\\"color:hotpink;\\");"
+`;
+
+exports[`@emotion/css.macro remove-line-comments 1`] = `
+"import css from '@emotion/css.macro'
+
+css\`
+  // color: green;
+  color: hotpink;
+\`
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+_css(\\"color:hotpink;\\");"
 `;
