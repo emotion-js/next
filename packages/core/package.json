@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@emotion/cache": "^0.7.1",
+    "@emotion/css": "^0.7.0",
     "@emotion/serialize": "^0.7.0",
     "@emotion/sheet": "^0.6.4",
     "@emotion/types": "^0.6.1",

@@ -1,4 +1,4 @@
 // @flow
-import tester from 'macro-tester'
+import tester from 'babel-tester'
 
 tester('@emotion/styled.macro', __dirname)

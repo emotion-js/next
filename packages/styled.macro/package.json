@@ -5,18 +5,14 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "license": "MIT",
-  "repository": "https://github.com/emotion-js/next/tree/master/packages/styled.macro",
+  "repository":
+    "https://github.com/emotion-js/next/tree/master/packages/styled.macro",
   "dependencies": {
-    "@babel/helper-module-imports": "7.0.0-beta.42",
-    "@emotion/babel-utils": "^0.5.3",
-    "@emotion/styled-base": "^0.7.0",
-    "babel-plugin-macros": "^2.2.0"
+    "@emotion/babel-plugin-core": "^0.5.3",
+    "@emotion/styled-base": "^0.7.0"
   },
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "src",
-    "dist"
-  ]
+  "files": ["src", "dist"]
 }

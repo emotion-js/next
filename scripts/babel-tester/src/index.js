@@ -9,13 +9,17 @@ const readFile = promisify(fs.readFile)
 
 const separator = '\n\n      ↓ ↓ ↓ ↓ ↓ ↓\n\n'
 
-const tester = async opts => {
+const tester = allOpts => async opts => {
   let rawCode = opts.code
   if (!opts.code && opts.filename) {
     rawCode = await readFile(opts.filename, 'utf-8')
   }
+  if (allOpts.transform) {
+    rawCode = allOpts.transform(rawCode)
+  }
   const { code } = babel.transformSync(rawCode, {
-    plugins: ['macros', '@babel/plugin-syntax-jsx'],
+    plugins: ['macros', '@babel/plugin-syntax-jsx', ...(allOpts.plugins || [])],
+    presets: allOpts.presets,
     babelrc: false,
     filename: opts.filename || __filename
   })
@@ -38,7 +42,12 @@ export default (
           code: string
         }
       }
-    | string
+    | string,
+  opts?: {
+    plugins?: Array<*>,
+    presets?: Array<*>,
+    transform?: string => string
+  } = {}
 ) => {
   if (typeof cases === 'string') {
     cases = doThing(cases).reduce((accum, filename) => {
@@ -62,5 +71,5 @@ export default (
   }
 
   // $FlowFixMe
-  return jestInCase(name, tester, cases)
+  return jestInCase(name, tester(opts), cases)
 }

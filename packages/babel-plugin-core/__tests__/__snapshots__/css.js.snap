@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@emotion/css.macro actual-expected-usage 1`] = `
+exports[`@emotion/babel-plugin-core css actual-expected-usage 1`] = `
 "/** @jsx jsx */
 import jsx from '@emotion/jsx'
-import css from '@emotion/css.macro'
+import css from '@emotion/css'
 
 const SomeComponent = () => (
   <div
@@ -26,8 +26,8 @@ var _ref = _css(\\"color:hotpink;label:SomeComponent;\\");
 const SomeComponent = () => <div css={_ref} />;"
 `;
 
-exports[`@emotion/css.macro basic 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css basic 1`] = `
+"import css from '@emotion/css'
 
 function doThing() {
   return css\`
@@ -47,8 +47,8 @@ function doThing() {
 }"
 `;
 
-exports[`@emotion/css.macro call-expression 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css call-expression 1`] = `
+"import css from '@emotion/css'
 
 function doThing() {
   return css({ color: 'hotpink' })
@@ -68,8 +68,8 @@ function doThing() {
 }"
 `;
 
-exports[`@emotion/css.macro call-inside-call 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css call-inside-call 1`] = `
+"import css from '@emotion/css'
 
 const thing = css\`
   display: flex;
@@ -88,8 +88,8 @@ import _css from \\"@emotion/css\\";
 const thing = _css(\\"display:flex;&:hover{\\", _css(\\"color:hotpink;label:thing;\\"), \\";}label:thing;\\");"
 `;
 
-exports[`@emotion/css.macro comment-with-interpolation 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css comment-with-interpolation 1`] = `
+"import css from '@emotion/css'
 
 css\`
   // color: \${'green'};
@@ -121,8 +121,8 @@ _css(\\"color:hotpink;\\");
 _css(\\"color:\\", 'hotpink', \\";\\");"
 `;
 
-exports[`@emotion/css.macro impure 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css impure 1`] = `
+"import css from '@emotion/css'
 
 function doThing() {
   return css\`
@@ -140,11 +140,11 @@ function doThing() {
 }"
 `;
 
-exports[`@emotion/css.macro inside-class 1`] = `
+exports[`@emotion/babel-plugin-core css inside-class 1`] = `
 "/** @jsx jsx */
 import { Component } from 'react'
 import jsx from '@emotion/jsx'
-import css from '@emotion/css.macro'
+import css from '@emotion/css'
 
 class SomeComponent extends Component {
   render() {
@@ -177,8 +177,8 @@ class SomeComponent extends Component {
 }"
 `;
 
-exports[`@emotion/css.macro label-1 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css label-1 1`] = `
+"import css from '@emotion/css'
 
 const thing = css\`
   color: hotpink;
@@ -192,8 +192,8 @@ import _css from \\"@emotion/css\\";
 const thing = _css(\\"color:hotpink;label:thing;\\");"
 `;
 
-exports[`@emotion/css.macro multiple-calls 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css multiple-calls 1`] = `
+"import css from '@emotion/css'
 
 const thing = css\`
   color: hotpink;
@@ -213,8 +213,8 @@ const thing = _css(\\"color:hotpink;label:thing;\\");
 const otherThing = _css(\\"color:green;label:otherThing;\\");"
 `;
 
-exports[`@emotion/css.macro remove-block-comments 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css remove-block-comments 1`] = `
+"import css from '@emotion/css'
 
 css\`
   /* color:green;
@@ -231,8 +231,8 @@ import _css from \\"@emotion/css\\";
 _css(\\"color:hotpink;\\");"
 `;
 
-exports[`@emotion/css.macro remove-line-comments 1`] = `
-"import css from '@emotion/css.macro'
+exports[`@emotion/babel-plugin-core css remove-line-comments 1`] = `
+"import css from '@emotion/css'
 
 css\`
   // color: green;

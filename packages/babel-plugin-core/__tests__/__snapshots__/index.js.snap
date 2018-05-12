@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@emotion/babel-plugin-core jsx-hoist 1`] = `
+"/** @jsx jsx */
+import jsx from '@emotion/jsx'
+
+const SomeComponent = props => <div css={{ color: 'hotpink' }} {...props} />
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+/** @jsx jsx */
+import jsx from '@emotion/jsx';
+
+var _ref = _css({
+  color: 'hotpink'
+}, \\"label:SomeComponent;\\");
+
+const SomeComponent = props => <div css={_ref} {...props} />;"
+`;

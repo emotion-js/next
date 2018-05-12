@@ -1,5 +1,5 @@
 {
-  "name": "macro-tester",
+  "name": "babel-tester",
   "main": "src/index.js",
   "version": "0.4.2",
   "private": true,
