@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@emotion/babel-plugin-core css-object 1`] = `
+"import css from '@emotion/css'
+
+css({ color: 'hotpink' })
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+_css({
+  color: 'hotpink'
+}, \\"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9taXRjaGVsbGhhbWlsdG9uL3Byb2plY3RzL2Vtb3Rpb24tbmV4dC9wYWNrYWdlcy9iYWJlbC1wbHVnaW4tY29yZS9fX3Rlc3RzX18vc291cmNlLW1hcHMvX19maXh0dXJlc19fL2Nzcy1vYmplY3QuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUEiLCJmaWxlIjoiL1VzZXJzL21pdGNoZWxsaGFtaWx0b24vcHJvamVjdHMvZW1vdGlvbi1uZXh0L3BhY2thZ2VzL2JhYmVsLXBsdWdpbi1jb3JlL19fdGVzdHNfXy9zb3VyY2UtbWFwcy9fX2ZpeHR1cmVzX18vY3NzLW9iamVjdC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBjc3MgZnJvbSAnQGVtb3Rpb24vY3NzJ1xuXG5jc3MoeyBjb2xvcjogJ2hvdHBpbmsnIH0pXG4iXX0= */\\");"
+`;
+
+exports[`@emotion/babel-plugin-core css-prop 1`] = `
+"/** @jsx jsx */
+import jsx from '@emotion/jsx'
+
+const SomeComponent = props => <div css={{ color: 'hotpink' }} {...props} />
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+/** @jsx jsx */
+import jsx from '@emotion/jsx';
+
+var _ref = _css({
+  color: 'hotpink'
+}, \\"label:SomeComponent;\\");
+
+const SomeComponent = props => <div css={_ref} {...props} />;"
+`;
+
+exports[`@emotion/babel-plugin-core css-string 1`] = `
+"import css from '@emotion/css'
+
+css\`
+  color: hotpink;
+\`
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+_css(\\"color:hotpink;/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9taXRjaGVsbGhhbWlsdG9uL3Byb2plY3RzL2Vtb3Rpb24tbmV4dC9wYWNrYWdlcy9iYWJlbC1wbHVnaW4tY29yZS9fX3Rlc3RzX18vc291cmNlLW1hcHMvX19maXh0dXJlc19fL2Nzcy1zdHJpbmcuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUciLCJmaWxlIjoiL1VzZXJzL21pdGNoZWxsaGFtaWx0b24vcHJvamVjdHMvZW1vdGlvbi1uZXh0L3BhY2thZ2VzL2JhYmVsLXBsdWdpbi1jb3JlL19fdGVzdHNfXy9zb3VyY2UtbWFwcy9fX2ZpeHR1cmVzX18vY3NzLXN0cmluZy5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBjc3MgZnJvbSAnQGVtb3Rpb24vY3NzJ1xuXG5jc3NgXG4gIGNvbG9yOiBob3RwaW5rO1xuYFxuIl19 */\\");"
+`;
+
+exports[`@emotion/babel-plugin-core styled-object 1`] = `
+"import styled from '@emotion/styled'
+
+const SomeComponent = styled.div({
+  color: 'hotpink'
+})
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _styled from \\"@emotion/styled-base\\";
+
+const SomeComponent = _styled(\\"div\\", {
+  label: \\"SomeComponent\\"
+})({
+  color: 'hotpink'
+}, \\"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9taXRjaGVsbGhhbWlsdG9uL3Byb2plY3RzL2Vtb3Rpb24tbmV4dC9wYWNrYWdlcy9iYWJlbC1wbHVnaW4tY29yZS9fX3Rlc3RzX18vc291cmNlLW1hcHMvX19maXh0dXJlc19fL3N0eWxlZC1vYmplY3QuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRXNCIiwiZmlsZSI6Ii9Vc2Vycy9taXRjaGVsbGhhbWlsdG9uL3Byb2plY3RzL2Vtb3Rpb24tbmV4dC9wYWNrYWdlcy9iYWJlbC1wbHVnaW4tY29yZS9fX3Rlc3RzX18vc291cmNlLW1hcHMvX19maXh0dXJlc19fL3N0eWxlZC1vYmplY3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgc3R5bGVkIGZyb20gJ0BlbW90aW9uL3N0eWxlZCdcblxuY29uc3QgU29tZUNvbXBvbmVudCA9IHN0eWxlZC5kaXYoe1xuICBjb2xvcjogJ2hvdHBpbmsnXG59KVxuIl19 */\\");"
+`;
+
+exports[`@emotion/babel-plugin-core styled-string 1`] = `
+"import styled from '@emotion/styled'
+
+const SomeComponent = styled.div\`
+  color: hotpink;
+\`
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _styled from \\"@emotion/styled-base\\";
+
+const SomeComponent = _styled(\\"div\\", {
+  label: \\"SomeComponent\\"
+})(\\"color:hotpink;/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9taXRjaGVsbGhhbWlsdG9uL3Byb2plY3RzL2Vtb3Rpb24tbmV4dC9wYWNrYWdlcy9iYWJlbC1wbHVnaW4tY29yZS9fX3Rlc3RzX18vc291cmNlLW1hcHMvX19maXh0dXJlc19fL3N0eWxlZC1zdHJpbmcuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRWdDIiwiZmlsZSI6Ii9Vc2Vycy9taXRjaGVsbGhhbWlsdG9uL3Byb2plY3RzL2Vtb3Rpb24tbmV4dC9wYWNrYWdlcy9iYWJlbC1wbHVnaW4tY29yZS9fX3Rlc3RzX18vc291cmNlLW1hcHMvX19maXh0dXJlc19fL3N0eWxlZC1zdHJpbmcuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgc3R5bGVkIGZyb20gJ0BlbW90aW9uL3N0eWxlZCdcblxuY29uc3QgU29tZUNvbXBvbmVudCA9IHN0eWxlZC5kaXZgXG4gIGNvbG9yOiBob3RwaW5rO1xuYFxuIl19 */\\");"
+`;

@@ -54,7 +54,7 @@ export class StyleSheet {
   tags: HTMLStyleElement[]
   container: HTMLElement
   maxLength: number
-  key: string | void
+  key: string
   nonce: string | void
   constructor(options: Options | void) {
     if (options === undefined) options = {}

@@ -37,7 +37,7 @@ export default createPlugin(
         if (state.opts.jsx === undefined) {
           for (const node of path.node.body) {
             if (
-              t.isModuleDeclaration(node) &&
+              t.isImportDeclaration(node) &&
               node.source.value === '@emotion/jsx'
             ) {
               state.transformCssProp = true
@@ -46,6 +46,9 @@ export default createPlugin(
           }
         } else {
           state.transformCssProp = state.opts.jsx
+        }
+        if (state.opts.sourceMap) {
+          state.emotionSourceMap = true
         }
       },
       JSXAttribute(path: *, state: *) {

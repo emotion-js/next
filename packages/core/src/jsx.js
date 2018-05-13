@@ -47,7 +47,7 @@ export const jsx: typeof React.createElement = function(
     )
     const serialized = serializeStyles(context.registered, registeredStyles)
     const rules = insertStyles(context, serialized)
-    className += `css-${serialized.name}`
+    className += `${context.key}-${serialized.name}`
 
     const newProps = {}
     for (let key in props) {
@@ -73,8 +73,10 @@ export const jsx: typeof React.createElement = function(
       return (
         <React.Fragment>
           <style
-            data-emotion-ssr={serialized.name}
-            dangerouslySetInnerHTML={{ __html: rules }}
+            {...{
+              [`data-emotion-${context.key}`]: serialized.name,
+              dangerouslySetInnerHTML: { __html: rules }
+            }}
           />
           {ele}
         </React.Fragment>

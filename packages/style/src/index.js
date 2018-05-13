@@ -31,8 +31,10 @@ const Style = withCSSContext((props: Props, context: CSSContextType) => {
   if (shouldSerializeToReactTree && rules !== '') {
     return (
       <style
-        data-emotion-ssr={hash.substring(1)}
-        dangerouslySetInnerHTML={{ __html: rules }}
+        {...{
+          [`data-emotion-${context.key}`]: hash.substring(1),
+          dangerouslySetInnerHTML: { __html: rules }
+        }}
       />
     )
   }

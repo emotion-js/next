@@ -20,11 +20,9 @@ export class Global extends React.Component<GlobalProps> {
     if (this.oldName !== serialized.name) {
       if (isBrowser) {
         this.sheet = new StyleSheet({
-          // $FlowFixMe
-          key: `${context.sheet.key}-global`,
+          key: `${context.key}-global`,
           // $FlowFixMe
           nonce: context.sheet.nonce,
-          // $FlowFixMe
           container: context.sheet.container
         })
       }
@@ -44,8 +42,10 @@ export class Global extends React.Component<GlobalProps> {
     if (shouldSerializeToReactTree) {
       return (
         <style
-          data-emotion-ssr={serialized.name}
-          dangerouslySetInnerHTML={{ __html: this.serialized }}
+          {...{
+            [`data-emotion-${context.key}`]: serialized.name,
+            dangerouslySetInnerHTML: { __html: this.serialized }
+          }}
         />
       )
     }

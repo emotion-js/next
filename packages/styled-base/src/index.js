@@ -80,7 +80,7 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         styles.concat(classInterpolations)
       )
       const rules = insertStyles(context, serialized)
-      className += `css-${serialized.name}`
+      className += `${context.key}-${serialized.name}`
 
       const ele = React.createElement(
         baseTag,
@@ -94,8 +94,10 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         return (
           <React.Fragment>
             <style
-              data-emotion-ssr={serialized.name}
-              dangerouslySetInnerHTML={{ __html: rules }}
+              {...{
+                [`data-emotion-${context.key}`]: serialized.name,
+                dangerouslySetInnerHTML: { __html: rules }
+              }}
             />
             {ele}
           </React.Fragment>

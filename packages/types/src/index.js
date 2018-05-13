@@ -4,6 +4,7 @@ export type CSSCache = { [string]: string }
 export type InsertedCache = { [string]: string | true }
 
 interface StyleSheet {
+  container: HTMLElement;
   insert(rule: string): void;
   flush(): void;
 }
@@ -14,6 +15,7 @@ export type CSSContextType = {
   registered: CSSCache,
   sheet: StyleSheet,
   theme: Object,
+  key: string,
   compat?: true
 }
 

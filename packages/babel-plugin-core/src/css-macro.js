@@ -3,29 +3,19 @@ import { createMacro } from 'babel-plugin-macros'
 import { addDefault } from '@babel/helper-module-imports'
 import {
   getLabelFromPath,
-  getExpressionsFromTemplateLiteral
+  getExpressionsFromTemplateLiteral,
+  getSourceMap,
+  appendStringToExpressions
 } from '@emotion/babel-utils'
-
-export const appendStringToExpressions = (
-  expressions: Array<*>,
-  string: string,
-  t: *
-) => {
-  if (!string) {
-    return expressions
-  }
-  if (t.isStringLiteral(expressions[expressions.length - 1])) {
-    expressions[expressions.length - 1].value += string
-  } else {
-    expressions.push(t.stringLiteral(string))
-  }
-  return expressions
-}
 
 export const transformCssCallExpression = ({ babel, state, path }: *) => {
   let t = babel.types
+  let sourceMap = ''
   if (t.isTaggedTemplateExpression(path)) {
     const expressions = getExpressionsFromTemplateLiteral(path.node.quasi, t)
+    if (state.emotionSourceMap && path.node.quasi.loc !== undefined) {
+      sourceMap = getSourceMap(path.node.quasi.loc.start, state)
+    }
     path.replaceWith(t.callExpression(path.node.tag, expressions))
   }
 
@@ -33,6 +23,13 @@ export const transformCssCallExpression = ({ babel, state, path }: *) => {
     const label = getLabelFromPath(path, t)
     if (label) {
       appendStringToExpressions(path.node.arguments, `label:${label};`, t)
+    }
+
+    if (state.emotionSourceMap) {
+      if (!sourceMap && path.node.loc !== undefined) {
+        sourceMap = getSourceMap(path.node.loc.start, state)
+      }
+      appendStringToExpressions(path.node.arguments, sourceMap, t)
     }
 
     let isPure = true

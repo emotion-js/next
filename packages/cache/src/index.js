@@ -19,20 +19,11 @@ export type Options = {
   container?: HTMLElement
 }
 
-const createCache = (options?: Options): CSSContextType => {
-  if (options === undefined) options = { key: 'css' }
+let createCache = (options?: Options): CSSContextType => {
+  if (options === undefined) options = {}
+  let key = options.key || 'css'
   let stylisOptions
-  if (process.env.NODE_ENV !== 'production') {
-    // $FlowFixMe
-    if (/[^a-z-]/.test(options.key)) {
-      throw new Error(
-        `Emotion key must only contain lower case alphabetical characters and - but "${
-          // $FlowFixMe
-          options.key
-        }" was passed`
-      )
-    }
-  }
+
   if (options.prefix !== undefined) {
     stylisOptions = {
       prefix: options.prefix
@@ -43,17 +34,44 @@ const createCache = (options?: Options): CSSContextType => {
 
   stylis.use(options.stylisPlugins)(ruleSheetPlugin)
 
+  if (process.env.NODE_ENV !== 'production') {
+    // $FlowFixMe
+    if (/[^a-z-]/.test(key)) {
+      throw new Error(
+        `Emotion key must only contain lower case alphabetical characters and - but "${key}" was passed`
+      )
+    }
+    let sourceMapRegEx = /\/\*#\ssourceMappingURL=data:application\/json;\S+\s+\*\//
+    let currentSourceMap
+    stylis.use((context, content) => {
+      if (context === -1) {
+        let result = sourceMapRegEx.exec(content)
+        if (result) {
+          currentSourceMap = result[0]
+        }
+      }
+      if (context === -2) {
+        if (currentSourceMap) {
+          content.forEach((rule, i) => {
+            content[i] = rule + currentSourceMap
+          })
+
+          currentSourceMap = ''
+        }
+      }
+    })
+  }
   let inserted = {}
 
   if (isBrowser) {
     const nodes = document.querySelectorAll(
       // $FlowFixMe
-      `style[data-emotion-${options.key}]`
+      `style[data-emotion-${key}]`
     )
 
     Array.prototype.forEach.call(nodes, (node: HTMLStyleElement) => {
       // $FlowFixMe
-      const attrib = node.getAttribute(`data-emotion-${options.key}`)
+      const attrib = node.getAttribute(`data-emotion-${key}`)
       // $FlowFixMe
       attrib.split(' ').forEach(id => {
         inserted[id] = true
@@ -68,8 +86,9 @@ const createCache = (options?: Options): CSSContextType => {
   }
   const context: CSSContextType = {
     stylis,
+    key,
     sheet: new StyleSheet({
-      key: options.key,
+      key,
       container: options.container,
       nonce: options.nonce
     }),

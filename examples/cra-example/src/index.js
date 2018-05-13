@@ -1,7 +1,6 @@
 import React from 'react'
-import Global from '@emotion/global'
+import { Global } from '@emotion/core'
 import ReactDOM from 'react-dom'
-// import { injectGlobal } from 'new-css-in-js'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 

@@ -2,8 +2,7 @@
 /** @jsx jsx */
 import * as React from 'react'
 import { jsx, Global } from '@emotion/core'
-import Style from '@emotion/style'
-import css from '@emotion/css'
+import css from '@emotion/css.macro'
 import keyframes from '@emotion/keyframes'
 import styled from '@emotion/styled.macro'
 import logo from './logo.svg'
@@ -33,8 +32,9 @@ const Container = styled.div`
 `
 
 const Logo = styled.img`
-  animation: ${props => props.animation} infinite 20s linear;
+  animation: ${props => props.animation.name} infinite 20s linear;
   height: 80px;
+  ${props => props.animation.styles};
 `
 
 class App extends React.Component<{}> {
@@ -55,7 +55,6 @@ class App extends React.Component<{}> {
             }
           `}
         />
-        <Style styles={[animation, headerStyle]} />
         <div css={headerStyle}>
           <Logo
             animation={animation}
