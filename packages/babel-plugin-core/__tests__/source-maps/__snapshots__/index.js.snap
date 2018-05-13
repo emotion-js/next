@@ -31,7 +31,7 @@ import jsx from '@emotion/jsx';
 
 var _ref = _css({
   color: 'hotpink'
-}, \\"label:SomeComponent;\\");
+}, \\"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvdXJjZS1tYXAudGVzdC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHb0MiLCJmaWxlIjoic291cmNlLW1hcC50ZXN0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqIEBqc3gganN4ICovXG5pbXBvcnQganN4IGZyb20gJ0BlbW90aW9uL2pzeCdcblxuY29uc3QgU29tZUNvbXBvbmVudCA9IHByb3BzID0+IDxkaXYgY3NzPXt7IGNvbG9yOiAnaG90cGluaycgfX0gey4uLnByb3BzfSAvPlxuIl19 */label:SomeComponent;\\");
 
 const SomeComponent = props => <div css={_ref} {...props} />;"
 `;

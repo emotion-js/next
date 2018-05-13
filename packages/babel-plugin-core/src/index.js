@@ -3,6 +3,7 @@ import cssMacro, { transformCssCallExpression } from './css-macro'
 import styledMacro from './styled-macro'
 import { createPlugin } from './create-plugin'
 import { addDefault } from '@babel/helper-module-imports'
+import { getSourceMap } from '@emotion/babel-utils'
 
 export const macros = {
   css: cssMacro,
@@ -69,9 +70,15 @@ export default createPlugin(
               })
             }
             expressionPath.replaceWith(
-              t.callExpression(t.cloneDeep(state.cssIdentifier), [
-                path.node.value.expression
-              ])
+              t.callExpression(
+                t.cloneDeep(state.cssIdentifier),
+                [
+                  path.node.value.expression,
+                  state.emotionSourceMap &&
+                    path.node.loc !== undefined &&
+                    t.stringLiteral(getSourceMap(path.node.loc.start, state))
+                ].filter(Boolean)
+              )
             )
             transformCssCallExpression({
               babel,
