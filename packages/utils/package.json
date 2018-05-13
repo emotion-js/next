@@ -1,6 +1,6 @@
 {
   "name": "@emotion/utils",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "internal utils for emotion",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -9,11 +9,13 @@
     "./dist/index.es.js": "./dist/index.browser.es.js"
   },
   "license": "MIT",
-  "repository":
-    "https://github.com/emotion-js/next/tree/master/packages/serialize",
+  "repository": "https://github.com/emotion-js/next/tree/master/packages/serialize",
   "publishConfig": {
     "access": "public"
   },
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "umd:main": "./dist/index.min.js"
 }
