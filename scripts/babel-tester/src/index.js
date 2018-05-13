@@ -21,7 +21,7 @@ const tester = allOpts => async opts => {
     plugins: ['macros', '@babel/plugin-syntax-jsx', ...(allOpts.plugins || [])],
     presets: allOpts.presets,
     babelrc: false,
-    filename: opts.filename || __filename
+    filename: opts.babelFileName || __filename
   })
 
   expect(`${rawCode}${separator}${code}`).toMatchSnapshot()
@@ -46,7 +46,8 @@ export default (
   opts?: {
     plugins?: Array<*>,
     presets?: Array<*>,
-    transform?: string => string
+    transform?: string => string,
+    filename?: string
   } = {}
 ) => {
   if (typeof cases === 'string') {
@@ -63,6 +64,7 @@ export default (
       }
       accum[path.parse(testTitle).name] = {
         filename,
+        babelFileName: opts.filename || filename,
         only,
         skip
       }
