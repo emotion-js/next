@@ -26,17 +26,40 @@ exports.getPackages = async function getPackages() {
     ret.name = ret.pkg.name
     ret.config = makeRollupConfig(ret)
     ret.outputConfigs = getOutputConfigs(ret)
+    ret.configs = [
+      {
+        config: ret.config,
+        outputConfigs: ret.outputConfigs
+      }
+    ]
     if (ret.pkg['umd:main']) {
-      ret.UMDConfig = makeRollupConfig(ret, true)
-      ret.UMDOutputConfig = getUMDOutputConfig(ret)
+      ret.configs.push({
+        config: makeRollupConfig(ret, true, true),
+        outputConfigs: [getUMDOutputConfig(ret)]
+      })
+    }
+    if (ret.pkg.browser) {
+      ret.configs.push({
+        config: makeRollupConfig(ret, false, true),
+        outputConfigs: getOutputConfigs(ret, true)
+      })
     }
     return ret
   })
   return packages
 }
 
-function getOutputConfigs(pkg) {
-  const cjsPath = path.resolve(pkg.path, pkg.pkg.main)
+function getPath(pkg, field, isBrowser) {
+  return path.resolve(
+    pkg.path,
+    isBrowser && pkg.pkg.browser && pkg.pkg.browser['./' + pkg.pkg[field]]
+      ? pkg.pkg.browser['./' + pkg.pkg[field]]
+      : pkg.pkg[field]
+  )
+}
+
+function getOutputConfigs(pkg, isBrowser = false) {
+  const cjsPath = getPath(pkg, 'main', isBrowser)
   let configs = [
     {
       format: 'cjs',
@@ -45,7 +68,7 @@ function getOutputConfigs(pkg) {
     }
   ]
   if (pkg.pkg.module) {
-    const esmPath = path.resolve(pkg.path, pkg.pkg.module)
+    const esmPath = getPath(pkg, 'module', isBrowser)
 
     configs.push({
       format: 'es',

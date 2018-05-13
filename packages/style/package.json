@@ -4,6 +4,10 @@
   "description": "React component to render component for emotion",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
+  "browser": {
+    "./dist/index.cjs.js": "./dist/index.browser.cjs.js",
+    "./dist/index.es.js": "./dist/index.browser.es.js"
+  },
   "license": "MIT",
   "repository": "https://github.com/emotion-js/next/tree/master/packages/style",
   "dependencies": {
@@ -17,9 +21,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "src",
-    "dist"
-  ],
+  "files": ["src", "dist"],
   "umd:main": "./dist/index.min.js"
 }

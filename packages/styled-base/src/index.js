@@ -121,7 +121,9 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
         // this avoids creating a new object if there's no ref
         return <Styled {...props} />
       }
-      return <Styled {...props} innerRef={ref} />
+      return (
+        <Styled {...pickAssign(testAlwaysTrue, { innerRef: ref }, props)} />
+      )
     })
 
     FinalStyled.__emotion_real = FinalStyled
@@ -134,7 +136,9 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     ) => {
       return createStyled(
         nextTag,
-        nextOptions !== undefined ? { ...options, ...nextOptions } : options
+        nextOptions !== undefined
+          ? pickAssign(testAlwaysTrue, {}, options || {}, nextOptions)
+          : options
       )(...styles)
     }
     return FinalStyled

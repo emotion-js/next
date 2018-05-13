@@ -25,7 +25,7 @@ function getChildPeerDeps(finalPeerDeps, depKeys) {
   })
 }
 
-module.exports = (data, isUMD = false) => {
+module.exports = (data, isUMD = false, isBrowser = false) => {
   const { pkg } = data
   const external = []
   if (pkg.peerDependencies) {
@@ -64,12 +64,37 @@ module.exports = (data, isUMD = false) => {
           '@babel/plugin-transform-flow-strip-types',
           require('./add-basic-constructor-to-react-component'),
           'codegen',
+          isBrowser && require('./inline-isBrowser'),
+          isBrowser &&
+            (babel => {
+              let t = babel.types
+              return {
+                visitor: {
+                  VariableDeclarator(path, state) {
+                    if (t.isIdentifier(path.node.id)) {
+                      if (path.node.id.name === 'isBrowser') {
+                        path.get('init').replaceWith(t.booleanLiteral(true))
+                      }
+                      if (path.node.id.name === 'shouldSerializeToReactTree') {
+                        path.get('init').replaceWith(t.booleanLiteral(false))
+                      }
+                    }
+                  },
+                  ReferencedIdentifier(path, node) {
+                    if (path.node.name === 'shouldSerializeToReactTree') {
+                      path.replaceWith(t.booleanLiteral(false))
+                    }
+                  }
+                }
+              }
+            }),
           // 'closure-elimination',
           ['@babel/proposal-class-properties', { loose: true }],
           '@babel/plugin-proposal-object-rest-spread'
-        ],
+        ].filter(Boolean),
         babelrc: false
       }),
+
       isUMD && alias(lernaAliases()),
       isUMD &&
         pkg.dependencies &&

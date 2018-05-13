@@ -4,12 +4,13 @@ import { isBrowser } from '@emotion/utils'
 import type { CSSContextType } from '@emotion/types'
 import Stylis from '@emotion/stylis'
 import ruleSheetPlugin from './rule-sheet'
+import type { StylisPlugin } from './types'
 
 export type PrefixOption =
   | boolean
   | ((key: string, value: string, context: 1 | 2 | 3) => boolean)
 
-type StylisPlugins = Function[] | null | Function
+type StylisPlugins = StylisPlugin[] | StylisPlugin
 
 export type Options = {
   nonce?: string,
