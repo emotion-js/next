@@ -28,13 +28,13 @@ export const insertStyles = (
 ) => {
   if (
     insertable.type === 1 &&
-    context.registered[`css-${insertable.name}`] === undefined
+    context.registered[`${context.key}-${insertable.name}`] === undefined
   ) {
-    context.registered[`css-${insertable.name}`] = insertable.styles
+    context.registered[`${context.key}-${insertable.name}`] = insertable.styles
   }
   if (context.inserted[insertable.name] === undefined) {
     let rules = context.stylis(
-      insertable.type === 1 ? `.css-${insertable.name}` : '',
+      insertable.type === 1 ? `.${context.key}-${insertable.name}` : '',
       insertable.styles
     )
 
