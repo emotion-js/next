@@ -11,8 +11,8 @@ const unsafeRequire = require
 const getPackageRootPath = memoize(filename => findRoot(filename))
 
 export function getTargetClassName(state: *, t: *) {
-  if (state.count === undefined) {
-    state.count = 0
+  if (state.emotionTargetClassNameCount === undefined) {
+    state.emotionTargetClassNameCount = 0
   }
 
   const filename = state.file.opts.filename
