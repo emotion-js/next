@@ -27,16 +27,21 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
   }
   let identifierName
   let shouldForwardProp
+  let targetClassName
   if (options !== undefined) {
     identifierName = options.label
     shouldForwardProp = options.shouldForwardProp
+    targetClassName = options.target
   }
   const isReal = tag.__emotion_real === tag
   const baseTag = (isReal && tag.__emotion_base) || tag
   if (typeof shouldForwardProp !== 'function') {
     shouldForwardProp =
       typeof baseTag === 'string' &&
-      baseTag.charAt(0) === baseTag.charAt(0).toLowerCase()
+      // 96 is one less than the char code
+      // for "a" so this is checking that
+      // it's a lowercase character
+      baseTag.charCodeAt(0) > 96
         ? testOmitPropsOnStringTag
         : testOmitPropsOnComponent
   }
@@ -81,6 +86,9 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
       )
       const rules = insertStyles(context, serialized)
       className += `${context.key}-${serialized.name}`
+      if (targetClassName !== undefined) {
+        className += ` ${targetClassName}`
+      }
 
       const ele = React.createElement(
         baseTag,
@@ -129,6 +137,19 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     FinalStyled.__emotion_real = FinalStyled
     FinalStyled.__emotion_base = baseTag
     FinalStyled.__emotion_styles = styles
+    Object.defineProperty(FinalStyled, 'toString', {
+      enumerable: false,
+      value() {
+        if (
+          targetClassName === undefined &&
+          process.env.NODE_ENV !== 'production'
+        ) {
+          return 'NO_COMPONENT_SELECTOR'
+        }
+        // $FlowFixMe
+        return `.${targetClassName}`
+      }
+    })
 
     FinalStyled.withComponent = (
       nextTag: ElementType,

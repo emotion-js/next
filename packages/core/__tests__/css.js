@@ -7,6 +7,14 @@ import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import renderer from 'react-test-renderer'
 
+const SomeComponent = (props: { lol: true }) => (props.lol ? 'yes' : 'no')
+
+// test to make sure flow prop errors work.
+// should probably try to make it so that components that require className props
+// and have the css prop passed to them don't have type errors
+// $FlowFixMe
+;<SomeComponent /> // eslint-disable-line no-unused-expressions
+
 test('thing', () => {
   const tree = renderer.create(
     <div>

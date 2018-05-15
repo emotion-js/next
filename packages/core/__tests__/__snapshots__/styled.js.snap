@@ -52,6 +52,32 @@ Array [
 ]
 `;
 
+exports[`styled component selectors 1`] = `
+Array [
+  <style>
+    .emotion-0 {
+      color: green;
+    }
+    
+    .emotion-0 .e322f2d3tbrgf2e {
+      color: yellow;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  >
+    <style>
+      .emotion-1 {
+        color: hotpink;
+      }
+    </style>
+    <div
+      className="emotion-1 e322f2d3tbrgf2e"
+    />
+  </div>,
+]
+`;
+
 exports[`styled composing components 1`] = `
 Array [
   <style>

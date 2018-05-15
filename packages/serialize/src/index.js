@@ -70,21 +70,23 @@ export function handleInterpolation(
   if (interpolation == null) {
     return ''
   }
+  if (interpolation.__emotion_styles !== undefined) {
+    if (
+      interpolation.toString() === 'NO_COMPONENT_SELECTOR' &&
+      process.env.NODE_ENV !== 'production'
+    ) {
+      throw new Error(
+        'Component selectors can only be used in conjunction with babel-plugin-emotion.'
+      )
+    }
+    return interpolation
+  }
 
   switch (typeof interpolation) {
-    case 'boolean':
+    case 'boolean': {
       return ''
-    case 'function':
-      if (this === undefined) {
-        return interpolation.toString()
-      }
-      return handleInterpolation.call(
-        this,
-        registered,
-        // $FlowFixMe
-        interpolation(this)
-      )
-    case 'object':
+    }
+    case 'object': {
       if (interpolation.type === 2) {
         return interpolation.name
       }
@@ -93,9 +95,22 @@ export function handleInterpolation(
       }
 
       return createStringFromObject.call(this, registered, interpolation)
-    default:
+    }
+    case 'function': {
+      if (this !== undefined) {
+        return handleInterpolation.call(
+          this,
+          registered,
+          // $FlowFixMe
+          interpolation(this)
+        )
+      }
+    }
+    // eslint-disable-next-line no-fallthrough
+    default: {
       const cached = registered[interpolation]
       return cached !== undefined ? cached : interpolation
+    }
   }
 }
 
@@ -117,7 +132,19 @@ function createStringFromObject(
           obj[key]
         )};`
       } else {
-        if (Array.isArray(obj[key]) && typeof obj[key][0] === 'string') {
+        if (
+          key === 'NO_COMPONENT_SELECTOR' &&
+          process.env.NODE_ENV !== 'production'
+        ) {
+          throw new Error(
+            'Component selectors can only be used in conjunction with babel-plugin-emotion.'
+          )
+        }
+        if (
+          Array.isArray(obj[key]) &&
+          (typeof obj[key][0] === 'string' &&
+            registered[obj[key][0]] === undefined)
+        ) {
           obj[key].forEach(value => {
             string += `${processStyleName(key)}:${processStyleValue(
               key,

@@ -5,7 +5,8 @@ import {
   getLabelFromPath,
   getExpressionsFromTemplateLiteral,
   getSourceMap,
-  appendStringToExpressions
+  appendStringToExpressions,
+  getTargetClassName
 } from '@emotion/babel-utils'
 
 export default createMacro(({ references, state, babel }) => {
@@ -48,6 +49,10 @@ export default createMacro(({ references, state, babel }) => {
       }
       if (t.isCallExpression(reference.parentPath)) {
         reference.parentPath.node.arguments[1] = t.objectExpression([
+          t.objectProperty(
+            t.identifier('target'),
+            t.stringLiteral(getTargetClassName(state, t))
+          ),
           t.objectProperty(
             t.identifier('label'),
             t.stringLiteral(getLabelFromPath(reference.parentPath, t))
