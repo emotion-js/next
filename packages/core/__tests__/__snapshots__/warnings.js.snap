@@ -52,3 +52,42 @@ Array [
   />,
 ]
 `;
+
+exports[`does warn when using :first-child 1`] = `
+Array [
+  <style>
+    .emotion-0:first-child {
+      color: hotpink;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  />,
+]
+`;
+
+exports[`does warn when using :nth-child(3) 1`] = `
+Array [
+  <style>
+    .emotion-0:nth-child(3) {
+      color: hotpink;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  />,
+]
+`;
+
+exports[`does warn when using :nth-last-child(7) 1`] = `
+Array [
+  <style>
+    .emotion-0:nth-last-child(7) {
+      color: hotpink;
+    }
+  </style>,
+  <div
+    className="emotion-0"
+  />,
+]
+`;

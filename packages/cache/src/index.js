@@ -44,20 +44,40 @@ let createCache = (options?: Options): CSSContextType => {
     }
     let sourceMapRegEx = /\/\*#\ssourceMappingURL=data:application\/json;\S+\s+\*\//
     let currentSourceMap
-    stylis.use((context, content) => {
-      if (context === -1) {
-        let result = sourceMapRegEx.exec(content)
-        if (result) {
-          currentSourceMap = result[0]
+    stylis.use((context, content, selectors) => {
+      switch (context) {
+        case -1: {
+          let result = sourceMapRegEx.exec(content)
+          if (result) {
+            currentSourceMap = result[0]
+          }
+          break
         }
-      }
-      if (context === -2) {
-        if (currentSourceMap) {
-          content.forEach((rule, i) => {
-            content[i] = rule + currentSourceMap
-          })
+        case 2: {
+          for (let i = 0, len = selectors.length; len > i; i++) {
+            // :last-child isn't included here since it's safe
+            // because a style element will never be the last element
+            let match = selectors[i].match(/:(first|nth|nth-last)-child/)
+            if (match !== null) {
+              console.error(
+                `The pseudo class "${
+                  match[1]
+                }" is potentially unsafe when doing server-side rendering. Try changing it to "${
+                  match[1]
+                }-of-type"`
+              )
+            }
+          }
+          break
+        }
+        case -2: {
+          if (currentSourceMap) {
+            content.forEach((rule, i) => {
+              content[i] = rule + currentSourceMap
+            })
 
-          currentSourceMap = ''
+            currentSourceMap = ''
+          }
         }
       }
     })
@@ -65,13 +85,9 @@ let createCache = (options?: Options): CSSContextType => {
   let inserted = {}
 
   if (isBrowser) {
-    const nodes = document.querySelectorAll(
-      // $FlowFixMe
-      `style[data-emotion-${key}]`
-    )
+    const nodes = document.querySelectorAll(`style[data-emotion-${key}]`)
 
     Array.prototype.forEach.call(nodes, (node: HTMLStyleElement) => {
-      // $FlowFixMe
       const attrib = node.getAttribute(`data-emotion-${key}`)
       // $FlowFixMe
       attrib.split(' ').forEach(id => {
