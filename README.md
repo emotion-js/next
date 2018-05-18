@@ -4,11 +4,6 @@
 
 **This is pretty experimental and there will be breaking changes often. Don't use it for anything really important yet.**
 
-### Todo
-
-* Provider (nonce, ~~theme~~(done), container element?)
-* add source maps
-
 ## Why should I use this?
 
 * Server side rendering just works. (just call `react-dom`'s `renderToString` or `renderToNodeStream`)
