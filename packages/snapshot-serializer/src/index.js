@@ -20,7 +20,9 @@ function markNodes(nodes) {
   })
 }
 
-const clsPattern = /css-([a-zA-Z0-9-]+)/gi
+// i know this looks hacky but it works pretty well
+// and most importantly it doesn't mutate the object that gets passed in
+let re = /<style\n(\s+)dangerouslySetInnerHTML={\s+Object {\s+"__html": "(.*?)",\n\s+}\s+}\s+data-emotion-([\w-]+)="[^"]+"\s+\/>/g
 
 const serializer = {
   test: (val: any) => {
@@ -39,59 +41,44 @@ const serializer = {
     }
     return false
   },
-  print: (val: any, printer: Function) => {
+  print: (val: any, printer: any => string) => {
     const nodes = getNodes(val)
 
     markNodes(nodes)
     let i = 0
     const classMap = {}
-
-    nodes.forEach(node => {
-      if (node.type !== 'style') return
-      let dataKey
-      Object.keys(node.props).forEach(key => {
-        if (key.indexOf('data-emotion-') === 0) {
-          dataKey = key
-        }
-      })
-      if (typeof node.props[dataKey] === 'string') {
-        try {
-          const replaced = node.props.dangerouslySetInnerHTML.__html.replace(
-            clsPattern,
-            (match, p1) => {
-              if (classMap[p1] === undefined) {
-                classMap[p1] = `emotion-${i++}`
-              }
-              return classMap[p1]
-            }
+    let printed = printer(val).replace(
+      re,
+      (match, whiteSpace, cssString, key) => {
+        return `<style>\n${whiteSpace}${stringify(
+          parse(
+            // for some reason the quotes seem to be escaped and that breaks the formatting
+            cssString.replace(/\\"/g, '"').replace(/\\'/g, "'")
           )
-          // split the string by line to get correct indentation
-          node.children = stringify(parse(replaced)).split('\n')
-        } catch (e) {
-          throw new Error(
-            `Error parsing css: ${node.props.dangerouslySetInnerHTML.__html}`
-          )
-        }
-
-        delete node.props[dataKey]
-        delete node.props.dangerouslySetInnerHTML
-      }
-    })
-    nodes.forEach(node => {
-      if (typeof node.props.className === 'string') {
-        node.props.className = node.props.className.replace(
-          clsPattern,
-          (match, p1) => {
-            if (classMap[p1] !== undefined) {
-              return classMap[p1]
-            }
-            return match
-          }
         )
+          .replace(new RegExp(`${key}-([a-zA-Z0-9-]+)`, 'g'), match => {
+            if (classMap[match] !== undefined) {
+              return classMap[match]
+            }
+            return (classMap[match] = `emotion-${i++}`)
+          })
+          .split('\n')
+          .join('\n' + whiteSpace)}\n${whiteSpace.substring(2)}</style>`
       }
+    )
+    Object.keys(classMap).forEach(key => {
+      printed = printed.replace(new RegExp(key, 'g'), classMap[key])
     })
-    return printer(val)
+    return printed
   }
 }
+
+// clsPattern,
+// (match, p1) => {
+//   if (classMap[p1] !== undefined) {
+//     return classMap[p1]
+//   }
+//   return match
+// }
 
 export default serializer
