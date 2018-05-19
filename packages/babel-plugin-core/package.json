@@ -16,6 +16,7 @@
   "dependencies": {
     "@babel/helper-module-imports": "7.0.0-beta.46",
     "@emotion/babel-utils": "^0.6.0",
+    "@emotion/css": "^0.8.0",
     "babel-plugin-macros": "^2.2.1"
   }
 }

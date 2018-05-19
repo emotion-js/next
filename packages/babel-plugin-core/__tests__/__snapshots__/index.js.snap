@@ -13,10 +13,11 @@ import _css from \\"@emotion/css\\";
 
 /** @jsx jsx */
 import jsx from '@emotion/jsx';
-
-var _ref = _css({
-  color: 'hotpink'
-}, \\"label:SomeComponent;\\");
+var _ref = {
+  type: 1,
+  name: \\"1lrxbo5-SomeComponent\\",
+  styles: \\"color:hotpink;\\"
+};
 
 const SomeComponent = props => <div css={_ref} {...props} />;"
 `;

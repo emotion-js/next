@@ -20,8 +20,11 @@ import _css from \\"@emotion/css\\";
 
 /** @jsx jsx */
 import jsx from '@emotion/jsx';
-
-var _ref = _css(\\"color:hotpink;label:SomeComponent;\\");
+var _ref = {
+  type: 1,
+  name: \\"1lrxbo5-SomeComponent\\",
+  styles: \\"color:hotpink;\\"
+};
 
 const SomeComponent = () => <div css={_ref} />;"
 `;
@@ -39,8 +42,11 @@ function doThing() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-var _ref = _css(\\"display:flex;\\");
+var _ref = {
+  type: 1,
+  name: \\"k008qs\\",
+  styles: \\"display:flex;\\"
+};
 
 function doThing() {
   return _ref;
@@ -58,10 +64,11 @@ function doThing() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-var _ref = _css({
-  color: 'hotpink'
-});
+var _ref = {
+  type: 1,
+  name: \\"1lrxbo5\\",
+  styles: \\"color:hotpink;\\"
+};
 
 function doThing() {
   return _ref;
@@ -85,7 +92,11 @@ const thing = css\`
 
 import _css from \\"@emotion/css\\";
 
-const thing = _css(\\"display:flex;&:hover{\\", _css(\\"color:hotpink;label:thing;\\"), \\";}label:thing;\\");"
+const thing = _css(\\"display:flex;&:hover{\\", {
+  type: 1,
+  name: \\"1lrxbo5-thing\\",
+  styles: \\"color:hotpink;\\"
+}, \\";}label:thing;\\");"
 `;
 
 exports[`@emotion/babel-plugin-core css comment-with-interpolation 1`] = `
@@ -115,10 +126,16 @@ css\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-_css(\\"color:hotpink;\\");
-
-_css(\\"color:\\", 'hotpink', \\";\\");"
+({
+  type: 1,
+  name: \\"1lrxbo5\\",
+  styles: \\"color:hotpink;\\"
+});
+({
+  type: 1,
+  name: \\"1lrxbo5\\",
+  styles: \\"color:hotpink;\\"
+});"
 `;
 
 exports[`@emotion/babel-plugin-core css impure 1`] = `
@@ -166,8 +183,11 @@ import _css from \\"@emotion/css\\";
 /** @jsx jsx */
 import { Component } from 'react';
 import jsx from '@emotion/jsx';
-
-var _ref = _css(\\"color:hotpink;label:SomeComponent;\\");
+var _ref = {
+  type: 1,
+  name: \\"1lrxbo5-SomeComponent\\",
+  styles: \\"color:hotpink;\\"
+};
 
 class SomeComponent extends Component {
   render() {
@@ -188,8 +208,11 @@ const thing = css\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-const thing = _css(\\"color:hotpink;label:thing;\\");"
+const thing = {
+  type: 1,
+  name: \\"1lrxbo5-thing\\",
+  styles: \\"color:hotpink;\\"
+};"
 `;
 
 exports[`@emotion/babel-plugin-core css multiple-calls 1`] = `
@@ -207,10 +230,16 @@ const otherThing = css\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-const thing = _css(\\"color:hotpink;label:thing;\\");
-
-const otherThing = _css(\\"color:green;label:otherThing;\\");"
+const thing = {
+  type: 1,
+  name: \\"1lrxbo5-thing\\",
+  styles: \\"color:hotpink;\\"
+};
+const otherThing = {
+  type: 1,
+  name: \\"bjcoli-otherThing\\",
+  styles: \\"color:green;\\"
+};"
 `;
 
 exports[`@emotion/babel-plugin-core css remove-block-comments 1`] = `
@@ -227,8 +256,11 @@ ddjfwjkng
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-_css(\\"color:hotpink;\\");"
+({
+  type: 1,
+  name: \\"1lrxbo5\\",
+  styles: \\"color:hotpink;\\"
+});"
 `;
 
 exports[`@emotion/babel-plugin-core css remove-line-comments 1`] = `
@@ -243,6 +275,9 @@ css\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-_css(\\"color:hotpink;\\");"
+({
+  type: 1,
+  name: \\"1lrxbo5\\",
+  styles: \\"color:hotpink;\\"
+});"
 `;

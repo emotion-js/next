@@ -9,10 +9,11 @@ css({ color: 'hotpink' })
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-_css({
-  color: 'hotpink'
-}, \\"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvdXJjZS1tYXAudGVzdC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQSIsImZpbGUiOiJzb3VyY2UtbWFwLnRlc3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgY3NzIGZyb20gJ0BlbW90aW9uL2NzcydcblxuY3NzKHsgY29sb3I6ICdob3RwaW5rJyB9KVxuIl19 */\\");"
+({
+  type: 1,
+  name: \\"1kynaqf\\",
+  styles: \\"color:hotpink;/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvdXJjZS1tYXAudGVzdC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQSIsImZpbGUiOiJzb3VyY2UtbWFwLnRlc3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgY3NzIGZyb20gJ0BlbW90aW9uL2NzcydcblxuY3NzKHsgY29sb3I6ICdob3RwaW5rJyB9KVxuIl19 */\\"
+});"
 `;
 
 exports[`@emotion/babel-plugin-core css-prop 1`] = `
@@ -28,10 +29,11 @@ import _css from \\"@emotion/css\\";
 
 /** @jsx jsx */
 import jsx from '@emotion/jsx';
-
-var _ref = _css({
-  color: 'hotpink'
-}, \\"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvdXJjZS1tYXAudGVzdC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHb0MiLCJmaWxlIjoic291cmNlLW1hcC50ZXN0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqIEBqc3gganN4ICovXG5pbXBvcnQganN4IGZyb20gJ0BlbW90aW9uL2pzeCdcblxuY29uc3QgU29tZUNvbXBvbmVudCA9IHByb3BzID0+IDxkaXYgY3NzPXt7IGNvbG9yOiAnaG90cGluaycgfX0gey4uLnByb3BzfSAvPlxuIl19 */label:SomeComponent;\\");
+var _ref = {
+  type: 1,
+  name: \\"emstob-SomeComponent\\",
+  styles: \\"color:hotpink;/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvdXJjZS1tYXAudGVzdC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHb0MiLCJmaWxlIjoic291cmNlLW1hcC50ZXN0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqIEBqc3gganN4ICovXG5pbXBvcnQganN4IGZyb20gJ0BlbW90aW9uL2pzeCdcblxuY29uc3QgU29tZUNvbXBvbmVudCA9IHByb3BzID0+IDxkaXYgY3NzPXt7IGNvbG9yOiAnaG90cGluaycgfX0gey4uLnByb3BzfSAvPlxuIl19 */\\"
+};
 
 const SomeComponent = props => <div css={_ref} {...props} />;"
 `;
@@ -47,8 +49,11 @@ css\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _css from \\"@emotion/css\\";
-
-_css(\\"color:hotpink;/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvdXJjZS1tYXAudGVzdC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFRyIsImZpbGUiOiJzb3VyY2UtbWFwLnRlc3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgY3NzIGZyb20gJ0BlbW90aW9uL2NzcydcblxuY3NzYFxuICBjb2xvcjogaG90cGluaztcbmBcbiJdfQ== */\\");"
+({
+  type: 1,
+  name: \\"hpd2zd\\",
+  styles: \\"color:hotpink;/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvdXJjZS1tYXAudGVzdC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFRyIsImZpbGUiOiJzb3VyY2UtbWFwLnRlc3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgY3NzIGZyb20gJ0BlbW90aW9uL2NzcydcblxuY3NzYFxuICBjb2xvcjogaG90cGluaztcbmBcbiJdfQ== */\\"
+});"
 `;
 
 exports[`@emotion/babel-plugin-core styled-object 1`] = `
