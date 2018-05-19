@@ -23,18 +23,9 @@ export type Interpolation = any
 
 export type ScopedInsertableStyles = {|
   name: string,
-  styles: string,
-  type: 1
+  styles: string
 |}
-export type KeyframesInsertableStyles = {|
+export type Keyframes = {|
   name: string,
-  styles: string,
-  type: 2
+  styles: string
 |}
-
-export type InsertableStyles =
-  | ScopedInsertableStyles
-  | KeyframesInsertableStyles
-
-export const SCOPED_TYPE = 1
-export const KEYFRAMES_TYPE = 2

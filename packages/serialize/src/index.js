@@ -191,7 +191,6 @@ export const serializeStyles = function(
   let name = hashString(styles) + identifierName
 
   return {
-    type: 1,
     name,
     styles
   }

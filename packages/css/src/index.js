@@ -33,7 +33,6 @@ function css(
   let name = hashString(styles) + identifierName
 
   return {
-    type: 1,
     name,
     styles
   }

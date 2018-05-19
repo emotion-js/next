@@ -57,7 +57,6 @@ export const transformCssCallExpression = ({ babel, state, path }: *) => {
 
       path.replaceWith(
         t.objectExpression([
-          t.objectProperty(t.identifier('type'), t.numericLiteral(res.type)),
           t.objectProperty(t.identifier('name'), t.stringLiteral(res.name)),
           t.objectProperty(t.identifier('styles'), t.stringLiteral(res.styles))
         ])

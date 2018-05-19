@@ -3,7 +3,6 @@
 import { Component } from 'react'
 import styled from '@emotion/styled'
 import { jsx } from '@emotion/core'
-import Style from '@emotion/style'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
 import logo from './react.svg'
@@ -48,12 +47,12 @@ class Home extends Component<{}, *> {
         `}
       >
         <Header>
-          <Style styles={animation} />
           <img
             src={logo}
             css={css`
-              animation: ${animation} infinite 20s linear;
+              animation: ${animation.name} infinite 20s linear;
               height: 80px;
+              ${animation.styles};
             `}
             alt="logo"
           />

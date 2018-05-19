@@ -1,13 +1,9 @@
 // @flow
-import type {
-  ScopedInsertableStyles,
-  KeyframesInsertableStyles
-} from '@emotion/types'
+import type { ScopedInsertableStyles, Keyframes } from '@emotion/types'
 
-const keyframes = (arg: ScopedInsertableStyles): KeyframesInsertableStyles => {
+const keyframes = (arg: ScopedInsertableStyles): Keyframes => {
   const name = `animation-${arg.name}`
   return {
-    type: 2,
     name,
     styles: `@keyframes ${name}{${arg.styles}}`
   }

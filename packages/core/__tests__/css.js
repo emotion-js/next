@@ -1,7 +1,6 @@
 // @flow
 /** @jsx jsx */
 import { jsx, Global } from '@emotion/core'
-import Style from '@emotion/style'
 import Provider from '@emotion/provider'
 import css from '@emotion/css'
 import keyframes from '@emotion/keyframes'
@@ -25,42 +24,6 @@ test('thing', () => {
   expect(tree.toJSON()).toMatchSnapshot()
 })
 
-// skipping since this API will change
-test.skip('css call to render', () => {
-  const cls = css`
-    color: green;
-  `
-  const tree = renderer.create(
-    <div>
-      <Style styles={cls} />
-      <div className={cls.toString()}>something</div>
-    </div>
-  )
-
-  expect(tree.toJSON()).toMatchSnapshot()
-})
-
-// skipping since this API will change
-test.skip('css call to render with array as styles', () => {
-  const cls = css`
-    color: green;
-  `
-  const cls2 = css`
-    color: hotpink;
-  `
-  const tree = renderer.create(
-    <div css={{ color: 'yellow' }}>
-      <Style styles={[cls, cls2]} />
-      <Style styles={[cls]} />
-
-      <div className={cls.toString()}>something</div>
-      <div className={cls2.toString()}>anothor thing</div>
-    </div>
-  )
-
-  expect(tree.toJSON()).toMatchSnapshot()
-})
-
 test('keyframes', () => {
   const animation = keyframes(css`
     from {
@@ -72,10 +35,10 @@ test('keyframes', () => {
   `)
   const tree = renderer.create(
     <div>
-      <Style styles={animation} />
       <div
         css={css`
-          animation: ${animation} ${true};
+          animation: ${animation.name} ${true};
+          ${animation.styles};
         `}
       >
         {animation.name}

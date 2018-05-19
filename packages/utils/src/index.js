@@ -1,5 +1,9 @@
 // @flow
-import type { CSSCache, CSSContextType, InsertableStyles } from '@emotion/types'
+import type {
+  CSSCache,
+  CSSContextType,
+  ScopedInsertableStyles
+} from '@emotion/types'
 
 export const isBrowser = typeof document !== 'undefined'
 export const shouldSerializeToReactTree =
@@ -24,17 +28,14 @@ export function getRegisteredStyles(
 
 export const insertStyles = (
   context: CSSContextType,
-  insertable: InsertableStyles
+  insertable: ScopedInsertableStyles
 ) => {
-  if (
-    insertable.type === 1 &&
-    context.registered[`${context.key}-${insertable.name}`] === undefined
-  ) {
+  if (context.registered[`${context.key}-${insertable.name}`] === undefined) {
     context.registered[`${context.key}-${insertable.name}`] = insertable.styles
   }
   if (context.inserted[insertable.name] === undefined) {
     let rules = context.stylis(
-      insertable.type === 1 ? `.${context.key}-${insertable.name}` : '',
+      `.${context.key}-${insertable.name}`,
       insertable.styles
     )
 

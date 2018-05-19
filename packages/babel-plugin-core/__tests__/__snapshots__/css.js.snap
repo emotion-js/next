@@ -21,7 +21,6 @@ import _css from \\"@emotion/css\\";
 /** @jsx jsx */
 import jsx from '@emotion/jsx';
 var _ref = {
-  type: 1,
   name: \\"1lrxbo5-SomeComponent\\",
   styles: \\"color:hotpink;\\"
 };
@@ -43,7 +42,6 @@ function doThing() {
 
 import _css from \\"@emotion/css\\";
 var _ref = {
-  type: 1,
   name: \\"k008qs\\",
   styles: \\"display:flex;\\"
 };
@@ -65,7 +63,6 @@ function doThing() {
 
 import _css from \\"@emotion/css\\";
 var _ref = {
-  type: 1,
   name: \\"1lrxbo5\\",
   styles: \\"color:hotpink;\\"
 };
@@ -93,7 +90,6 @@ const thing = css\`
 import _css from \\"@emotion/css\\";
 
 const thing = _css(\\"display:flex;&:hover{\\", {
-  type: 1,
   name: \\"1lrxbo5-thing\\",
   styles: \\"color:hotpink;\\"
 }, \\";}label:thing;\\");"
@@ -127,12 +123,10 @@ css\`
 
 import _css from \\"@emotion/css\\";
 ({
-  type: 1,
   name: \\"1lrxbo5\\",
   styles: \\"color:hotpink;\\"
 });
 ({
-  type: 1,
   name: \\"1lrxbo5\\",
   styles: \\"color:hotpink;\\"
 });"
@@ -184,7 +178,6 @@ import _css from \\"@emotion/css\\";
 import { Component } from 'react';
 import jsx from '@emotion/jsx';
 var _ref = {
-  type: 1,
   name: \\"1lrxbo5-SomeComponent\\",
   styles: \\"color:hotpink;\\"
 };
@@ -209,7 +202,6 @@ const thing = css\`
 
 import _css from \\"@emotion/css\\";
 const thing = {
-  type: 1,
   name: \\"1lrxbo5-thing\\",
   styles: \\"color:hotpink;\\"
 };"
@@ -231,12 +223,10 @@ const otherThing = css\`
 
 import _css from \\"@emotion/css\\";
 const thing = {
-  type: 1,
   name: \\"1lrxbo5-thing\\",
   styles: \\"color:hotpink;\\"
 };
 const otherThing = {
-  type: 1,
   name: \\"bjcoli-otherThing\\",
   styles: \\"color:green;\\"
 };"
@@ -257,7 +247,6 @@ ddjfwjkng
 
 import _css from \\"@emotion/css\\";
 ({
-  type: 1,
   name: \\"1lrxbo5\\",
   styles: \\"color:hotpink;\\"
 });"
@@ -276,7 +265,6 @@ css\`
 
 import _css from \\"@emotion/css\\";
 ({
-  type: 1,
   name: \\"1lrxbo5\\",
   styles: \\"color:hotpink;\\"
 });"

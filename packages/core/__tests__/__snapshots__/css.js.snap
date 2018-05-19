@@ -32,56 +32,7 @@ Object {
   "styles": ":hover{
     color: hotpink;
   }",
-  "type": 1,
 }
-`;
-
-exports[`css call to render 1`] = `
-<div>
-  <style>
-    .emotion-0 {
-      color: green;
-    }
-  </style>
-  <div
-    className="emotion-0"
-  >
-    something
-  </div>
-</div>
-`;
-
-exports[`css call to render with array as styles 1`] = `
-Array [
-  <style>
-    .emotion-0 {
-      color: yellow;
-    }
-  </style>,
-  <div
-    className="emotion-0"
-  >
-    <style>
-      .emotion-1 {
-        color: green;
-      }
-      
-      .emotion-2 {
-        color: hotpink;
-      }
-    </style>
-    <div
-      className="emotion-1"
-    >
-      something
-    </div>
-    <div
-      className="emotion-2"
-    >
-      anothor thing
-    </div>
-  </div>,
-]
 `;
 
 exports[`global 1`] = `
@@ -97,6 +48,11 @@ exports[`global 1`] = `
 exports[`keyframes 1`] = `
 <div>
   <style>
+    .emotion-0 {
+      -webkit-animation: animation-1ozfi5a;
+      animation: animation-1ozfi5a;
+    }
+    
     @-webkit-keyframes animation-1ozfi5a {
       from {
         color: green;
@@ -115,12 +71,6 @@ exports[`keyframes 1`] = `
       to {
         color: hotpink;
       }
-    }
-  </style>
-  <style>
-    .emotion-0 {
-      -webkit-animation: animation-1ozfi5a;
-      animation: animation-1ozfi5a;
     }
   </style>
   <div
