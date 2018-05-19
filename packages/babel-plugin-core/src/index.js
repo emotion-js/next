@@ -48,8 +48,20 @@ export default createPlugin(
         } else {
           state.transformCssProp = state.opts.jsx
         }
-        if (state.opts.sourceMap) {
-          state.emotionSourceMap = true
+        if (state.opts.sourceMap !== undefined) {
+          state.emotionSourceMap = state.opts.sourceMap
+        } else if (process.env.NODE_ENV !== 'production') {
+          let hasDevJSXTransforms = false
+          try {
+            let code = babel.transform('<div/>', {
+              ...state.file.opts,
+              babelrc: false,
+              ast: false
+            }).code
+            hasDevJSXTransforms =
+              code.indexOf('__source') !== -1 && code.indexOf('__self') !== -1
+          } catch (e) {}
+          state.opts.sourceMap = hasDevJSXTransforms
         }
       },
       JSXAttribute(path: *, state: *) {
