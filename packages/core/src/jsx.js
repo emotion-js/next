@@ -18,6 +18,7 @@ export const jsx: typeof React.createElement = function(
     // $FlowFixMe
     return React.createElement.apply(undefined, arguments)
   }
+
   if (
     typeof props.css === 'string' &&
     // check if there is a css declaration
