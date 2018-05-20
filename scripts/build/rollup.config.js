@@ -64,6 +64,8 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
           '@babel/plugin-transform-flow-strip-types',
           require('./add-basic-constructor-to-react-component'),
           'codegen',
+          ['@babel/proposal-class-properties', { loose: true }],
+          require('./fix-dce-for-classes-with-statics'),
           isBrowser && require('./inline-isBrowser'),
           isBrowser &&
             (babel => {
@@ -89,7 +91,6 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
               }
             }),
           // 'closure-elimination',
-          ['@babel/proposal-class-properties', { loose: true }],
           '@babel/plugin-proposal-object-rest-spread'
         ].filter(Boolean),
         babelrc: false
