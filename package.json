@@ -79,7 +79,7 @@
     "rollup-plugin-uglify": "^3.0.0",
     "stylis-rule-sheet": "^0.0.10"
   },
-  "workspaces": ["packages/*", "examples/*", "scripts/*"],
+  "workspaces": ["packages/*", "examples/*", "scripts/*", "performance"],
   "bundlesize": [
     {
       "path": "./packages/*/dist/index.min.js",
