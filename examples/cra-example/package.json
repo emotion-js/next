@@ -1,12 +1,12 @@
 {
   "name": "example",
-  "version": "0.6.12",
+  "version": "0.6.13",
   "private": true,
   "dependencies": {
     "@emotion/core": "^0.10.1",
     "@emotion/css": "^0.9.0",
     "@emotion/keyframes": "^0.9.0",
-    "@emotion/styled.macro": "^0.9.0",
+    "@emotion/styled.macro": "^0.9.1",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-scripts": "2.0.0-next.9754a231"
@@ -23,6 +23,11 @@
       "last 2 firefox versions",
       "last 2 edge versions"
     ],
-    "production": [">1%", "last 4 versions", "Firefox ESR", "not ie < 11"]
+    "production": [
+      ">1%",
+      "last 4 versions",
+      "Firefox ESR",
+      "not ie < 11"
+    ]
   }
 }
