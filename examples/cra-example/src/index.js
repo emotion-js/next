@@ -2,7 +2,7 @@ import React from 'react'
 import { Global } from '@emotion/core'
 import ReactDOM from 'react-dom'
 import App from './App'
-import registerServiceWorker from './registerServiceWorker'
+// import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
   <React.Fragment>
@@ -19,4 +19,4 @@ ReactDOM.render(
   </React.Fragment>,
   document.getElementById('root')
 )
-registerServiceWorker()
+// registerServiceWorker()
