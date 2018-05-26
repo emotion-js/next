@@ -20,3 +20,32 @@ var _ref = {
 
 const SomeComponent = props => <div css={_ref} {...props} />;"
 `;
+
+exports[`@emotion/babel-plugin-core static-object-with-camel-case 1`] = `
+"/** @jsx jsx */
+import jsx from '@emotion/jsx'
+
+const SomeComponent = props => (
+  <div
+    css={{
+      color: 'hotpink',
+      backgroundColor: 'green'
+    }}
+    {...props}
+  />
+)
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+/** @jsx jsx */
+import jsx from '@emotion/jsx';
+var _ref = {
+  name: \\"1r9ago1-SomeComponent\\",
+  styles: \\"color:hotpink;background-color:green;\\"
+};
+
+const SomeComponent = props => <div css={_ref} {...props} />;"
+`;

@@ -1,5 +1,5 @@
 // @flow
-import unitless from '@emotion/unitless'
+import { handleInterpolation } from '@emotion/serialize'
 
 export function simplifyObject(node: *, t: *) {
   let bailout = false
@@ -21,17 +21,9 @@ export function simplifyObject(node: *, t: *) {
       bailout = true
       return
     }
-    let value
-    if (t.isNumericLiteral(property.value)) {
-      if (unitless[key] !== 1 && property.value.value !== 0) {
-        value = property.value.value + 'px'
-      } else {
-        value = property.value.value
-      }
-    } else {
-      value = property.value.value
-    }
-    finalString += `${key}:${value};`
+    let value = property.value.value
+
+    finalString += handleInterpolation({}, { [key]: value })
   })
   return bailout ? node : t.stringLiteral(finalString)
 }
