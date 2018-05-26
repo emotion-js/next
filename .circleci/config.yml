@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - checkout
-      - cp yarn.lock yarn.lock.orig
+      - run: cp yarn.lock yarn.lock.orig
       # Download and cache dependencies
       - restore_cache:
           keys:
