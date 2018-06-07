@@ -49,3 +49,39 @@ var _ref = {
 
 const SomeComponent = props => <div css={_ref} {...props} />;"
 `;
+
+exports[`@emotion/babel-plugin-core static-object-with-child-selectors 1`] = `
+"/** @jsx jsx */
+
+import { jsx } from '@emotion/core'
+
+const SomeComponent = props => {
+  return (
+    <div
+      css={{
+        color: 'green',
+        ':hover': {
+          color: 'hotpink'
+        }
+      }}
+      {...props}
+    />
+  )
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+var _ref = {
+  name: \\"1t2q7lq-SomeComponent\\",
+  styles: \\"color:green;:hover{color:hotpink;}\\"
+};
+
+const SomeComponent = props => {
+  return <div css={_ref} {...props} />;
+};"
+`;
