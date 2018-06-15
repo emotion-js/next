@@ -137,7 +137,7 @@ function createStringFromObject(
           process.env.NODE_ENV !== 'production'
         ) {
           throw new Error(
-            'Component selectors can only be used in conjunction with babel-plugin-emotion.'
+            'Component selectors can only be used in conjunction with @emotion/babel-plugin-core.'
           )
         }
         if (
