@@ -6,21 +6,16 @@ const cjs = require('rollup-plugin-commonjs')
 const replace = require('rollup-plugin-replace')
 const path = require('path')
 const lernaAliases = require('lerna-alias').rollup
-const utils = require('./utils')
 
 function getChildPeerDeps(finalPeerDeps, depKeys) {
   depKeys.forEach(key => {
-    if (key.startsWith('@emotion/')) {
-      const pkgJson = require(path.join(
-        utils.rootPath,
-        'packages',
-        key.replace('@emotion/', ''),
-        'package.json'
-      ))
-      if (pkgJson.peerDependencies) {
-        finalPeerDeps.push(...Object.keys(pkgJson.peerDependencies))
-        getChildPeerDeps(finalPeerDeps, Object.keys(pkgJson.peerDependencies))
-      }
+    const pkgJson = require(key + '/package.json')
+    if (pkgJson.peerDependencies) {
+      finalPeerDeps.push(...Object.keys(pkgJson.peerDependencies))
+      getChildPeerDeps(finalPeerDeps, Object.keys(pkgJson.peerDependencies))
+    }
+    if (pkgJson.dependencies) {
+      getChildPeerDeps(finalPeerDeps, Object.keys(pkgJson.dependencies))
     }
   })
 }
@@ -71,6 +66,7 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
             (babel => {
               let t = babel.types
               return {
+                // for @emotion/utils
                 visitor: {
                   VariableDeclarator(path, state) {
                     if (t.isIdentifier(path.node.id)) {
@@ -90,7 +86,6 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
                 }
               }
             }),
-          // 'closure-elimination',
           '@babel/plugin-proposal-object-rest-spread'
         ].filter(Boolean),
         babelrc: false
