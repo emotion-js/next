@@ -1,5 +1,5 @@
 const resolve = require('rollup-plugin-node-resolve')
-const uglify = require('rollup-plugin-uglify')
+const { uglify } = require('rollup-plugin-uglify')
 const babel = require('rollup-plugin-babel')
 const alias = require('rollup-plugin-alias')
 const cjs = require('rollup-plugin-commonjs')
@@ -34,6 +34,7 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
       external.concat((pkg.dependencies && Object.keys(pkg.dependencies)) || [])
     )
   ])
+  external.push('fs', 'path')
 
   const config = {
     input: path.resolve(data.path, 'src', 'index.js'),
