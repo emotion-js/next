@@ -7,6 +7,15 @@ const replace = require('rollup-plugin-replace')
 const path = require('path')
 const lernaAliases = require('lerna-alias').rollup
 
+// this makes sure nested imports of external packages are external
+const makeExternalPredicate = externalArr => {
+  if (externalArr.length === 0) {
+    return () => false
+  }
+  const pattern = new RegExp(`^(${externalArr.join('|')})($|/)`)
+  return id => pattern.test(id)
+}
+
 function getChildPeerDeps(finalPeerDeps, depKeys) {
   depKeys.forEach(key => {
     const pkgJson = require(key + '/package.json')
@@ -38,7 +47,7 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
 
   const config = {
     input: path.resolve(data.path, 'src', 'index.js'),
-    external,
+    external: makeExternalPredicate(external),
     plugins: [
       cjs({
         exclude: [path.join(__dirname, '..', '..', 'packages', '*/src/**/*')]
