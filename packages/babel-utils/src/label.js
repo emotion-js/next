@@ -10,13 +10,30 @@ function getDeclaratorName(path, t) {
 }
 
 function getIdentifierName(path, t) {
-  let classParent
+  let classOrClassPropertyParent
+
   if (path) {
     // $FlowFixMe
-    classParent = path.findParent(p => t.isClass(p))
+    classOrClassPropertyParent = path.findParent(
+      p => t.isClassProperty(p) || t.isClass(p)
+    )
   }
-  if (classParent && classParent.node.id) {
-    return t.isIdentifier(classParent.node.id) ? classParent.node.id.name : ''
+  if (classOrClassPropertyParent) {
+    if (
+      t.isClassProperty(classOrClassPropertyParent) &&
+      classOrClassPropertyParent.node.computed === false &&
+      t.isIdentifier(classOrClassPropertyParent.node.key)
+    ) {
+      return classOrClassPropertyParent.node.key.name
+    }
+    if (
+      t.isClass(classOrClassPropertyParent) &&
+      classOrClassPropertyParent.node.id
+    ) {
+      return t.isIdentifier(classOrClassPropertyParent.node.id)
+        ? classOrClassPropertyParent.node.id.name
+        : ''
+    }
   }
 
   let declaratorName = getDeclaratorName(path, t)

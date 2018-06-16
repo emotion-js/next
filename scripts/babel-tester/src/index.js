@@ -18,7 +18,12 @@ const tester = allOpts => async opts => {
     rawCode = allOpts.transform(rawCode)
   }
   const { code } = babel.transformSync(rawCode, {
-    plugins: ['macros', '@babel/plugin-syntax-jsx', ...(allOpts.plugins || [])],
+    plugins: [
+      'macros',
+      '@babel/plugin-syntax-jsx',
+      `@babel/plugin-syntax-class-properties`,
+      ...(allOpts.plugins || [])
+    ],
     presets: allOpts.presets,
     babelrc: false,
     filename: opts.babelFileName || __filename
