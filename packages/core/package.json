@@ -1,6 +1,6 @@
 {
   "name": "@emotion/core",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "browser": {
@@ -19,9 +19,9 @@
     "rollup": "rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "@emotion/cache": "^0.8.1",
-    "@emotion/css": "^0.9.0",
-    "@emotion/serialize": "^0.8.0",
+    "@emotion/cache": "^0.8.2",
+    "@emotion/css": "^0.9.1",
+    "@emotion/serialize": "^0.8.1",
     "@emotion/sheet": "^0.6.5",
     "@emotion/types": "^0.7.0",
     "@emotion/utils": "^0.7.0"
