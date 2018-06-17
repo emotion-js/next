@@ -23,7 +23,3 @@ export type ScopedInsertableStyles = {|
   name: string,
   styles: string
 |}
-export type Keyframes = {|
-  name: string,
-  styles: string
-|}
