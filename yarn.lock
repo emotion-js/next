@@ -4166,7 +4166,7 @@ defined@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
 
-"definitelytyped-header-parser@github:Microsoft/definitelytyped-header-parser#production":
+definitelytyped-header-parser@Microsoft/definitelytyped-header-parser#production:
   version "0.0.0"
   resolved "https://codeload.github.com/Microsoft/definitelytyped-header-parser/tar.gz/f152526f82f51d2baf91a99a397b449342b52db1"
   dependencies:
