@@ -31,5 +31,7 @@ export interface ScopedInsertableStyles {
 export const isBrowser: boolean;
 export const shouldSerializeToReactTree: boolean;
 
-export function getRegisteredStyles(registered: RegisteredCache, registeredStyles: Array<string>, classNames: string): string;
+export type Interpolation = any;
+
+export function getRegisteredStyles(registered: RegisteredCache, registeredStyles: Array<Interpolation>, classNames: string): string;
 export function insertStyles(context: CSSContextType, insertable: ScopedInsertableStyles): string | true | void;

@@ -1,5 +1,5 @@
 import {
-  CSSContextType, RegisteredCache, ScopedInsertableStyles, StyleSheet,
+  CSSContextType, Interpolation, RegisteredCache, ScopedInsertableStyles, StyleSheet,
   getRegisteredStyles, insertStyles, isBrowser, shouldSerializeToReactTree,
 } from '@emotion/utils';
 
