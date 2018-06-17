@@ -1,12 +1,16 @@
 // @flow
-import type { CSSCache, CSSContextType, ScopedInsertableStyles } from './types'
+import type {
+  RegisteredCache,
+  CSSContextType,
+  ScopedInsertableStyles
+} from './types'
 
 export const isBrowser = typeof document !== 'undefined'
 export const shouldSerializeToReactTree =
   !isBrowser || process.env.NODE_ENV === 'test'
 
 export function getRegisteredStyles(
-  registered: CSSCache,
+  registered: RegisteredCache,
   registeredStyles: string[],
   classNames: string
 ) {
