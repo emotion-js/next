@@ -1,13 +1,13 @@
 // Definitions by: Junyoung Clare Jang <https://github.com/Ailrun>
-// TypeScript Version: 2.8
+// TypeScript Version: 2.4
 
 export enum Context {
-	POSTS = -2,
-	PREPS = -1,
-	UNKWN = 0,
-	PROPS = 1,
-	BLCKS = 2,
-	ATRUL = 3
+  POSTS = -2,
+  PREPS = -1,
+  UNKWN = 0,
+  PROPS = 1,
+  BLCKS = 2,
+  ATRUL = 3
 }
 
 export type PrefixContext =
