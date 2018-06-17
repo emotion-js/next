@@ -3,7 +3,7 @@ import type {
   Interpolation,
   ScopedInsertableStyles,
   CSSCache
-} from '@emotion/types'
+} from '@emotion/utils'
 import hashString from '@emotion/hash'
 import unitless from '@emotion/unitless'
 import memoize from '@emotion/memoize'

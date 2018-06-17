@@ -1,9 +1,12 @@
 // @flow
 import * as React from 'react'
 import { consume } from './context'
-import type { CSSContextType } from '@emotion/types'
 import { StyleSheet } from '@emotion/sheet'
-import { isBrowser, shouldSerializeToReactTree } from '@emotion/utils'
+import {
+  isBrowser,
+  shouldSerializeToReactTree,
+  type CSSContextType
+} from '@emotion/utils'
 import { serializeStyles } from '@emotion/serialize'
 
 type GlobalProps = {

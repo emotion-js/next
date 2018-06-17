@@ -1,7 +1,6 @@
 // @flow
 import { StyleSheet } from '@emotion/sheet'
-import { isBrowser } from '@emotion/utils'
-import type { CSSContextType } from '@emotion/types'
+import { isBrowser, type CSSContextType } from '@emotion/utils'
 import Stylis from '@emotion/stylis'
 import ruleSheetPlugin from './rule-sheet'
 import type { StylisPlugin } from './types'

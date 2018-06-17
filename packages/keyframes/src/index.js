@@ -1,5 +1,5 @@
 // @flow
-import type { ScopedInsertableStyles, Keyframes } from '@emotion/types'
+import type { ScopedInsertableStyles, Keyframes } from '@emotion/utils'
 
 const keyframes = (arg: ScopedInsertableStyles): Keyframes => {
   const name = `animation-${arg.name}`

@@ -9,14 +9,11 @@
   "dependencies": {
     "@emotion/hash": "^0.6.3",
     "@emotion/serialize": "^0.8.1",
-    "@emotion/types": "^0.7.0"
+    "@emotion/utils": "^0.7.0"
   },
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "src",
-    "dist"
-  ],
+  "files": ["src", "dist"],
   "umd:main": "./dist/index.min.js"
 }

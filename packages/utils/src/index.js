@@ -1,9 +1,5 @@
 // @flow
-import type {
-  CSSCache,
-  CSSContextType,
-  ScopedInsertableStyles
-} from '@emotion/types'
+import type { CSSCache, CSSContextType, ScopedInsertableStyles } from './types'
 
 export const isBrowser = typeof document !== 'undefined'
 export const shouldSerializeToReactTree =
@@ -52,3 +48,5 @@ export const insertStyles = (
     }
   }
 }
+
+export * from './types'
