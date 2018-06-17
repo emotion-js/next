@@ -8,7 +8,11 @@
     "./dist/index.cjs.js": "./dist/index.browser.cjs.js",
     "./dist/index.es.js": "./dist/index.browser.es.js"
   },
+  "types": "types/index.d.ts",
   "license": "MIT",
+  "scripts": {
+    "test:typescript": "dtslint types"
+  },
   "repository": "https://github.com/emotion-js/next/tree/master/packages/serialize",
   "publishConfig": {
     "access": "public"
@@ -17,5 +21,8 @@
     "src",
     "dist"
   ],
-  "umd:main": "./dist/index.min.js"
+  "umd:main": "./dist/index.min.js",
+  "devDependencies": {
+    "dtslint": "^0.3.0"
+  }
 }
