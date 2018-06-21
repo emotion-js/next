@@ -1317,10 +1317,6 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@emotion/types@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/@emotion/types/-/types-0.7.0.tgz#204e4c907ff61b034fa0b07b8c7516985f6f740e"
-
 "@types/estree@0.0.39":
   version "0.0.39"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
