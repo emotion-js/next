@@ -1,13 +1,16 @@
 {
   "name": "@emotion/core",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "browser": {
     "./dist/index.cjs.js": "./dist/index.browser.cjs.js",
     "./dist/index.es.js": "./dist/index.browser.es.js"
   },
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -16,11 +19,11 @@
     "rollup": "rollup -c ../../rollup.config.js"
   },
   "dependencies": {
-    "@emotion/cache": "^0.8.2",
-    "@emotion/css": "^0.9.1",
-    "@emotion/serialize": "^0.8.1",
-    "@emotion/sheet": "^0.6.5",
-    "@emotion/utils": "^0.7.0"
+    "@emotion/cache": "^0.8.3",
+    "@emotion/css": "^0.9.2",
+    "@emotion/serialize": "^0.8.2",
+    "@emotion/sheet": "^0.6.6",
+    "@emotion/utils": "^0.7.1"
   },
   "peerDependencies": {
     "react": ">=16.3.0"

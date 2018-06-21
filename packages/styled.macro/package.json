@@ -1,14 +1,14 @@
 {
   "name": "@emotion/styled.macro",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "babel macro for emotion's styled",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "license": "MIT",
   "repository": "https://github.com/emotion-js/next/tree/master/packages/styled.macro",
   "dependencies": {
-    "@emotion/babel-plugin-core": "^0.6.2",
-    "@emotion/styled-base": "^0.9.1"
+    "@emotion/babel-plugin-core": "^0.6.3",
+    "@emotion/styled-base": "^0.9.2"
   },
   "publishConfig": {
     "access": "public"
