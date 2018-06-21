@@ -1317,6 +1317,10 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@emotion/types@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/@emotion/types/-/types-0.7.0.tgz#204e4c907ff61b034fa0b07b8c7516985f6f740e"
+
 "@types/estree@0.0.39":
   version "0.0.39"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
@@ -11420,6 +11424,10 @@ stylis@^3.2.11:
 stylis@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.0.tgz#016fa239663d77f868fef5b67cf201c4b7c701e1"
+
+stylis@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.npmjs.org/stylis/-/stylis-3.5.1.tgz#fd341d59f57f9aeb412bc14c9d8a8670b438e03b"
 
 supports-color@^2.0.0:
   version "2.0.0"
