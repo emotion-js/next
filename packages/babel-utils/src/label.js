@@ -12,6 +12,15 @@ function getDeclaratorName(path, t) {
 function getIdentifierName(path, t) {
   let classOrClassPropertyParent
 
+  if (
+    t.isObjectProperty(path.parentPath) &&
+    path.parentPath.node.computed === false &&
+    (t.isIdentifier(path.parentPath.node.key) ||
+      t.isStringLiteral(path.parentPath.node.key))
+  ) {
+    return path.parentPath.node.key.name || path.parentPath.node.key.value
+  }
+
   if (path) {
     // $FlowFixMe
     classOrClassPropertyParent = path.findParent(
