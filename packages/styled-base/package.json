@@ -9,11 +9,11 @@
     "./dist/index.es.js": "./dist/index.browser.es.js"
   },
   "license": "MIT",
-  "repository": "https://github.com/emotion-js/next/tree/master/packages/styled-base",
+  "repository":
+    "https://github.com/emotion-js/next/tree/master/packages/styled-base",
   "dependencies": {
     "@emotion/is-prop-valid": "^0.6.2",
     "@emotion/serialize": "^0.8.1",
-    "@emotion/types": "^0.7.0",
     "@emotion/utils": "^0.7.0"
   },
   "peerDependencies": {
@@ -23,9 +23,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "src",
-    "dist"
-  ],
+  "files": ["src", "dist"],
   "umd:main": "./dist/index.min.js"
 }

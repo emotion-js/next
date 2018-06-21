@@ -9,7 +9,6 @@
   "dependencies": {
     "@emotion/sheet": "^0.6.5",
     "@emotion/stylis": "^0.6.9",
-    "@emotion/types": "^0.7.0",
     "@emotion/utils": "^0.7.0"
   },
   "publishConfig": {

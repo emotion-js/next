@@ -7,10 +7,7 @@
     "./dist/index.cjs.js": "./dist/index.browser.cjs.js",
     "./dist/index.es.js": "./dist/index.browser.es.js"
   },
-  "files": [
-    "src",
-    "dist"
-  ],
+  "files": ["src", "dist"],
   "author": "mitchellhamilton <mitchell@mitchellhamilton.me>",
   "license": "MIT",
   "scripts": {
@@ -23,7 +20,6 @@
     "@emotion/css": "^0.9.1",
     "@emotion/serialize": "^0.8.1",
     "@emotion/sheet": "^0.6.5",
-    "@emotion/types": "^0.7.0",
     "@emotion/utils": "^0.7.0"
   },
   "peerDependencies": {
