@@ -1,7 +1,7 @@
 // @flow
 import styled from '@emotion/styled-base'
 
-declare var codegen: { $call: Function, require: string => RegExp }
+declare var codegen: { [[call]]: Function, require: string => RegExp }
 
 const tags = codegen`
 const htmlTagNames = require('html-tag-names')

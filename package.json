@@ -60,7 +60,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
-    "flow-bin": "^0.71.0",
+    "flow-bin": "^0.75.0",
     "jest": "^23.1.0",
     "jest-environment-jsdom": "^23.1.0",
     "jest-in-case": "^1.0.2",
