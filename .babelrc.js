@@ -1,14 +1,14 @@
 module.exports = {
   presets: [
     [
-      '@babel/env',
+      '@babel/preset-env',
       {
         loose: true,
         exclude: ['transform-typeof-symbol']
       }
     ],
-    '@babel/react',
-    '@babel/flow'
+    '@babel/preset-react',
+    '@babel/preset-flow'
   ],
   plugins: [
     '@babel/plugin-transform-flow-strip-types',
