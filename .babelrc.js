@@ -1,14 +1,14 @@
 module.exports = {
   presets: [
     [
-      '@babel/env',
+      '@babel/preset-env',
       {
         loose: true,
         exclude: ['transform-typeof-symbol']
       }
     ],
-    '@babel/react',
-    '@babel/flow'
+    '@babel/preset-react',
+    '@babel/preset-flow'
   ],
   plugins: [
     '@babel/plugin-transform-flow-strip-types',
@@ -16,7 +16,7 @@ module.exports = {
     require('./scripts/build/fix-dce-for-classes-with-statics'),
     'codegen',
     // 'closure-elimination',
-    ['@babel/proposal-class-properties', { loose: true }],
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-proposal-object-rest-spread'
   ]
 }

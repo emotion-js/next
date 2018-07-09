@@ -1,6 +1,7 @@
 // @flow
 /** @jsx jsx */
 import 'test-utils/no-test-mode'
+import { throwIfFalsy } from 'test-utils'
 import * as React from 'react'
 import Provider from '@emotion/provider'
 import { jsx } from '@emotion/core'
@@ -26,18 +27,19 @@ test('provider with theme value that changes', () => {
       )
     }
   }
-  // $FlowFixMe
-  document.head.innerHTML = ''
-  // $FlowFixMe
-  document.body.innerHTML = '<div id="root"></div>'
-  // $FlowFixMe
-  render(<ThemeTest />, document.getElementById('root'))
-  expect(document.querySelector('html')).toMatchSnapshot()
-  // $FlowFixMe
-  document.getElementById('the-thing').click()
-  expect(document.querySelector('html')).toMatchSnapshot()
-  // $FlowFixMe
-  document.head.innerHTML = ''
-  // $FlowFixMe
-  document.body.innerHTML = '<div id="root"></div>'
+  let head = throwIfFalsy(document.head)
+  let body = throwIfFalsy(document.body)
+
+  head.innerHTML = ''
+  body.innerHTML = '<div id="root"></div>'
+
+  let root = throwIfFalsy(document.getElementById('root'))
+
+  render(<ThemeTest />, root)
+  expect(document.documentElement).toMatchSnapshot()
+  throwIfFalsy(document.getElementById('the-thing')).click()
+  expect(document.documentElement).toMatchSnapshot()
+
+  head.innerHTML = ''
+  body.innerHTML = '<div id="root"></div>'
 })

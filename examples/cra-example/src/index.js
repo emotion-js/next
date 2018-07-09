@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { Global } from '@emotion/core'
 import ReactDOM from 'react-dom'
@@ -8,7 +9,7 @@ ReactDOM.render(
   <React.Fragment>
     <App />
     <Global
-      css={{
+      styles={{
         body: {
           margin: 0,
           padding: 0,
@@ -17,6 +18,7 @@ ReactDOM.render(
       }}
     />
   </React.Fragment>,
+  // $FlowFixMe
   document.getElementById('root')
 )
 // registerServiceWorker()

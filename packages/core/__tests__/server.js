@@ -26,7 +26,7 @@ cases(
     global: {
       render: () => (
         <Global
-          css={{
+          styles={{
             html: {
               backgroundColor: 'hotpink'
             }

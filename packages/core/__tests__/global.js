@@ -14,7 +14,7 @@ beforeEach(() => {
 test('basic', () => {
   render(
     <Global
-      css={{
+      styles={{
         html: {
           backgroundColor: 'hotpink'
         }

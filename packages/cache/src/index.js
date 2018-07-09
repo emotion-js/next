@@ -84,6 +84,9 @@ let createCache = (options?: Options): CSSContextType => {
   let inserted = {}
 
   if (isBrowser) {
+    // $FlowFixMe
+    let parent: HTMLElement = options.container || document.head
+
     const nodes = document.querySelectorAll(`style[data-emotion-${key}]`)
 
     Array.prototype.forEach.call(nodes, (node: HTMLStyleElement) => {
@@ -92,14 +95,12 @@ let createCache = (options?: Options): CSSContextType => {
       attrib.split(' ').forEach(id => {
         inserted[id] = true
       })
-      // $FlowFixMe
-      let parent = options.container || document.head
       if (node.parentNode !== parent) {
-        // $FlowFixMe
         parent.appendChild(node)
       }
     })
   }
+
   const context: CSSContextType = {
     stylis,
     key,

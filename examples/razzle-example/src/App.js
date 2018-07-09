@@ -9,7 +9,7 @@ import css from '@emotion/css'
 const App = () => (
   <React.Fragment>
     <Global
-      css={css`
+      styles={css`
         body {
           margin: 0;
           padding: 0;

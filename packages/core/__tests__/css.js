@@ -78,7 +78,7 @@ test('global', () => {
   const tree = renderer.create(
     <div>
       <Global
-        css={css`
+        styles={css`
           body {
             color: hotpink;
           }
@@ -94,7 +94,7 @@ test('@font-face in global', () => {
   const tree = renderer.create(
     <div>
       <Global
-        css={{
+        styles={{
           '@font-face': {
             fontFamily: 'some-name'
           }
