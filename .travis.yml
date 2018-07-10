@@ -5,8 +5,8 @@ node_js:
 
 install: yarn
 
-after_success:
-  - cat ./coverage/lcov.info | ./node_modules/codecov/bin/codecov
+#after_success:
+#  - cat ./coverage/lcov.info | ./node_modules/codecov/bin/codecov
 
 script: npm run test
 
