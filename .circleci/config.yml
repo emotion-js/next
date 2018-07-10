@@ -30,6 +30,7 @@ jobs:
       - image: circleci/node:8.11.2
     working_directory: ~/repo
     steps:
+      - checkout
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "yarn.lock" }}
@@ -39,6 +40,7 @@ jobs:
       - image: circleci/node:8.11.2
     working_directory: ~/repo
     steps:
+      - checkout
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "yarn.lock" }}
@@ -49,6 +51,7 @@ jobs:
       - image: circleci/node:8.11.2
     working_directory: ~/repo
     steps:
+      - checkout
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "yarn.lock" }}
@@ -59,6 +62,7 @@ jobs:
       - image: circleci/node:8.11.2
     working_directory: ~/repo
     steps:
+      - checkout
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "yarn.lock" }}
