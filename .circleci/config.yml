@@ -25,11 +25,6 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
-      - save_cache:
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-             - ~/repo
-      - run: yarn test
   flow:
     docker:
       - image: circleci/node:8.11.2
@@ -37,7 +32,7 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          - v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn flow:check
   test:
     docker:
@@ -46,7 +41,7 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          - v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn coverage
       - run: cat ./coverage/lcov.info | ./node_modules/codecov/bin/codecov
   test_dist:
@@ -56,7 +51,7 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          - v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn build
       - run: yarn test:dist
   lint:
@@ -66,7 +61,7 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          - v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn lint
 
 
