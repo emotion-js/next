@@ -93,19 +93,15 @@ export class StyleSheet {
   }
   insert(rule: string) {
     if (this.ctr % this.maxLength === 0) {
-      if (this.ctr % this.maxLength === 0) {
-        let tag = createStyleElement(this)
-        if (this.tags.length === 0) {
-          if (this.before == null) {
-            this.container.appendChild(tag)
-          } else {
-            this.container.insertBefore(tag, this.before)
-          }
-        } else {
-          this.tags[this.tags.length - 1].insertAdjacentElement('afterend', tag)
-        }
-        this.tags.push(tag)
+      let tag = createStyleElement(this)
+      let before
+      if (this.tags.length === 0) {
+        before = this.before
+      } else {
+        before = this.tags[this.tags.length - 1].nextSibling
       }
+      this.container.insertBefore(tag, before)
+      this.tags.push(tag)
     }
     const tag = this.tags[this.tags.length - 1]
 

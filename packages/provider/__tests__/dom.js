@@ -7,7 +7,7 @@ import Provider from '@emotion/provider'
 import { jsx } from '@emotion/core'
 import { render } from 'react-dom'
 
-test.skip('provider with theme value that changes', () => {
+test('provider with theme value that changes', () => {
   class ThemeTest extends React.Component<*, *> {
     state = { theme: { color: 'hotpink', padding: 4 } }
     render() {
