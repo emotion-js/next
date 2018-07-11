@@ -2,9 +2,8 @@
 /** @jsx jsx */
 import { Component } from 'react'
 import styled from '@emotion/styled'
-import { jsx } from '@emotion/core'
+import { jsx, keyframes } from '@emotion/core'
 import css from '@emotion/css'
-import keyframes from '@emotion/keyframes'
 import logo from './react.svg'
 
 const Header = styled.header`

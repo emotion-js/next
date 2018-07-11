@@ -6,12 +6,10 @@ type Keyframes = {|
   styles: string
 |}
 
-const keyframes = (arg: ScopedInsertableStyles): Keyframes => {
+export const keyframes = (arg: ScopedInsertableStyles): Keyframes => {
   const name = `animation-${arg.name}`
   return {
     name,
     styles: `@keyframes ${name}{${arg.styles}}`
   }
 }
-
-export default keyframes

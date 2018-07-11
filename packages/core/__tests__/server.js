@@ -5,10 +5,9 @@
 import 'test-utils/no-test-mode'
 import * as React from 'react'
 import cases from 'jest-in-case'
-import { jsx, Global } from '@emotion/core'
+import { jsx, Global, keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
 import css from '@emotion/css'
-import keyframes from '@emotion/keyframes'
 import { renderToString } from 'react-dom/server'
 import HTMLSerializer from 'jest-serializer-html'
 

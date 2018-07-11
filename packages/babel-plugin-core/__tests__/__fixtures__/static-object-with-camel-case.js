@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 
 const SomeComponent = props => (
   <div

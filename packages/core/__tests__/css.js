@@ -1,9 +1,8 @@
 // @flow
 /** @jsx jsx */
-import { jsx, Global } from '@emotion/core'
+import { jsx, Global, keyframes } from '@emotion/core'
 import Provider from '@emotion/provider'
 import css from '@emotion/css'
-import keyframes from '@emotion/keyframes'
 import renderer from 'react-test-renderer'
 
 const SomeComponent = (props: { lol: true }) => (props.lol ? 'yes' : 'no')

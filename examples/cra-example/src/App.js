@@ -1,9 +1,8 @@
 // @flow
 /** @jsx jsx */
 import * as React from 'react'
-import { jsx, Global } from '@emotion/core'
+import { jsx, Global, keyframes } from '@emotion/core'
 import css from '@emotion/css.macro'
-import keyframes from '@emotion/keyframes'
 import styled from '@emotion/styled.macro'
 import logo from './logo.svg'
 import GlobalTest from './global-test'
