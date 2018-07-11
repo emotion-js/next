@@ -1,6 +1,7 @@
 // @flow
 /** @jsx jsx */
 import 'test-utils/no-test-mode'
+import { throwIfFalsy } from 'test-utils'
 import { jsx } from '@emotion/core'
 import { render } from 'react-dom'
 import * as emotion from 'emotion'
@@ -14,14 +15,14 @@ test('composition works from old emotion css calls', cb => {
   const cls = css`
     color: green;
   `
+  throwIfFalsy(document.body).innerHTML = '<div id="root"></div>'
   render(
     <Provider cache={cache}>
       <div css={cls} />
     </Provider>,
-    // $FlowFixMe
-    document.body,
+    throwIfFalsy(document.getElementById('root')),
     () => {
-      expect(document.querySelector('html')).toMatchSnapshot()
+      expect(document.documentElement).toMatchSnapshot()
       cb()
     }
   )
