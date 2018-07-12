@@ -1,6 +1,6 @@
 // @flow
 /** @jsx jsx */
-import 'test-utils/no-test-mode'
+import 'test-utils/dev-mode'
 import { throwIfFalsy } from 'test-utils'
 import { jsx } from '@emotion/core'
 import { render } from 'react-dom'

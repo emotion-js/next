@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 // @flow
-import 'test-utils/no-test-mode'
+import 'test-utils/dev-mode'
 import * as React from 'react'
 import cases from 'jest-in-case'
 import { jsx, Global, keyframes } from '@emotion/core'

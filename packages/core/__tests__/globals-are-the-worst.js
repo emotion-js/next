@@ -1,5 +1,5 @@
 // @flow
-import 'test-utils/no-test-mode'
+import 'test-utils/dev-mode'
 import { throwIfFalsy } from 'test-utils'
 import * as React from 'react'
 import { render } from 'react-dom'
