@@ -48,7 +48,7 @@ yarn add @emotion/css
 
 ```jsx
 /** @jsx jsx */
-import { css } from '@emotion/core'
+import { jsx } from '@emotion/core'
 import css from '@emotion/css'
 // must be react@>=16.3.0
 import { render } from 'react-dom'
