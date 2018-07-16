@@ -26,10 +26,22 @@ export const appendStringToExpressions = (
   return expressions
 }
 
+let emotionCoreMacroThatsNotARealMacro = ({ references, state, babel }) => {
+  Object.keys(references).forEach(refKey => {
+    if (refKey === 'css') {
+      references[refKey].forEach(path => {
+        transformCssCallExpression({ babel, state, path: path.parentPath })
+      })
+    }
+  })
+}
+emotionCoreMacroThatsNotARealMacro.keepImport = true
+
 export default createPlugin(
   {
     '@emotion/css': cssMacro,
-    '@emotion/styled': styledMacro
+    '@emotion/styled': styledMacro,
+    '@emotion/core': emotionCoreMacroThatsNotARealMacro
   },
   babel => {
     let t = babel.types
@@ -39,7 +51,7 @@ export default createPlugin(
           for (const node of path.node.body) {
             if (
               t.isImportDeclaration(node) &&
-              node.source.value === '@emotion/jsx'
+              node.source.value === '@emotion/core'
             ) {
               state.transformCssProp = true
               break

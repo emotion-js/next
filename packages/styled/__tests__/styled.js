@@ -4,8 +4,6 @@ import renderer from 'react-test-renderer'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import styled from '@emotion/styled'
 import Provider from '@emotion/provider'
-// import { mount } from 'enzyme'
-// import enzymeToJson from 'enzyme-to-json'
 import css from '@emotion/css'
 
 describe('styled', () => {
@@ -580,6 +578,7 @@ describe('styled', () => {
   test('throws if undefined is passed as the component', () => {
     expect(
       () =>
+        // $FlowFixMe
         styled(undefined)`
           display: flex;
         `

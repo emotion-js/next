@@ -1,4 +1,11 @@
 /** @jsx jsx */
-import jsx from '@emotion/jsx'
+import { jsx } from '@emotion/core'
 
-const SomeComponent = props => <div css={{ color: 'hotpink' }} {...props} />
+const SomeComponent = props => (
+  <div
+    css={{
+      color: 'hotpink'
+    }}
+    {...props}
+  />
+)

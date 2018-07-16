@@ -1,5 +1,6 @@
 // @flow
 /** @jsx jsx */
+import * as React from 'react'
 import Provider from '@emotion/provider'
 import { jsx } from '@emotion/core'
 import renderer from 'react-test-renderer'
@@ -50,45 +51,50 @@ test('nested provider with function', () => {
   expect(tree).toMatchSnapshot()
 })
 
+class ExpectErrorComponent extends React.Component<{ children: React.Node }> {
+  componentDidCatch(err) {
+    expect(err.message).toMatchSnapshot()
+  }
+  render() {
+    return this.props.children || null
+  }
+}
+
 test('nested provider with function that does not return a function throws the correct error', () => {
-  expect(() => {
-    renderer
-      .create(
-        <Provider theme={{ color: 'hotpink', padding: 4 }}>
-          <Provider theme={theme => undefined}>
-            <div
-              css={({ color, padding, backgroundColor }) => ({
-                color,
-                padding,
-                backgroundColor
-              })}
-            />
-          </Provider>
+  renderer.create(
+    <ExpectErrorComponent>
+      <Provider theme={{ color: 'hotpink', padding: 4 }}>
+        <Provider theme={theme => undefined}>
+          <div
+            css={({ color, padding, backgroundColor }) => ({
+              color,
+              padding,
+              backgroundColor
+            })}
+          />
         </Provider>
-      )
-      .toJSON()
-  }).toThrowErrorMatchingSnapshot()
+      </Provider>
+    </ExpectErrorComponent>
+  )
 })
 
 test('nested provider with theme value that is not a plain object throws', () => {
-  expect(() => {
-    renderer
-      .create(
-        <Provider theme={{ color: 'hotpink', padding: 4 }}>
-          {/* $FlowFixMe */}
-          <Provider theme>
-            <div
-              css={({ color, padding, backgroundColor }) => ({
-                color,
-                padding,
-                backgroundColor
-              })}
-            />
-          </Provider>
+  renderer.create(
+    <ExpectErrorComponent>
+      <Provider theme={{ color: 'hotpink', padding: 4 }}>
+        {/* $FlowFixMe */}
+        <Provider theme>
+          <div
+            css={({ color, padding, backgroundColor }) => ({
+              color,
+              padding,
+              backgroundColor
+            })}
+          />
         </Provider>
-      )
-      .toJSON()
-  }).toThrowErrorMatchingSnapshot()
+      </Provider>
+    </ExpectErrorComponent>
+  )
 })
 
 test('allow passing a cache', () => {

@@ -2,8 +2,8 @@
 import type {
   Interpolation,
   ScopedInsertableStyles,
-  CSSCache
-} from '@emotion/types'
+  RegisteredCache
+} from '@emotion/utils'
 import hashString from '@emotion/hash'
 import unitless from '@emotion/unitless'
 import memoize from '@emotion/memoize'
@@ -64,7 +64,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export function handleInterpolation(
-  registered: CSSCache,
+  registered: RegisteredCache,
   interpolation: Interpolation
 ): string | number {
   if (interpolation == null) {
@@ -115,7 +115,7 @@ export function handleInterpolation(
 }
 
 function createStringFromObject(
-  registered: CSSCache,
+  registered: RegisteredCache,
   obj: { [key: string]: Interpolation }
 ): string {
   let string = ''
@@ -137,7 +137,7 @@ function createStringFromObject(
           process.env.NODE_ENV !== 'production'
         ) {
           throw new Error(
-            'Component selectors can only be used in conjunction with babel-plugin-emotion.'
+            'Component selectors can only be used in conjunction with @emotion/babel-plugin-core.'
           )
         }
         if (
@@ -168,7 +168,7 @@ function createStringFromObject(
 export const labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
 
 export const serializeStyles = function(
-  registered: CSSCache,
+  registered: RegisteredCache,
   args: Array<Interpolation>
 ): ScopedInsertableStyles {
   if (

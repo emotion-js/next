@@ -1,4 +1,5 @@
 // @flow
+import * as React from 'react'
 import isPropValid from '@emotion/is-prop-valid'
 
 export type Interpolations = Array<any>
@@ -36,11 +37,10 @@ export type StyledOptions = {
 type CreateStyledComponent = (...args: Interpolations) => *
 
 type BaseCreateStyled = (
-  tag: any,
+  tag: React.ElementType,
   options?: StyledOptions
 ) => CreateStyledComponent
 
-export type CreateStyled = {
-  $call: BaseCreateStyled,
+export type CreateStyled = BaseCreateStyled & {
   [key: string]: CreateStyledComponent
 }

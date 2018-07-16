@@ -1,7 +1,6 @@
 // @flow
-import { isBrowser } from '@emotion/utils'
+import { isBrowser, type CSSContextType } from '@emotion/utils'
 import * as React from 'react'
-import type { CSSContextType } from '@emotion/types'
 import createCache from '@emotion/cache'
 
 type BasicProviderProps = {

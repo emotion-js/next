@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import { CSSContext } from '@emotion/core'
-import type { CSSContextType } from '@emotion/types'
+import type { CSSContextType } from '@emotion/utils'
 import createCache from '@emotion/cache'
 
 type Props = {

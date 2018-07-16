@@ -18,11 +18,14 @@ function getDynamicMatches(str: string) {
   let match
   const matches = []
   while ((match = re.exec(str)) !== null) {
-    matches.push({
-      value: match[0],
-      p1: parseInt(match[1], 10),
-      index: match.index
-    })
+    // so that flow doesn't complain
+    if (match !== null) {
+      matches.push({
+        value: match[0],
+        p1: parseInt(match[1], 10),
+        index: match.index
+      })
+    }
   }
 
   return matches

@@ -1,26 +1,30 @@
 const resolve = require('rollup-plugin-node-resolve')
-const uglify = require('rollup-plugin-uglify')
+const { uglify } = require('rollup-plugin-uglify')
 const babel = require('rollup-plugin-babel')
 const alias = require('rollup-plugin-alias')
 const cjs = require('rollup-plugin-commonjs')
 const replace = require('rollup-plugin-replace')
 const path = require('path')
 const lernaAliases = require('lerna-alias').rollup
-const utils = require('./utils')
+
+// this makes sure nested imports of external packages are external
+const makeExternalPredicate = externalArr => {
+  if (externalArr.length === 0) {
+    return () => false
+  }
+  const pattern = new RegExp(`^(${externalArr.join('|')})($|/)`)
+  return id => pattern.test(id)
+}
 
 function getChildPeerDeps(finalPeerDeps, depKeys) {
   depKeys.forEach(key => {
-    if (key.startsWith('@emotion/')) {
-      const pkgJson = require(path.join(
-        utils.rootPath,
-        'packages',
-        key.replace('@emotion/', ''),
-        'package.json'
-      ))
-      if (pkgJson.peerDependencies) {
-        finalPeerDeps.push(...Object.keys(pkgJson.peerDependencies))
-        getChildPeerDeps(finalPeerDeps, Object.keys(pkgJson.peerDependencies))
-      }
+    const pkgJson = require(key + '/package.json')
+    if (pkgJson.peerDependencies) {
+      finalPeerDeps.push(...Object.keys(pkgJson.peerDependencies))
+      getChildPeerDeps(finalPeerDeps, Object.keys(pkgJson.peerDependencies))
+    }
+    if (pkgJson.dependencies) {
+      getChildPeerDeps(finalPeerDeps, Object.keys(pkgJson.dependencies))
     }
   })
 }
@@ -39,10 +43,11 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
       external.concat((pkg.dependencies && Object.keys(pkg.dependencies)) || [])
     )
   ])
+  external.push('fs', 'path')
 
   const config = {
     input: path.resolve(data.path, 'src', 'index.js'),
-    external,
+    external: makeExternalPredicate(external),
     plugins: [
       cjs({
         exclude: [path.join(__dirname, '..', '..', 'packages', '*/src/**/*')]
@@ -71,6 +76,7 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
             (babel => {
               let t = babel.types
               return {
+                // for @emotion/utils
                 visitor: {
                   VariableDeclarator(path, state) {
                     if (t.isIdentifier(path.node.id)) {
@@ -90,7 +96,6 @@ module.exports = (data, isUMD = false, isBrowser = false) => {
                 }
               }
             }),
-          // 'closure-elimination',
           '@babel/plugin-proposal-object-rest-spread'
         ].filter(Boolean),
         babelrc: false

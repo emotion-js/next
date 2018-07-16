@@ -9,11 +9,12 @@ async function changePackages() {
   const packages = await getPackages()
 
   await Promise.all(
-    packages.map(async pkg => {
-      pkg.pkg['umd:main'] = './dist/index.min.js'
+    packages.map(async ({ pkg, path: pkgPath }) => {
+      // you can transform the package.json contents here
+
       await writeFile(
-        path.resolve(pkg.path, 'package.json'),
-        JSON.stringify(pkg.pkg, null, 2)
+        path.resolve(pkgPath, 'package.json'),
+        JSON.stringify(pkg, null, 2)
       )
     })
   )

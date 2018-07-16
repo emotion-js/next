@@ -30,8 +30,14 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
   let targetClassName
   if (options !== undefined) {
     identifierName = options.label
-    shouldForwardProp = options.shouldForwardProp
     targetClassName = options.target
+    shouldForwardProp =
+      tag.__emotion_forwardProp && options.shouldForwardProp
+        ? propName =>
+            tag.__emotion_forwardProp(propName) &&
+            // $FlowFixMe
+            options.shouldForwardProp(propName)
+        : options.shouldForwardProp
   }
   const isReal = tag.__emotion_real === tag
   const baseTag = (isReal && tag.__emotion_base) || tag
@@ -137,6 +143,8 @@ let createStyled: CreateStyled = (tag: any, options?: StyledOptions) => {
     FinalStyled.__emotion_real = FinalStyled
     FinalStyled.__emotion_base = baseTag
     FinalStyled.__emotion_styles = styles
+    FinalStyled.__emotion_forwardProp = shouldForwardProp
+
     Object.defineProperty(FinalStyled, 'toString', {
       enumerable: false,
       value() {

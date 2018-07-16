@@ -1,11 +1,11 @@
 // @flow
 /** @jsx jsx */
 import * as React from 'react'
-import { jsx, Global } from '@emotion/core'
+import { jsx, Global, keyframes } from '@emotion/core'
 import css from '@emotion/css.macro'
-import keyframes from '@emotion/keyframes'
 import styled from '@emotion/styled.macro'
 import logo from './logo.svg'
+import GlobalTest from './global-test'
 
 const headerStyle = css`
   font-family: 'Oxygen', sans-serif;
@@ -42,7 +42,7 @@ class App extends React.Component<{}> {
     return (
       <Container align="center">
         <Global
-          css={css`
+          styles={css`
             @font-face {
               font-family: 'Oxygen';
               font-style: normal;
@@ -55,6 +55,7 @@ class App extends React.Component<{}> {
             }
           `}
         />
+
         <div css={headerStyle}>
           <Logo
             animation={animation}
@@ -68,6 +69,7 @@ class App extends React.Component<{}> {
         <p css={{ fontSize: 'large' }}>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <GlobalTest />
       </Container>
     )
   }

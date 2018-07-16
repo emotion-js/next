@@ -1,6 +1,6 @@
 // @flow
 
-export default function memoize(fn: string => any) {
+export default function memoize<V>(fn: string => V): string => V {
   const cache = {}
 
   return (arg: string) => {

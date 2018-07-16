@@ -1,22 +1,24 @@
 const path = require('path')
-const globby = require('globby')
 const del = require('del')
+const { promisify } = require('util')
+const fs = require('fs')
 const makeRollupConfig = require('./rollup.config')
 const camelize = require('fbjs/lib/camelize')
+
+const readdir = promisify(fs.readdir)
 
 const rootPath = path.resolve(__dirname, '..', '..')
 
 exports.rootPath = rootPath
 
 exports.cleanDist = async function cleanDist(pkgPath) {
-  await del(`${pkgPath}/dist`, { force: true, cwd: rootPath })
+  await del(`${pkgPath}/dist`)
 }
 
 exports.getPackages = async function getPackages() {
-  const packagePaths = await globby('packages/*/', {
-    cwd: rootPath,
-    nodir: false
-  })
+  const packagePaths = (await readdir(path.join(rootPath, 'packages'))).map(
+    pkg => path.join(rootPath, 'packages', pkg)
+  )
   const packages = packagePaths.map(packagePath => {
     const fullPackagePath = path.resolve(rootPath, packagePath)
     const ret = {

@@ -1,4 +1,5 @@
 // @flow
+import { throwIfFalsy } from 'test-utils'
 import ReactDOM from 'react-dom'
 import React from 'react'
 import styled from '@emotion/styled'
@@ -8,8 +9,7 @@ test('ref', () => {
     font-size: 12px;
   `
   let node
-  // $FlowFixMe
-  document.body.innerHTML = `<div id="app"></div>`
+  throwIfFalsy(document.body).innerHTML = `<div id="app"></div>`
 
   ReactDOM.render(
     <H1
@@ -20,8 +20,7 @@ test('ref', () => {
     >
       hello world
     </H1>,
-    // $FlowFixMe
-    document.getElementById('app')
+    throwIfFalsy(document.getElementById('app'))
   )
   expect(node).toBe(document.getElementById('thing'))
   ReactDOM.unmountComponentAtNode(document.getElementById('app'))

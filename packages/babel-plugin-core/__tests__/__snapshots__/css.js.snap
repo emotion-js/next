@@ -207,6 +207,36 @@ const thing = {
 };"
 `;
 
+exports[`@emotion/babel-plugin-core css label-object 1`] = `
+"import css from '@emotion/css'
+
+const thing = {
+  thisShouldBeTheLabel: css\`
+    color: hotpink;
+  \`,
+  // prettier-ignore
+  'shouldBeAnotherLabel':css\`
+    color:green;
+  \`
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _css from \\"@emotion/css\\";
+const thing = {
+  thisShouldBeTheLabel: {
+    name: \\"1lrxbo5-thisShouldBeTheLabel\\",
+    styles: \\"color:hotpink;\\"
+  },
+  // prettier-ignore
+  'shouldBeAnotherLabel': {
+    name: \\"bjcoli-shouldBeAnotherLabel\\",
+    styles: \\"color:green;\\"
+  }
+};"
+`;
+
 exports[`@emotion/babel-plugin-core css multiple-calls 1`] = `
 "import css from '@emotion/css'
 

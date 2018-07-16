@@ -1,16 +1,16 @@
 // @flow
 import type {
-  CSSCache,
+  RegisteredCache,
   CSSContextType,
   ScopedInsertableStyles
-} from '@emotion/types'
+} from './types'
 
 export const isBrowser = typeof document !== 'undefined'
 export const shouldSerializeToReactTree =
   !isBrowser || process.env.NODE_ENV === 'test'
 
 export function getRegisteredStyles(
-  registered: CSSCache,
+  registered: RegisteredCache,
   registeredStyles: string[],
   classNames: string
 ) {
@@ -52,3 +52,5 @@ export const insertStyles = (
     }
   }
 }
+
+export * from './types'

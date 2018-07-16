@@ -453,9 +453,11 @@ const props = {
   y2: true,
   yChannelSelector: true,
   z: true,
-  zoomAndPan: true
+  zoomAndPan: true,
+  for: true,
+  class: true
 }
 
 module.exports = `/^((${Object.keys(props).join(
   '|'
-)})|(on[A-Z].*)|((data|aria)-.*))$/`
+)})|(on[A-Z].*)|((data|aria)-.*))$/i`

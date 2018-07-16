@@ -1,7 +1,6 @@
 // @flow
 import { StyleSheet } from '@emotion/sheet'
-import { isBrowser } from '@emotion/utils'
-import type { CSSContextType } from '@emotion/types'
+import { isBrowser, type CSSContextType } from '@emotion/utils'
 import Stylis from '@emotion/stylis'
 import ruleSheetPlugin from './rule-sheet'
 import type { StylisPlugin } from './types'
@@ -85,6 +84,9 @@ let createCache = (options?: Options): CSSContextType => {
   let inserted = {}
 
   if (isBrowser) {
+    // $FlowFixMe
+    let parent: HTMLElement = options.container || document.head
+
     const nodes = document.querySelectorAll(`style[data-emotion-${key}]`)
 
     Array.prototype.forEach.call(nodes, (node: HTMLStyleElement) => {
@@ -93,14 +95,12 @@ let createCache = (options?: Options): CSSContextType => {
       attrib.split(' ').forEach(id => {
         inserted[id] = true
       })
-      // $FlowFixMe
-      let parent = options.container || document.head
       if (node.parentNode !== parent) {
-        // $FlowFixMe
         parent.appendChild(node)
       }
     })
   }
+
   const context: CSSContextType = {
     stylis,
     key,

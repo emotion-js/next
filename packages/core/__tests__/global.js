@@ -1,5 +1,5 @@
 // @flow
-import 'test-utils/no-test-mode'
+import 'test-utils/dev-mode'
 import * as React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { Global } from '@emotion/core'
@@ -14,7 +14,7 @@ beforeEach(() => {
 test('basic', () => {
   render(
     <Global
-      css={{
+      styles={{
         html: {
           backgroundColor: 'hotpink'
         }

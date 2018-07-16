@@ -48,6 +48,19 @@ export type Options = {
   maxLength?: number
 }
 
+function createStyleElement(options: {
+  key: string,
+  nonce: string | void
+}): HTMLStyleElement {
+  let tag = document.createElement('style')
+  tag.setAttribute('data-emotion', options.key)
+  if (options.nonce !== undefined) {
+    tag.setAttribute('nonce', options.nonce)
+  }
+  tag.appendChild(document.createTextNode(''))
+  return tag
+}
+
 export class StyleSheet {
   isSpeedy: boolean
   ctr: number
@@ -56,6 +69,7 @@ export class StyleSheet {
   maxLength: number
   key: string
   nonce: string | void
+  before: Element | null | void
   constructor(options: Options | void) {
     if (options === undefined) options = {}
     this.isSpeedy =
@@ -79,13 +93,14 @@ export class StyleSheet {
   }
   insert(rule: string) {
     if (this.ctr % this.maxLength === 0) {
-      let tag = document.createElement('style')
-      tag.setAttribute('data-emotion', this.key)
-      if (this.nonce !== undefined) {
-        tag.setAttribute('nonce', this.nonce)
+      let tag = createStyleElement(this)
+      let before
+      if (this.tags.length === 0) {
+        before = this.before
+      } else {
+        before = this.tags[this.tags.length - 1].nextSibling
       }
-      tag.appendChild(document.createTextNode(''))
-      this.container.appendChild(tag)
+      this.container.insertBefore(tag, before)
       this.tags.push(tag)
     }
     const tag = this.tags[this.tags.length - 1]

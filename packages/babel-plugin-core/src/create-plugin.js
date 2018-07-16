@@ -58,7 +58,9 @@ export const createPlugin = (
           babel,
           isBabelMacrosCall: true
         })
-        path.remove()
+        if (!macros[path.node.source.value].keepImport) {
+          path.remove()
+        }
       },
       ...customVisitor(babel)
     }
