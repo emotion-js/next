@@ -77,7 +77,7 @@ import { render } from 'react-dom'
 
 render(
   <Global
-    css={[
+    styles={[
       css`
         body {
           color: hotpink;
