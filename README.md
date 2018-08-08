@@ -1,5 +1,7 @@
 # emotion next
 
+# NOTE: All of these packages are now in the emotion repo
+
 > An experimental css-in-js library built for React
 
 **This is pretty experimental and there will be breaking changes often. Don't use it for anything really important yet.**
