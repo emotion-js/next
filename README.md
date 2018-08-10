@@ -14,7 +14,7 @@
 * It works with string styles.
 * It works with object styles.
 * It has great composition.
-* There's no babel plugin, just babel macros.(i.e. style minification, labels and etc. will work in react-scripts@2)
+* ~~There's no babel plugin, just babel macros.~~(There's also a babel plugin now if you want it)(i.e. style minification, labels and etc. will work in react-scripts@2)
 
 ## Why shouldn't I use this?
 
