@@ -8662,8 +8662,8 @@ module-alias@^2.0.3:
   resolved "https://registry.yarnpkg.com/module-alias/-/module-alias-2.0.3.tgz#d1aa64b594588f8e76203cd2782045438cad3ef5"
 
 moment@^2.6.0:
-  version "2.20.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+  version "2.29.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.2.tgz#00910c60b20843bcba52d37d58c628b47b1f20e4"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
